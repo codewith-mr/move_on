@@ -253,15 +253,15 @@ export default function TipPage() {
           <p className="text-lg text-gray-600 mb-4">{tip.description}</p>
           <div className="flex items-center gap-3 text-sm text-gray-500">
             <span>{tip.readTime}</span>
-            <ShareButton
-              compact
-              variant="ghost"
-              showLabel={false}
-              url={typeof window !== 'undefined' ? window.location.href : ''}
-              title={tip.title}
-              description={tip.description}
-              className="text-gray-500 hover:text-gray-700"
-            />
+              <ShareButton
+                compact
+                variant="ghost"
+                showLabel={false}
+                url={`/tips-tricks/${tipId}`}
+                title={tip.title}
+                description={tip.description}
+                className="text-gray-500 hover:text-gray-700"
+              />
           </div>
         </div>
         

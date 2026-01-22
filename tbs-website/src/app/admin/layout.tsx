@@ -9,6 +9,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <Link href="/admin" className="px-3 py-1 border rounded">Dashboard</Link>
           <Link href="/admin/home" className="px-3 py-1 border rounded">Home</Link>
           <Link href="/admin/courses" className="px-3 py-1 border rounded">Courses</Link>
+          <Link href="/admin/classes" className="px-3 py-1 border rounded">Classes</Link>
           <Link href="/admin/blogs" className="px-3 py-1 border rounded">Blogs</Link>
           <Link href="/admin/tips" className="px-3 py-1 border rounded">Tips</Link>
           <Link href="/admin/settings" className="px-3 py-1 border rounded">Settings</Link>

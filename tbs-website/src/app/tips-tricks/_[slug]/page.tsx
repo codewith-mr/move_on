@@ -1,13 +1,6 @@
-'use client';
-
-import React from 'react';
-import Link from 'next/link';
-import { useParams, useRouter } from 'next/navigation';
-// Framer Motion is not installed; motion components will be replaced with plain divs
-// If animation is desired, install: npm install framer-motion
-
-// Mock data for tips and tricks (same as in the main page)
-const tipsAndTricks = [
+export default function Page() {
+  return null
+}
   {
     id: '1',
     title: 'How to Access Premium Tools for Free',

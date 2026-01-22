@@ -72,7 +72,7 @@ export default async function ClassPage({ params }: { params: { slug: string; cl
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-2">
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">{classItem.title}</h1>
-              <ShareButton compact variant="ghost" showLabel={false} url={typeof window !== 'undefined' ? window.location.href : ''} title={classItem.title} description={classItem.textContent || ''} />
+              <ShareButton compact variant="ghost" showLabel={false} url={`/courses/${course.slug}/${classItem.id}`} title={classItem.title} description={classItem.textContent || ''} />
             </div>
             <div className="flex items-center text-gray-600">
               <Image src="/user-avatar.svg" alt={course.instructor} width={32} height={32} className="rounded-full mr-3" />

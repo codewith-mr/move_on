@@ -8,7 +8,7 @@ function computeSessionToken(username: string, secret: string) {
   return crypto.subtle.digest('SHA-256', data).then((buf) => {
     const bytes = new Uint8Array(buf);
     let hex = '';
-    for (let b of bytes) hex += b.toString(16).padStart(2, '0');
+    for (const b of bytes) hex += b.toString(16).padStart(2, '0');
     return hex;
   });
 }

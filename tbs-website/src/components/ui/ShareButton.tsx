@@ -24,13 +24,22 @@ function buildShareUrls(title: string, url: string, description?: string) {
 }
 
 const ShareButton: React.FC<ShareButtonProps> = ({ title, url, description, compact = false, className, variant = 'primary', showLabel = true }) => {
-  let computedUrl = url || (typeof window !== 'undefined' ? window.location.href : '');
-  if (typeof window !== 'undefined' && computedUrl) {
-    // Convert relative paths to absolute URLs for reliable sharing/copying
-    if (computedUrl.startsWith('/')) {
-      computedUrl = `${window.location.origin}${computedUrl}`;
+  const [isClient, setIsClient] = React.useState(false);
+  const [computedUrl, setComputedUrl] = React.useState<string>('');
+
+  React.useEffect(() => {
+    setIsClient(true);
+    let u = url || window.location.href;
+    if (u.startsWith('/')) {
+      u = `${window.location.origin}${u}`;
     }
+    setComputedUrl(u);
+  }, [url]);
+
+  if (!isClient) {
+    return null;
   }
+
   const shareUrls = buildShareUrls(title, computedUrl, description);
 
   const onShare = async () => {

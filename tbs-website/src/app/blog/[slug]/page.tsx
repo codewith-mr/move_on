@@ -58,9 +58,11 @@ export default async function BlogArticle({ params }: { params: { slug: string }
           <Image src={article.imageUrl} alt={article.title} fill style={{ objectFit: 'cover' }} priority />
         </div>
 
-        <div className="prose max-w-none">
+        <div className="prose max-w-none" suppressHydrationWarning={true}>
           <p className="text-lg mb-6">{article.excerpt}</p>
-          <p>{article.content}</p>
+          {article.content && (
+            <div dangerouslySetInnerHTML={{ __html: article.content }} />
+          )}
         </div>
 
         <div className="mt-12 pt-6 border-t border-gray-200">

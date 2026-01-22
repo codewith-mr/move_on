@@ -3,6 +3,7 @@ import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
 import fs from 'fs/promises'
 import path from 'path'
+import Link from 'next/link'
 
 export default async function CoursesManager() {
   async function addCourse(formData: FormData) {
@@ -78,10 +79,13 @@ export default async function CoursesManager() {
                 <div className="font-medium">{c.title}</div>
                 <div className="text-sm text-neutral-500">{c.slug}</div>
               </div>
-              <form action={deleteCourse}>
-                <input type="hidden" name="id" value={String(c.id)} />
-                <button className="text-red-600">Delete</button>
-              </form>
+              <div className="flex items-center gap-4">
+                <Link href={`/admin/course-classes/${c.id}`} className="text-primary">Manage Classes</Link>
+                <form action={deleteCourse}>
+                  <input type="hidden" name="id" value={String(c.id)} />
+                  <button className="text-red-600">Delete</button>
+                </form>
+              </div>
             </li>
           ))}
         </ul>

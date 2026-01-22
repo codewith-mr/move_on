@@ -111,17 +111,17 @@ const Footer = async () => {
             <p className="text-white mb-4 font-body">
               Subscribe to our newsletter for the latest updates, tips, and exclusive content.
             </p>
-            <form className="flex flex-col sm:flex-row gap-2">
+            <form className="flex flex-col lg:flex-row gap-2 max-w-full overflow-hidden">
               <input
                 type="email"
                 placeholder="Your email"
-                className="px-4 py-2 rounded-md focus:outline-none text-text font-body"
+                className="px-4 py-2 rounded-md focus:outline-none text-text font-body w-full"
                 aria-label="Email for newsletter"
                 required
               />
               <button
                 type="submit"
-                className="px-4 py-2 bg-secondary text-primary rounded-md hover:bg-white transition-colors font-body font-semibold"
+                className="px-4 py-2 bg-secondary text-primary rounded-md hover:bg-white transition-colors font-body font-semibold whitespace-nowrap"
               >
                 Subscribe
               </button>

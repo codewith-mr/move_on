@@ -13,7 +13,8 @@ const categories = [
   'Web Development',
 ];
 
-export default async function TipsAndTricksPage({ searchParams }: { searchParams?: Record<string, string | string[] | undefined> }) {
+export default async function TipsAndTricksPage(props: { searchParams?: Promise<Record<string, string | string[] | undefined>> }) {
+  const searchParams = await props.searchParams;
   const selectedCategory = typeof searchParams?.category === 'string' ? searchParams?.category : 'All'
   const allTips = await prisma.tip.findMany({ orderBy: { updatedAt: 'desc' } })
   const tipsAndTricks = allTips

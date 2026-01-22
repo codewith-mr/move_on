@@ -4,9 +4,9 @@ import Link from 'next/link';
 import ShareButton from '@/components/ui/ShareButton';
 import { prisma } from '@/lib/prisma';
 
-export default async function ClassPage({ params }: { params: { slug: string; classId: string } }) {
-  const slug = params.slug;
-  const classId = Number(params.classId);
+export default async function ClassPage({ params }: { params: Promise<{ slug: string; classId: string }> }) {
+  const { slug, classId: classIdParam } = await params;
+  const classId = Number(classIdParam);
   const course = await prisma.course.findUnique({ where: { slug } });
   if (!course) {
     return (
@@ -72,11 +72,13 @@ export default async function ClassPage({ params }: { params: { slug: string; cl
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-2">
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">{classItem.title}</h1>
-              <ShareButton compact variant="ghost" showLabel={false} url={`/courses/${course.slug}/${classItem.id}`} title={classItem.title} description={classItem.textContent || ''} />
             </div>
-            <div className="flex items-center text-gray-600">
-              <Image src="/user-avatar.svg" alt={course.instructor} width={32} height={32} className="rounded-full mr-3" />
-              <span className="font-medium">{course.instructor}</span>
+            <div className="flex items-center text-gray-600 gap-4">
+              <div className="flex items-center">
+                <Image src="/user-avatar.svg" alt={course.instructor} width={32} height={32} className="rounded-full mr-3" />
+                <span className="font-medium">{course.instructor}</span>
+              </div>
+              <ShareButton url={`/courses/${course.slug}/${classItem.id}`} title={classItem.title} description={classItem.textContent || ''} showLabel={false} />
             </div>
           </div>
         </div>

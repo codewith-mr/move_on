@@ -67,7 +67,7 @@ export default function ToolSlugClient() {
               <h1 className="text-3xl md:text-4xl font-heading font-bold text-white">
                 {metadata.title}
               </h1>
-              <ShareButton compact variant="ghost" showLabel={false} url={currentUrl} title={metadata.title} description={metadata.description} className="sm:self-end text-white hover:text-white/80" />
+              <ShareButton url={currentUrl} title={metadata.title} description={metadata.description} className="sm:self-end text-white" showLabel={false} />
             </div>
             <p className="text-lg text-secondary-light">
               {metadata.description}

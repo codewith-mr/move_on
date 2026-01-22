@@ -4,8 +4,8 @@ import Link from 'next/link';
 import ShareButton from '@/components/ui/ShareButton';
 import { prisma } from '@/lib/prisma';
 
-export default async function CoursePage({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+export default async function CoursePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const course = await prisma.course.findUnique({ where: { slug } });
   const classes = course
     ? await prisma.courseClass.findMany({ where: { courseId: course.id }, orderBy: { index: 'asc' } })
@@ -73,7 +73,6 @@ export default async function CoursePage({ params }: { params: { slug: string } 
               </div>
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-2">
                 <h1 className="text-3xl md:text-4xl font-heading font-bold">{course.title}</h1>
-                <ShareButton compact variant="ghost" showLabel={false} url={`/courses/${slug}`} title={course.title} description={course.description} className="text-white hover:text-white/80" />
               </div>
               <p className="text-secondary text-lg mb-6">{course.description}</p>
               <div className="flex flex-wrap items-center gap-6">
@@ -120,6 +119,7 @@ export default async function CoursePage({ params }: { params: { slug: string } 
                   </svg>
                   <span className="text-white">{course.duration}</span>
                 </div>
+                <ShareButton url={`/courses/${slug}`} title={course.title} description={course.description} showLabel={false} />
               </div>
             </div>
           </div>

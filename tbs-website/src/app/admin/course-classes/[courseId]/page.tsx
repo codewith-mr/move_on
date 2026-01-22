@@ -3,8 +3,11 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 
-export default async function CourseClassesManager({ params, searchParams }: { params: { courseId: string }, searchParams?: Record<string, string | string[] | undefined> }) {
-  const courseId = Number(params.courseId)
+export default async function CourseClassesManager({ params, searchParams }: { params: Promise<{ courseId: string }>, searchParams?: Promise<Record<string, string | string[] | undefined>> }) {
+  const { courseId: courseIdParam } = await params;
+  const courseId = Number(courseIdParam)
+  const resolvedSearchParams = await searchParams;
+  
   const course = await prisma.course.findUnique({ where: { id: courseId } })
   if (!course) {
     return (
@@ -32,7 +35,7 @@ export default async function CourseClassesManager({ params, searchParams }: { p
         textContent: textContent || null,
       },
     })
-    revalidatePath(`/courses/${course.slug}`)
+    revalidatePath(`/courses/${course!.slug}`)
     revalidatePath(`/admin/course-classes/${courseId}`)
     revalidatePath('/admin')
     redirect(`/admin/course-classes/${courseId}?added=1`)
@@ -42,15 +45,15 @@ export default async function CourseClassesManager({ params, searchParams }: { p
     'use server'
     const id = Number(formData.get('id'))
     await prisma.courseClass.delete({ where: { id } })
-    revalidatePath(`/courses/${course.slug}`)
+    revalidatePath(`/courses/${course!.slug}`)
     revalidatePath(`/admin/course-classes/${courseId}`)
     revalidatePath('/admin')
     redirect(`/admin/course-classes/${courseId}?deleted=1`)
   }
 
   const classes = await prisma.courseClass.findMany({ where: { courseId }, orderBy: { index: 'asc' } })
-  const added = typeof searchParams?.added === 'string' && searchParams.added === '1'
-  const deleted = typeof searchParams?.deleted === 'string' && searchParams.deleted === '1'
+  const added = typeof resolvedSearchParams?.added === 'string' && resolvedSearchParams.added === '1'
+  const deleted = typeof resolvedSearchParams?.deleted === 'string' && resolvedSearchParams.deleted === '1'
 
   return (
     <div className="space-y-8">

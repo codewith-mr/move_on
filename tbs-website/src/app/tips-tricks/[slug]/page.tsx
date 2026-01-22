@@ -1,8 +1,9 @@
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 
-export default async function TipPage({ params }: { params: { slug: string } }) {
-  const tip = await prisma.tip.findUnique({ where: { slug: params.slug } })
+export default async function TipPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const tip = await prisma.tip.findUnique({ where: { slug } })
   if (!tip) {
     return (
       <div className="container mx-auto px-4 py-8 max-w-4xl">
@@ -62,6 +63,10 @@ export default async function TipPage({ params }: { params: { slug: string } }) 
           <p>{tip.description || ''}</p>
         )}
       </article>
+
+      <div className="mt-8 border-t border-gray-200 pt-6">
+        <ShareButton title={tip.title} description={tip.description || ''} />
+      </div>
 
       {recommended.length > 0 && (
         <div className="mt-12">

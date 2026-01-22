@@ -5,8 +5,9 @@ import ShareButton from '@/components/ui/ShareButton';
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 
-export default async function BlogArticle({ params }: { params: { slug: string } }) {
-  const article = await prisma.blog.findUnique({ where: { slug: params.slug } })
+export default async function BlogArticle({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const article = await prisma.blog.findUnique({ where: { slug } })
   if (!article) return notFound()
   const related = await prisma.blog.findMany({ where: { category: article.category, NOT: { id: article.id } }, take: 3 })
   return (
@@ -46,7 +47,7 @@ export default async function BlogArticle({ params }: { params: { slug: string }
               <span className="text-gray-600">{article.publishDate}</span>
               <span className="text-gray-400">•</span>
               <span className="text-gray-600">{article.readTime}</span>
-              <ShareButton compact variant="ghost" showLabel={false} url={''} title={article.title} description={article.excerpt} className="text-gray-600 hover:text-primary" />
+              <ShareButton title={article.title} description={article.excerpt} className="text-gray-600" showLabel={false} />
             </div>
           </div>
           <div className="bg-gray-100 px-4 py-2 rounded-md inline-block">
@@ -68,10 +69,7 @@ export default async function BlogArticle({ params }: { params: { slug: string }
         <div className="mt-12 pt-6 border-t border-gray-200">
           <div className="flex flex-wrap justify-between items-center">
             <div className="mb-4 md:mb-0">
-              <span className="font-medium mr-2">Share:</span>
-              <button className="text-gray-600 hover:text-primary mr-4">Twitter</button>
-              <button className="text-gray-600 hover:text-primary mr-4">Facebook</button>
-              <button className="text-gray-600 hover:text-primary">LinkedIn</button>
+              <ShareButton title={article.title} description={article.excerpt} />
             </div>
             <div>
               <span className="font-medium mr-2">Tags:</span>

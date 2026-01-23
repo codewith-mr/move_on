@@ -31,6 +31,17 @@ export default function ShareButton({
     setComputedUrl(u);
   }, [url]);
 
+  // Close when clicking outside (optional, but good UX)
+  useEffect(() => {
+    const handleClickOutside = () => setShow(false);
+    if (show) {
+      document.addEventListener('click', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [show]);
+
   if (!isClient) return null;
 
   const encodedUrl = encodeURIComponent(computedUrl);
@@ -60,17 +71,6 @@ export default function ShareButton({
     e.stopPropagation();
     setShow(!show);
   };
-
-  // Close when clicking outside (optional, but good UX)
-  useEffect(() => {
-    const handleClickOutside = () => setShow(false);
-    if (show) {
-      document.addEventListener('click', handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [show]);
 
   return (
     <div className={`relative inline-block ${className}`}>

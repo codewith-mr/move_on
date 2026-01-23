@@ -67,10 +67,7 @@ export default async function BlogArticle({ params }: { params: Promise<{ slug: 
         </div>
 
         <div className="mt-12 pt-6 border-t border-gray-200">
-          <div className="flex flex-wrap justify-between items-center">
-            <div className="mb-4 md:mb-0">
-              <ShareButton title={article.title} description={article.excerpt} />
-            </div>
+          <div className="flex flex-wrap justify-end items-center">
             <div>
               <span className="font-medium mr-2">Tags:</span>
               <span className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm mr-2">{article.category}</span>

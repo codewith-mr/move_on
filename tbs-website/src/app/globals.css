@@ -5,15 +5,15 @@
 @import "tailwindcss/utilities";
 
 :root {
-  --text: #0f172a;
+  --text: #201c18;
   --background: #ffffff;
-  --primary: #4f46e5;
-  --secondary: #d946ef;
-  --accent: #8b5cf6;
+  --primary: #01513a;
+  --secondary: #c6e3b5;
+  --accent: #003024;
 }
 
 .bg-gradient-primary {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
 }
 
 body {

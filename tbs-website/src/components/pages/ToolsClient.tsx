@@ -87,7 +87,7 @@ export default function ToolsClient() {
 
   return (
     <>
-      <div className="bg-gradient-to-r from-primary/10 to-secondary/10 py-16">
+      <div className="bg-gradient-to-r from-primary/10 to-accent/10 py-16">
         <div className="container mx-auto px-4">
           <h1 className="text-4xl md:text-5xl font-bold text-center mb-6">Tools & Resources</h1>
           <p className="text-lg text-center max-w-3xl mx-auto mb-8">
@@ -151,7 +151,7 @@ export default function ToolsClient() {
         })}
       </div>
 
-      <div className="bg-gradient-to-r from-primary/10 to-secondary/10 py-16">
+      <div className="bg-gradient-to-r from-primary/10 to-accent/10 py-16">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Can&apos;t find what you&apos;re looking for?</h2>
           <p className="text-lg mb-8 max-w-2xl mx-auto">

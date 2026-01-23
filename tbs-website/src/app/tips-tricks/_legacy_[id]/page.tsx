@@ -245,7 +245,7 @@ export default function TipPage() {
       
       {/* Tip header */}
       <div className="mb-8">
-        <div className="bg-gradient-to-r from-primary/10 to-secondary/10 p-6 rounded-lg mb-6">
+        <div className="bg-gradient-to-r from-primary/10 to-accent/10 p-6 rounded-lg mb-6">
           <span className="inline-block bg-primary text-white text-sm font-semibold py-1 px-3 rounded-full mb-4">
             {tip.category}
           </span>
@@ -254,8 +254,6 @@ export default function TipPage() {
           <div className="flex items-center gap-3 text-sm text-gray-500">
             <span>{tip.readTime}</span>
               <ShareButton
-                compact
-                variant="ghost"
                 showLabel={false}
                 url={`/tips-tricks/${tipId}`}
                 title={tip.title}

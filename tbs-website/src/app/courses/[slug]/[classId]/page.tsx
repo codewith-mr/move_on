@@ -3,35 +3,18 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ShareButton from '@/components/ui/ShareButton';
 import { prisma } from '@/lib/prisma';
+import { notFound } from 'next/navigation';
 
 export default async function ClassPage({ params }: { params: Promise<{ slug: string; classId: string }> }) {
   const { slug, classId: classIdParam } = await params;
   const classId = Number(classIdParam);
   const course = await prisma.course.findUnique({ where: { slug } });
   if (!course) {
-    return (
-      <MainLayout>
-        <div className="container mx-auto px-4 py-12 text-center">
-          <h1 className="text-2xl font-heading font-bold text-text">Course not found</h1>
-          <Link href="/courses" className="mt-6 inline-block px-6 py-3 bg-primary text-white rounded-md hover:bg-accent transition-colors">
-            Back to Courses
-          </Link>
-        </div>
-      </MainLayout>
-    );
+    notFound();
   }
   const classItem = await prisma.courseClass.findUnique({ where: { id: classId } });
   if (!classItem || classItem.courseId !== course.id) {
-    return (
-      <MainLayout>
-        <div className="container mx-auto px-4 py-12 text-center">
-          <h1 className="text-2xl font-heading font-bold text-text">Class not found</h1>
-          <Link href={`/courses/${course.slug}`} className="mt-6 inline-block px-6 py-3 bg-primary text-white rounded-md hover:bg-accent transition-colors">
-            Back to Course
-          </Link>
-        </div>
-      </MainLayout>
-    );
+    notFound();
   }
 
   const totalClasses = await prisma.courseClass.count({ where: { courseId: course.id } });

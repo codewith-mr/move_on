@@ -44,7 +44,7 @@ const BlogCard = ({
         />
         <div className="absolute top-4 left-4">
           <Link href={`/blog/category/${category.toLowerCase()}`}>
-            <span className="px-3 py-1 text-xs font-semibold rounded-full bg-primary text-white hover:bg-accent transition-colors">
+            <span className="px-3 py-1 text-xs font-semibold rounded-full bg-gradient-primary text-white hover:opacity-90 transition-opacity">
               {category}
             </span>
           </Link>

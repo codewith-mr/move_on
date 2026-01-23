@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import Link from 'next/link'
 
 export default async function CourseClassesManager({ params, searchParams }: { params: Promise<{ courseId: string }>, searchParams?: Promise<Record<string, string | string[] | undefined>> }) {
@@ -10,12 +10,7 @@ export default async function CourseClassesManager({ params, searchParams }: { p
   
   const course = await prisma.course.findUnique({ where: { id: courseId } })
   if (!course) {
-    return (
-      <div className="space-y-6">
-        <h2 className="text-xl font-semibold">Course not found</h2>
-        <Link href="/admin/courses" className="text-primary">Back to Courses</Link>
-      </div>
-    )
+    notFound()
   }
 
   async function addClass(formData: FormData) {

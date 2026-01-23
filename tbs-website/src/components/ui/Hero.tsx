@@ -18,7 +18,7 @@ const Hero = ({
   ctaLink,
   secondaryCtaText,
   secondaryCtaLink,
-  backgroundClass = 'bg-gradient-to-r from-primary to-accent',
+  backgroundClass = 'bg-gradient-primary',
 }: HeroProps) => {
   return (
     <section className={`${backgroundClass} py-20 px-4`}>
@@ -34,14 +34,14 @@ const Hero = ({
         <div className="flex flex-col sm:flex-row gap-4">
           <Link
             href={ctaLink}
-            className="px-8 py-3 bg-secondary text-primary rounded-md hover:bg-white transition-colors font-body font-bold text-lg"
+            className="px-8 py-3 bg-white text-primary rounded-md hover:bg-gray-100 transition-colors font-body font-bold text-lg"
           >
             {ctaText}
           </Link>
           {secondaryCtaText && secondaryCtaLink && (
             <Link
               href={secondaryCtaLink}
-              className="px-8 py-3 bg-transparent border-2 border-secondary text-white rounded-md hover:bg-accent transition-colors font-body font-bold text-lg"
+              className="px-8 py-3 bg-transparent border-2 border-white text-white rounded-md hover:bg-white/10 transition-colors font-body font-bold text-lg"
             >
               {secondaryCtaText}
             </Link>

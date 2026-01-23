@@ -46,7 +46,7 @@ export default function ToolSlugClient() {
           </p>
           <Link
             href="/tools"
-            className="inline-block px-6 py-3 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors"
+            className="inline-block px-6 py-3 bg-gradient-primary text-white rounded-md hover:opacity-90 transition-opacity"
           >
             Back to Tools
           </Link>
@@ -57,7 +57,7 @@ export default function ToolSlugClient() {
 
   return (
     <>
-      <div className="bg-primary py-12">
+      <div className="bg-gradient-primary py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <span className="inline-block px-3 py-1 bg-white/20 text-white rounded-full text-xs font-medium mb-4">

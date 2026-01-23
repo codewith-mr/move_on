@@ -5,14 +5,7 @@ export default async function TipPage({ params }: { params: Promise<{ slug: stri
   const { slug } = await params;
   const tip = await prisma.tip.findUnique({ where: { slug } })
   if (!tip) {
-    return (
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <div className="text-center">
-          <h1 className="text-2xl font-heading font-bold text-text">Tip not found</h1>
-          <Link href="/tips-tricks" className="mt-4 inline-block px-6 py-3 bg-primary text-white rounded-md">Back to Tips</Link>
-        </div>
-      </div>
-    )
+    notFound()
   }
 
   const recommended = await prisma.tip.findMany({

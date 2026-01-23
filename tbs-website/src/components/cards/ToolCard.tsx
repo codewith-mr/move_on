@@ -41,7 +41,7 @@ const ToolCard = ({
         {/* Badges */}
         <div className="absolute top-4 left-4 flex space-x-2">
           {isNew && (
-            <span className="px-2 py-1 text-xs font-semibold rounded-full bg-primary text-white">
+            <span className="px-2 py-1 text-xs font-semibold rounded-full bg-gradient-primary text-white">
               New
             </span>
           )}
@@ -77,7 +77,7 @@ const ToolCard = ({
           <Link
             href={toolUrl || `/tools/${slug}`}
             prefetch={false}
-            className="inline-flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-accent transition-colors font-body font-semibold text-sm"
+            className="inline-flex items-center justify-center px-4 py-2 bg-gradient-primary text-white rounded-md hover:opacity-90 hover:shadow-md transition-all font-body font-semibold text-sm"
           >
             Use Tool
             <svg

@@ -1,10 +1,10 @@
 {
   "colors": {
-    "text": "#201c18",
+    "text": "#0f172a",
     "background": "#ffffff",
-    "primary": "#01513a",
-    "secondary": "#c6e3b5",
-    "accent": "#003024",
+    "primary": "#4f46e5",
+    "secondary": "#d946ef",
+    "accent": "#8b5cf6",
     "neutral": {
       "100": "#f8f9fa",
       "200": "#e9ecef",

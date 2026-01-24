@@ -25,7 +25,7 @@ const levels = ['Beginner', 'Intermediate', 'Advanced'];
 
 export default async function CoursesPage() {
   const allCourses = await prisma.course.findMany();
-  const mapped: CourseCardProps[] = allCourses.map((c: any) => ({
+  const mapped: CourseCardProps[] = allCourses.map((c: Course) => ({
     id: String(c.id),
     slug: c.slug,
     title: c.title,

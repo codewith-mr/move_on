@@ -151,7 +151,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
           {/* Class List */}
           <div className="space-y-4">
               {classes.length > 0 ? (
-                classes.map((classItem: any) => (
+                classes.map((classItem: CourseClass) => (
                   <Link 
                     href={`/courses/${slug}/${classItem.id}`}
                     key={classItem.id} 

@@ -46,7 +46,7 @@ export default async function ClassPage({ params }: { params: Promise<{ slug: st
           <span className="text-primary font-medium">Class {classItem.index}</span>
         </div>
 
-        <div className="bg-white border-b border-gray-200 mb-8 rounded-lg shadow-sm overflow-hidden">
+        <div className="bg-white border-b border-gray-200 mb-8 rounded-lg shadow-sm">
           <div className="max-w-4xl mx-auto py-6 px-6">
             <div className="flex flex-wrap items-center gap-3 mb-3">
               <span className="bg-primary/10 text-primary text-xs font-medium px-3 py-1 rounded-full">

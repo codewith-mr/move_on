@@ -65,7 +65,7 @@ export default async function TipsAndTricksPage(props: { searchParams?: Promise<
             <Link key={category} href={`/tips-tricks?category=${encodeURIComponent(category)}`} className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${selectedCategory === category ? 'bg-primary text-white' : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'}`}>{category}</Link>
           ))}
         </div>
-        <div>
+        <div id="tips-results">
           <h2 className="text-3xl font-heading font-bold text-text mb-8 text-center">All Tips & Tricks</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredTips.map((tip) => (

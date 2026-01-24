@@ -287,9 +287,15 @@ export default function TipPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
             {recommendedTips.map((rt) => (
               <div key={rt.id} className="bg-white rounded-lg shadow hover:shadow-md transition-shadow border border-gray-100 overflow-hidden">
-                <Link href={`/tips-tricks/${rt.id}`} className="block">
-                  <img src={rt.imageUrl} alt={rt.title} className="w-full h-32 object-cover" />
-                  <div className="p-4">
+                <Link href={`/tips-tricks/${rt.id}`} className="block relative h-32">
+                  <Image 
+                    src={rt.imageUrl} 
+                    alt={rt.title} 
+                    fill
+                    className="object-cover" 
+                  />
+                </Link>
+                <div className="p-4">
                     <span className="text-xs text-primary font-semibold">{rt.category}</span>
                     <h3 className="text-sm font-semibold text-gray-800 mt-1">{rt.title}</h3>
                     <p className="text-xs text-gray-600 mt-2">{rt.description}</p>

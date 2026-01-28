@@ -1,4 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
-  <rect width="800" height="450" fill="#F59E0B" />
-  <text x="400" y="225" font-family="Arial" font-size="32" fill="white" text-anchor="middle" dominant-baseline="middle">Tool Image Placeholder</text>
+<svg width="800" height="450" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="450" fill="#f8f9fa" />
+  
+      <!-- Tool/Wrench -->
+      <path d="M300 300 L500 100" fill="none" stroke="#01513a" stroke-width="40" stroke-linecap="round" />
+      <circle cx="280" cy="320" r="40" fill="#01513a" />
+      <circle cx="520" cy="80" r="40" fill="#01513a" />
+      <text x="400" y="420" font-family="Arial, sans-serif" font-size="40" fill="#01513a" text-anchor="middle" font-weight="bold">Tool</text>
+    
 </svg>

@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
 
 export default async function CourseClassesManager({ params, searchParams }: { params: Promise<{ courseId: string }>, searchParams?: Promise<Record<string, string | string[] | undefined>> }) {
@@ -49,6 +49,7 @@ export default async function CourseClassesManager({ params, searchParams }: { p
   const classes = await prisma.courseClass.findMany({ where: { courseId }, orderBy: { index: 'asc' } })
   const added = typeof resolvedSearchParams?.added === 'string' && resolvedSearchParams.added === '1'
   const deleted = typeof resolvedSearchParams?.deleted === 'string' && resolvedSearchParams.deleted === '1'
+  const updated = typeof resolvedSearchParams?.updated === 'string' && resolvedSearchParams.updated === '1'
 
   return (
     <div className="space-y-8">
@@ -59,6 +60,9 @@ export default async function CourseClassesManager({ params, searchParams }: { p
 
       {added && (
         <div className="p-3 rounded bg-green-50 text-green-700 border border-green-200">Class added successfully</div>
+      )}
+      {updated && (
+        <div className="p-3 rounded bg-blue-50 text-blue-700 border border-blue-200">Class updated successfully</div>
       )}
       {deleted && (
         <div className="p-3 rounded bg-yellow-50 text-yellow-700 border border-yellow-200">Class deleted successfully</div>
@@ -83,15 +87,29 @@ export default async function CourseClassesManager({ params, searchParams }: { p
         <h3 className="font-semibold mb-2">Existing Classes</h3>
         <ul className="divide-y">
           {classes.map((cls) => (
-            <li key={cls.id} className="py-3 flex items-center justify-between">
-              <div>
+            <li key={cls.id} className="py-3 flex items-center justify-between border-b border-gray-100 last:border-0">
+              <div className="flex-grow">
                 <div className="font-medium">{cls.index}. {cls.title}</div>
-                <div className="text-sm text-neutral-500">{cls.contentType}</div>
+                <div className="text-sm text-neutral-500 capitalize">{cls.contentType}</div>
               </div>
-              <form action={deleteClass}>
-                <input type="hidden" name="id" value={String(cls.id)} />
-                <button className="text-red-600">Delete</button>
-              </form>
+              <div className="flex items-center gap-2 ml-4">
+                <Link 
+                  href={`/admin/course-classes/${courseId}/${cls.id}`} 
+                  className="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors"
+                >
+                  Edit
+                </Link>
+                <span className="text-gray-300">|</span>
+                <form action={deleteClass} className="inline-block">
+                  <input type="hidden" name="id" value={String(cls.id)} />
+                  <button 
+                    className="text-red-600 hover:text-red-800 font-medium text-sm transition-colors"
+                    type="submit"
+                  >
+                    Delete
+                  </button>
+                </form>
+              </div>
             </li>
           ))}
         </ul>

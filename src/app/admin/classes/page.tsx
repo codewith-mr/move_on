@@ -101,16 +101,30 @@ export default async function AdminClasses({ searchParams }: { searchParams?: Re
             <h3 className="font-semibold mb-2">Existing Classes</h3>
             <ul className="divide-y">
               {classes.map((cls) => (
-                <li key={cls.id} className="py-3 flex items-center justify-between">
-                  <div>
+                <li key={cls.id} className="py-3 flex items-center justify-between border-b border-gray-100 last:border-0">
+                  <div className="flex-grow">
                     <div className="font-medium">{cls.index}. {cls.title}</div>
-                    <div className="text-sm text-neutral-500">{cls.contentType}</div>
+                    <div className="text-sm text-neutral-500 capitalize">{cls.contentType}</div>
                   </div>
-                  <form action={deleteClass}>
-                    <input type="hidden" name="id" value={String(cls.id)} />
-                    <input type="hidden" name="courseId" value={String(selectedCourse.id)} />
-                    <button className="text-red-600">Delete</button>
-                  </form>
+                  <div className="flex items-center gap-2 ml-4">
+                    <Link 
+                      href={`/admin/course-classes/${selectedCourse.id}/${cls.id}`} 
+                      className="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors"
+                    >
+                      Edit
+                    </Link>
+                    <span className="text-gray-300">|</span>
+                    <form action={deleteClass} className="inline-block">
+                      <input type="hidden" name="id" value={String(cls.id)} />
+                      <input type="hidden" name="courseId" value={String(selectedCourse.id)} />
+                      <button 
+                        className="text-red-600 hover:text-red-800 font-medium text-sm transition-colors"
+                        type="submit"
+                      >
+                        Delete
+                      </button>
+                    </form>
+                  </div>
                 </li>
               ))}
             </ul>

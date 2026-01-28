@@ -31,6 +31,17 @@ export default function ShareButton({
     setComputedUrl(u);
   }, [url]);
 
+  // Close when clicking outside (optional, but good UX)
+  useEffect(() => {
+    const handleClickOutside = () => setShow(false);
+    if (show) {
+      document.addEventListener('click', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [show]);
+
   if (!isClient) return null;
 
   const encodedUrl = encodeURIComponent(computedUrl);
@@ -61,17 +72,6 @@ export default function ShareButton({
     setShow(!show);
   };
 
-  // Close when clicking outside (optional, but good UX)
-  useEffect(() => {
-    const handleClickOutside = () => setShow(false);
-    if (show) {
-      document.addEventListener('click', handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [show]);
-
   return (
     <div className={`relative inline-block ${className}`}>
       <button 
@@ -89,7 +89,7 @@ export default function ShareButton({
       </button>
 
       {show && (
-        <div className="absolute top-full right-0 mt-2 flex items-center gap-2 bg-white p-2 rounded-lg shadow-lg border border-gray-100 z-50 animate-in fade-in slide-in-from-top-1">
+        <div className="absolute top-full right-0 mt-2 grid grid-cols-3 md:flex md:items-center gap-2 bg-white p-2 rounded-lg shadow-lg border border-gray-100 z-50 animate-in fade-in slide-in-from-top-1 w-max max-w-[calc(100vw-2rem)]">
           {/* WhatsApp */}
           <a
             href={shareLinks.whatsapp}

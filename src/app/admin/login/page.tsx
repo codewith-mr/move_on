@@ -1,15 +1,8 @@
+
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import PasswordInput from '@/components/ui/PasswordInput'
-
-async function computeSessionToken(username: string, secret: string) {
-  const data = new TextEncoder().encode(`${username}|${secret}`)
-  const buf = await crypto.subtle.digest('SHA-256', data)
-  const bytes = new Uint8Array(buf)
-  let hex = ''
-  for (let b of bytes) hex += b.toString(16).padStart(2, '0')
-  return hex
-}
+import { computeSessionToken, ADMIN_USERNAME, ADMIN_PASSWORD, SESSION_SECRET, SESSION_COOKIE_NAME } from '@/lib/admin-auth'
 
 export default function AdminLoginPage({ searchParams }: { searchParams?: Record<string, string | string[] | undefined> }) {
   async function login(formData: FormData) {
@@ -22,16 +15,13 @@ export default function AdminLoginPage({ searchParams }: { searchParams?: Record
     const username = normalize(String(formData.get('username') || ''))
     const password = normalize(String(formData.get('password') || ''))
 
-    const validUsername = 'mr1yt.tbs'
-    const validPassword = 'sikhopakistan1,'
-    const isValid = username === validUsername && password === validPassword
+    const isValid = username === ADMIN_USERNAME && password === ADMIN_PASSWORD
     if (!isValid) {
       redirect('/admin/login?error=1')
     }
 
-    const secret = process.env.SESSION_SECRET || ''
-    const token = await computeSessionToken(process.env.ADMIN_USERNAME || validUsername, secret)
-    cookies().set('admin_session', token, {
+    const token = await computeSessionToken(ADMIN_USERNAME, SESSION_SECRET)
+    cookies().set(SESSION_COOKIE_NAME, token, {
       httpOnly: true,
       sameSite: 'strict',
       secure: process.env.NODE_ENV === 'production',

@@ -1,23 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
-  <rect width="800" height="600" fill="#fdf2f8" />
-  <rect x="150" y="150" width="500" height="300" rx="20" fill="#fce7f3" />
+<svg width="800" height="450" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="450" fill="#f8f9fa" />
   
-  <!-- Video camera -->
-  <rect x="250" y="200" width="120" height="80" rx="10" fill="#db2777" />
-  <circle cx="310" cy="240" r="25" fill="#fce7f3" />
-  <circle cx="310" cy="240" r="15" fill="#db2777" />
-  <rect x="370" y="230" width="40" height="20" rx="5" fill="#db2777" />
-  
-  <!-- Play button -->
-  <circle cx="500" cy="250" r="50" fill="#db2777" />
-  <polygon points="485,225 485,275 525,250" fill="white" />
-  
-  <!-- YouTube-like elements -->
-  <rect x="250" y="320" width="300" height="10" rx="5" fill="#f472b6" />
-  <rect x="250" y="340" width="200" height="10" rx="5" fill="#f472b6" />
-  <rect x="250" y="360" width="250" height="10" rx="5" fill="#f472b6" />
-  
-  <!-- Title -->
-  <text x="400" y="420" font-family="Arial" font-size="24" font-weight="bold" fill="#831843" text-anchor="middle">YouTube Growth Strategy</text>
-  <text x="400" y="450" font-family="Arial" font-size="18" fill="#be185d" text-anchor="middle">Grow your channel and audience</text>
+      <!-- Play Button / Camera -->
+      <rect x="250" y="125" width="300" height="200" fill="#01513a" rx="4" />
+      <path d="M380 175 L460 225 L380 275 Z" fill="#ffffff" />
+      <path d="M250 125 L300 80 L500 80 L550 125 Z" fill="#003024" />
+      <circle cx="500" cy="100" r="10" fill="#ffffff" />
+      <text x="400" y="400" font-family="Arial, sans-serif" font-size="40" fill="#01513a" text-anchor="middle" font-weight="bold">Content Creation</text>
+    
 </svg>

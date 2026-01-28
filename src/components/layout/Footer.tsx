@@ -17,7 +17,7 @@ const Footer = async () => {
               <Image 
                 src="/secondry.png" 
                 alt="TBS Logo" 
-                className="w-full sm:w-33" 
+                className="w-full sm:w-32" 
                 width={240}
                 height={60}
                 style={{ maxWidth: '15rem' }} 

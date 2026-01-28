@@ -1,5 +1,7 @@
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
+import { notFound } from 'next/navigation'
+import ShareButton from '@/components/ui/ShareButton'
 
 export default async function TipPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -41,7 +43,7 @@ export default async function TipPage({ params }: { params: Promise<{ slug: stri
         </nav>
       </div>
 
-      <div className="bg-gradient-to-r from-primary/10 to-secondary/10 p-6 rounded-lg mb-6">
+      <div className="bg-gradient-to-r from-primary/10 to-accent/10 p-6 rounded-lg mb-6">
         {tip.category && (
           <span className="inline-block bg-primary text-white text-sm font-semibold py-1 px-3 rounded-full mb-4">{tip.category}</span>
         )}
@@ -56,10 +58,6 @@ export default async function TipPage({ params }: { params: Promise<{ slug: stri
           <p>{tip.description || ''}</p>
         )}
       </article>
-
-      <div className="mt-8 border-t border-gray-200 pt-6">
-        <ShareButton title={tip.title} description={tip.description || ''} />
-      </div>
 
       {recommended.length > 0 && (
         <div className="mt-12">

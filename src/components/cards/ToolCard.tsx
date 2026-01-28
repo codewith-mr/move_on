@@ -51,7 +51,7 @@ const ToolCard = ({
             </span>
           )}
           {isFree && (
-            <span className="px-2 py-1 text-xs font-semibold rounded-full bg-secondary text-primary">
+            <span className="px-2 py-1 text-xs font-semibold rounded-full bg-accent text-white">
               Free
             </span>
           )}

@@ -1,35 +1,35 @@
+
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-
-function computeSessionToken(username: string, secret: string) {
-  const data = new TextEncoder().encode(`${username}|${secret}`);
-  // Edge runtime supports crypto.subtle
-  // We return hex digest
-  return crypto.subtle.digest('SHA-256', data).then((buf) => {
-    const bytes = new Uint8Array(buf);
-    let hex = '';
-    for (const b of bytes) hex += b.toString(16).padStart(2, '0');
-    return hex;
-  });
-}
+import { computeSessionToken, ADMIN_USERNAME, SESSION_SECRET, SESSION_COOKIE_NAME } from '@/lib/admin-auth';
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  console.log(`[Middleware] Processing request for: ${pathname}`);
+  
+  // Protect all /admin routes
   if (pathname.startsWith('/admin')) {
-    if (pathname === '/admin/login' || pathname === '/admin/logout') return NextResponse.next();
-    const session = request.cookies.get('admin_session')?.value;
-    const username = process.env.ADMIN_USERNAME || 'admin';
-    const secret = process.env.SESSION_SECRET || '';
-    const expected = await computeSessionToken(username, secret);
+    // Allow public access to login and logout
+    if (pathname === '/admin/login' || pathname === '/admin/logout') {
+      return NextResponse.next();
+    }
+
+    const session = request.cookies.get(SESSION_COOKIE_NAME)?.value;
+    const expected = await computeSessionToken(ADMIN_USERNAME, SESSION_SECRET);
+
     if (!session || session !== expected) {
+      console.log(`[Middleware] Unauthorized access to ${pathname}. Redirecting to login.`);
       const url = request.nextUrl.clone();
       url.pathname = '/admin/login';
+      // Preserve the original URL to redirect back after login if needed (optional enhancement)
+      // url.searchParams.set('from', pathname);
       return NextResponse.redirect(url);
     }
   }
+  
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+  matcher: ['/admin', '/admin/:path*'],
 };

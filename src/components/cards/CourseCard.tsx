@@ -15,6 +15,7 @@ export interface CourseCardProps {
   reviewCount: number;
   imageUrl: string;
   category: string;
+  classes?: any[];
 }
 
 const CourseCard = ({
@@ -53,7 +54,7 @@ const CourseCard = ({
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         <div className="absolute top-4 left-4">
-          <span className="px-2 py-1 text-xs font-semibold rounded-full bg-secondary text-primary">
+          <span className="px-2 py-1 text-xs font-semibold rounded-full bg-accent text-white">
             {category}
           </span>
         </div>

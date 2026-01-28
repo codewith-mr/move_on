@@ -4,21 +4,8 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import CourseCard, { CourseCardProps } from '@/components/cards/CourseCard';
 
-const categories = [
-  'All',
-  'Freelancing',
-  'Content Creation',
-  'Trading',
-  'Marketing',
-  'Investing',
-  'AI & Machine Learning',
-  'Data Science',
-  'Cloud Computing',
-];
-
-const levels = ['Beginner', 'Intermediate', 'Advanced'];
-
-export default function CoursesClient({ courses }: { courses: CourseCardProps[] }) {
+export default function CoursesClient({ courses, availableCategories }: { courses: CourseCardProps[], availableCategories: string[] }) {
+  const levels = ['Beginner', 'Intermediate', 'Advanced'];
   const [selectedCategories, setSelectedCategories] = useState<string[]>(['All']);
   const [selectedLevels, setSelectedLevels] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState<string>('Most Popular');
@@ -26,6 +13,9 @@ export default function CoursesClient({ courses }: { courses: CourseCardProps[] 
   const [filteredCourses, setFilteredCourses] = useState<CourseCardProps[]>(courses);
   const coursesPerPage = 4;
   const searchParams = useSearchParams();
+
+  // Combine default categories with available ones, removing duplicates
+  const categories = ['All', ...availableCategories.filter(c => c !== 'All')];
 
   const handleCategoryChange = (category: string) => {
     if (category === 'All') {

@@ -245,7 +245,7 @@ export default function TipPage() {
       
       {/* Tip header */}
       <div className="mb-8">
-        <div className="bg-gradient-to-r from-primary/10 to-secondary/10 p-6 rounded-lg mb-6">
+        <div className="bg-gradient-to-r from-primary/10 to-accent/10 p-6 rounded-lg mb-6">
           <span className="inline-block bg-primary text-white text-sm font-semibold py-1 px-3 rounded-full mb-4">
             {tip.category}
           </span>
@@ -254,8 +254,6 @@ export default function TipPage() {
           <div className="flex items-center gap-3 text-sm text-gray-500">
             <span>{tip.readTime}</span>
               <ShareButton
-                compact
-                variant="ghost"
                 showLabel={false}
                 url={`/tips-tricks/${tipId}`}
                 title={tip.title}
@@ -289,9 +287,15 @@ export default function TipPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
             {recommendedTips.map((rt) => (
               <div key={rt.id} className="bg-white rounded-lg shadow hover:shadow-md transition-shadow border border-gray-100 overflow-hidden">
-                <Link href={`/tips-tricks/${rt.id}`} className="block">
-                  <img src={rt.imageUrl} alt={rt.title} className="w-full h-32 object-cover" />
-                  <div className="p-4">
+                <Link href={`/tips-tricks/${rt.id}`} className="block relative h-32">
+                  <Image 
+                    src={rt.imageUrl} 
+                    alt={rt.title} 
+                    fill
+                    className="object-cover" 
+                  />
+                </Link>
+                <div className="p-4">
                     <span className="text-xs text-primary font-semibold">{rt.category}</span>
                     <h3 className="text-sm font-semibold text-gray-800 mt-1">{rt.title}</h3>
                     <p className="text-xs text-gray-600 mt-2">{rt.description}</p>

@@ -25,7 +25,11 @@ const levels = ['Beginner', 'Intermediate', 'Advanced'];
 
 export default async function CoursesPage() {
   const allCourses = await prisma.course.findMany();
-  const mapped: CourseCardProps[] = allCourses.map((c: any) => ({
+  
+  // Extract unique categories from courses
+  const categories = Array.from(new Set(allCourses.map(c => c.category).filter(Boolean)));
+  
+  const mapped: CourseCardProps[] = allCourses.map((c: Course) => ({
     id: String(c.id),
     slug: c.slug,
     title: c.title,
@@ -42,7 +46,7 @@ export default async function CoursesPage() {
   }));
   return (
     <MainLayout>
-      <CoursesClient courses={mapped} />
+      <CoursesClient courses={mapped} availableCategories={categories} />
     </MainLayout>
   )
 }

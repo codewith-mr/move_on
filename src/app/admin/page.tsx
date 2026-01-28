@@ -1,9 +1,13 @@
+
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
+import { verifyAdmin } from '@/lib/verify-admin'
 
 export const dynamic = 'force-dynamic'
 
 export default async function AdminDashboard() {
+  await verifyAdmin()
+  
   const [coursesCount, blogsCount, tipsCount] = await Promise.all([
     prisma.course.count(),
     prisma.blog.count(),

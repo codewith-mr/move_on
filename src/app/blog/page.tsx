@@ -20,7 +20,7 @@ const defaultCategory = 'All';
 
 export default async function BlogPage() {
   const allPosts = await prisma.blog.findMany({ orderBy: { publishDate: 'desc' } });
-  const mapped: BlogCardProps[] = allPosts.map((post: any) => ({
+  const mapped: BlogCardProps[] = allPosts.map((post: Blog) => ({
     id: String(post.id),
     slug: post.slug,
     title: post.title,

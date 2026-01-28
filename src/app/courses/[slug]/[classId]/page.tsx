@@ -4,15 +4,42 @@ import Link from 'next/link';
 import ShareButton from '@/components/ui/ShareButton';
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 
-export default async function ClassPage({ params }: { params: Promise<{ slug: string; classId: string }> }) {
+type Props = {
+  params: Promise<{ slug: string; classId: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug, classId: classIdParam } = await params;
   const classId = Number(classIdParam);
+  const course = await prisma.course.findUnique({ where: { slug } });
+  if (!course) return { title: 'Class Not Found' };
+  
+  const classItem = await prisma.courseClass.findUnique({ where: { id: classId } });
+  if (!classItem) return { title: 'Class Not Found' };
+
+  return {
+    title: `${classItem.title} - ${course.title} | The Binary Strategy`,
+    description: classItem.textContent ? classItem.textContent.substring(0, 160) : `Watch ${classItem.title} from ${course.title}`,
+  };
+}
+
+export default async function ClassPage({ params }: Props) {
+  const { slug, classId: classIdParam } = await params;
+  const classId = parseInt(classIdParam, 10);
+  
+  if (isNaN(classId)) {
+    notFound();
+  }
+
   const course = await prisma.course.findUnique({ where: { slug } });
   if (!course) {
     notFound();
   }
   const classItem = await prisma.courseClass.findUnique({ where: { id: classId } });
+  
+  // Verify class exists and belongs to the course
   if (!classItem || classItem.courseId !== course.id) {
     notFound();
   }
@@ -31,6 +58,54 @@ export default async function ClassPage({ params }: { params: Promise<{ slug: st
       })
     : [];
 
+  const getVideoEmbed = (url: string | null | undefined) => {
+    if (!url) return null;
+    
+    // 1. Handle YouTube
+    if (url.includes('youtube.com') || url.includes('youtu.be')) {
+       let videoId = '';
+       if (url.includes('/embed/')) {
+          videoId = url.split('/embed/')[1].split('?')[0];
+       } else if (url.includes('v=')) {
+          videoId = url.split('v=')[1].split('&')[0];
+       } else if (url.includes('youtu.be/')) {
+          videoId = url.split('youtu.be/')[1].split('?')[0];
+       }
+       
+       if (videoId) {
+         return { type: 'youtube', src: `https://www.youtube.com/embed/${videoId}` };
+       }
+    }
+
+    // 2. Handle Google Drive
+    if (url.includes('drive.google.com')) {
+      // Convert view/edit links to preview for embedding
+      // e.g. https://drive.google.com/file/d/ID/view -> https://drive.google.com/file/d/ID/preview
+      let embedUrl = url;
+      if (url.includes('/view')) {
+        embedUrl = url.replace('/view', '/preview');
+      } else if (!url.includes('/preview')) {
+        // If it doesn't end with view or preview, try appending preview if it looks like a file link
+        // This is a rough heuristic
+        if (url.match(/\/file\/d\/[^/]+$/)) {
+          embedUrl = `${url}/preview`;
+        }
+      }
+      return { type: 'iframe', src: embedUrl };
+    }
+
+    // 3. Handle Direct Video Files (mp4, webm, ogg)
+    if (url.match(/\.(mp4|webm|ogg)($|\?)/i)) {
+      return { type: 'video', src: url };
+    }
+
+    // 4. Default: Treat as Generic Iframe (User Request)
+    // We assume the user is pasting an embeddable URL
+    return { type: 'iframe', src: url };
+  };
+
+  const videoEmbed = getVideoEmbed(classItem.videoUrl);
+
   return (
     <MainLayout>
       <div className="max-w-4xl mx-auto">
@@ -43,17 +118,18 @@ export default async function ClassPage({ params }: { params: Promise<{ slug: st
           <svg className="w-4 h-4 mx-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
           </svg>
-          <span className="text-primary font-medium">Class {classItem.index}</span>
+          <span className="text-primary font-medium">{classItem.title}</span>
         </div>
 
-        <div className="bg-white border-b border-gray-200 mb-8 rounded-lg shadow-sm overflow-hidden">
+        <div className="bg-white border-b border-gray-200 mb-8 rounded-lg shadow-sm">
           <div className="max-w-4xl mx-auto py-6 px-6">
             <div className="flex flex-wrap items-center gap-3 mb-3">
               <span className="bg-primary/10 text-primary text-xs font-medium px-3 py-1 rounded-full">
                 Class {classItem.index} of {totalClasses}
               </span>
             </div>
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-2">
+            <div className="flex flex-col gap-1 mb-4">
+              <h2 className="text-lg text-primary font-medium">{course.title}</h2>
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">{classItem.title}</h1>
             </div>
             <div className="flex items-center text-gray-600 gap-4">
@@ -67,18 +143,35 @@ export default async function ClassPage({ params }: { params: Promise<{ slug: st
         </div>
 
         <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-sm mb-8">
-          {classItem.contentType === 'video' && classItem.videoUrl ? (
-            <div className="relative w-full p-6 sm:p-8">
-              <div className="relative w-full overflow-hidden rounded-lg shadow">
-                <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
-                  <iframe
-                    src={classItem.videoUrl}
-                    title={classItem.title}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          {classItem.contentType === 'video' && classItem.videoUrl && videoEmbed ? (
+            <div className="relative w-full">
+              {/* Video Player */}
+              <div className="relative w-full aspect-video bg-black rounded-t-lg overflow-hidden shadow-lg">
+                {videoEmbed.type === 'video' ? (
+                  <video 
+                    controls 
+                    className="w-full h-full" 
+                    src={videoEmbed.src}
+                    poster={course.imageUrl}
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                ) : (
+                  <iframe 
+                    src={videoEmbed.src} 
+                    className="w-full h-full border-0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                     allowFullScreen
-                    className="absolute inset-0 w-full h-full"
+                    title={classItem.title}
                   />
-                </div>
+                )}
+              </div>
+              
+              <div className="p-6 sm:p-8 border-x border-b border-gray-100 rounded-b-lg bg-white">
+                 <h3 className="font-semibold text-gray-900 mb-2">About this Lecture</h3>
+                 <p className="text-gray-700 leading-relaxed">
+                   {classItem.textContent || course.description || `Watch the full lecture above.`}
+                 </p>
               </div>
             </div>
           ) : (

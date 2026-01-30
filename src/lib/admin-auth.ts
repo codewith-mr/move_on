@@ -9,6 +9,6 @@ export async function computeSessionToken(username: string, secret: string) {
   const buf = await crypto.subtle.digest('SHA-256', data)
   const bytes = new Uint8Array(buf)
   let hex = ''
-  for (let b of bytes) hex += b.toString(16).padStart(2, '0')
+  for (const b of bytes) hex += b.toString(16).padStart(2, '0')
   return hex
 }

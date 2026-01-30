@@ -61,7 +61,7 @@ export default function WorldClockPage() {
         month: 'short',
         day: 'numeric',
       });
-    } catch (_error) {
+    } catch {
       // Fallback for browsers that don't support certain timezones
       const zone = timeZones.find(tz => tz.id === timeZoneId);
       if (!zone) return 'Invalid timezone';

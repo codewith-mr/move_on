@@ -1,7 +1,6 @@
 "use client";
 
 import MainLayout from '@/components/layout/MainLayout';
-import Image from 'next/image';
 import Link from 'next/link';
 
 export default function CommunityPage() {
@@ -29,7 +28,7 @@ export default function CommunityPage() {
               <div className="bg-white p-6 rounded-lg shadow-1">
                 <h3 className="text-xl font-heading font-bold text-primary mb-2">Online Forum</h3>
                 <p className="text-neutral-700 mb-4">
-                  Our private forum is a safe space to ask questions, share your wins, and get help when you're stuck. With thousands of active members, you'll never feel alone on your entrepreneurial journey.
+                  Our private forum is a safe space to ask questions, share your wins, and get help when you&apos;re stuck. With thousands of active members, you&apos;ll never feel alone on your entrepreneurial journey.
                 </p>
                 <Link
                   href="#"

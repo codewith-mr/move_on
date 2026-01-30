@@ -3,25 +3,9 @@
 // Levels for filtering
 
 import MainLayout from '@/components/layout/MainLayout';
-import CourseCard from '@/components/cards/CourseCard';
-import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 import CoursesClient from '@/components/pages/CoursesClient';
 import { CourseCardProps } from '@/components/cards/CourseCard';
-
-const categories = [
-  'All',
-  'Freelancing',
-  'Content Creation',
-  'Trading',
-  'Marketing',
-  'Investing',
-  'AI & Machine Learning',
-  'Data Science',
-  'Cloud Computing',
-];
-
-const levels = ['Beginner', 'Intermediate', 'Advanced'];
 
 export default async function CoursesPage() {
   const allCourses = await prisma.course.findMany();
@@ -29,7 +13,7 @@ export default async function CoursesPage() {
   // Extract unique categories from courses
   const categories = Array.from(new Set(allCourses.map(c => c.category).filter(Boolean)));
   
-  const mapped: CourseCardProps[] = allCourses.map((c: Course) => ({
+  const mapped: CourseCardProps[] = allCourses.map((c) => ({
     id: String(c.id),
     slug: c.slug,
     title: c.title,
@@ -43,6 +27,7 @@ export default async function CoursesPage() {
     reviewCount: c.reviewCount ?? 0,
     imageUrl: c.imageUrl,
     category: c.category,
+    tags: c.tags ? c.tags.split(',').map((t: string) => t.trim()) : [],
   }));
   return (
     <MainLayout>

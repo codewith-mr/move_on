@@ -1,98 +1,90 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type ShareButtonProps = {
-  title: string;
-  url?: string;
+  url: string;
+  title?: string;
   description?: string;
+  compact?: boolean;
   className?: string;
   showLabel?: boolean;
 };
 
-export default function ShareButton({
-  title,
-  url,
-  description,
-  className = "",
-  showLabel = true,
-}: ShareButtonProps) {
-  const [isClient, setIsClient] = useState(false);
-  const [computedUrl, setComputedUrl] = useState<string>("");
-  const [copied, setCopied] = useState(false);
-  const [show, setShow] = useState(false);
+const buildShareUrls = (url: string, title?: string, description?: string) => {
+  const text = title || "Check this out";
+  const summary = description || "";
+  const encodedUrl = encodeURIComponent(url);
+  const encodedText = encodeURIComponent(text);
+  const encodedSummary = encodeURIComponent(summary);
 
-  useEffect(() => {
-    setIsClient(true);
-    let u = url || window.location.href;
-    if (u.startsWith("/")) {
-      u = `${window.location.origin}${u}`;
-    }
-    setComputedUrl(u);
-  }, [url]);
-
-  // Close when clicking outside (optional, but good UX)
-  useEffect(() => {
-    const handleClickOutside = () => setShow(false);
-    if (show) {
-      document.addEventListener('click', handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [show]);
-
-  if (!isClient) return null;
-
-  const encodedUrl = encodeURIComponent(computedUrl);
-  const encodedTitle = encodeURIComponent(title);
-  const encodedDesc = encodeURIComponent(description || "");
-
-  const shareLinks = {
-    whatsapp: `https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`,
+  return {
+    twitter: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}`,
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
-    twitter: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,
-    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
-    telegram: `https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}`,
+    linkedin: `https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodedText}&summary=${encodedSummary}`,
+    whatsapp: `https://api.whatsapp.com/send?text=${encodedText}%20${encodedUrl}`,
+  };
+};
+
+export default function ShareButton({ url, title, description, compact = false, className = "", showLabel = true }: ShareButtonProps) {
+  const [open, setOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const menuRef = useRef<HTMLDivElement | null>(null);
+  const shareUrls = useMemo(() => buildShareUrls(url, title, description), [url, title, description]);
+
+  useEffect(() => {
+    const onClickOutside = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onClickOutside);
+    return () => document.removeEventListener("mousedown", onClickOutside);
+  }, []);
+
+  const handleShare = async () => {
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      try {
+        await navigator.share({ url, title, text: description });
+      } catch {
+        // User cancelled share or share failed; silently ignore
+      }
+    } else {
+      setOpen((v) => !v);
+    }
   };
 
-  const copyToClipboard = async () => {
+  const copyLink = async () => {
     try {
-      await navigator.clipboard.writeText(computedUrl);
+      await navigator.clipboard.writeText(url);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error("Failed to copy:", err);
+      // Don't close immediately so user sees "Copied!"
+    } catch {
+      // Fallback: open prompt
+      window.prompt("Copy this link", url);
+      setOpen(false);
     }
   };
 
-  // Toggle visibility on click
-  const toggleShare = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setShow(!show);
-  };
+  const baseBtn = compact
+    ? "inline-flex items-center px-2.5 py-1.5 text-xs font-medium rounded-md border border-gray-300 text-gray-700 hover:bg-gray-50"
+    : "inline-flex items-center px-3 py-2 text-sm font-medium rounded-md bg-primary text-white hover:bg-accent";
 
   return (
-    <div className={`relative inline-block ${className}`}>
-      <button 
-        onClick={toggleShare}
-        className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
-        aria-label="Share"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="18" cy="5" r="3"></circle>
-          <circle cx="6" cy="12" r="3"></circle>
-          <circle cx="18" cy="19" r="3"></circle>
-          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+    <div className={`relative ${className}`} ref={menuRef}>
+      <button type="button" onClick={handleShare} className={baseBtn} aria-haspopup="true" aria-expanded={open}>
+        <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 ${showLabel ? 'mr-1.5' : ''}`} viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
         </svg>
+        {showLabel && "Share"}
       </button>
 
-      {show && (
+      {open && (
         <div className="absolute top-full right-0 mt-2 grid grid-cols-3 md:flex md:items-center gap-2 bg-white p-2 rounded-lg shadow-lg border border-gray-100 z-50 animate-in fade-in slide-in-from-top-1 w-max max-w-[calc(100vw-2rem)]">
           {/* WhatsApp */}
           <a
-            href={shareLinks.whatsapp}
+            href={shareUrls.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center w-8 h-8 rounded-full bg-[#25D366] text-white hover:opacity-90 transition-opacity"
@@ -106,7 +98,7 @@ export default function ShareButton({
 
           {/* Facebook */}
           <a
-            href={shareLinks.facebook}
+            href={shareUrls.facebook}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center w-8 h-8 rounded-full bg-[#1877F2] text-white hover:opacity-90 transition-opacity"
@@ -120,7 +112,7 @@ export default function ShareButton({
 
           {/* Twitter / X */}
           <a
-            href={shareLinks.twitter}
+            href={shareUrls.twitter}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center w-8 h-8 rounded-full bg-black text-white hover:opacity-90 transition-opacity"
@@ -134,7 +126,7 @@ export default function ShareButton({
 
           {/* LinkedIn */}
           <a
-            href={shareLinks.linkedin}
+            href={shareUrls.linkedin}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center w-8 h-8 rounded-full bg-[#0A66C2] text-white hover:opacity-90 transition-opacity"
@@ -149,7 +141,7 @@ export default function ShareButton({
           {/* Copy Link */}
           <button
             type="button"
-            onClick={copyToClipboard}
+            onClick={copyLink}
             className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors relative"
             aria-label="Copy Link"
             title="Copy Link"

@@ -14,7 +14,7 @@ export default function DateCalculatorPage() {
   const [secondDate, setSecondDate] = useState(
     new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
   );
-  const [difference, setDifference] = useState({ days: 7, months: 0, years: 0 });
+  const [difference, setDifference] = useState({ days: 7, months: 0, years: 0, totalDays: 7 });
 
   // Calculate result when inputs change
   const calculateResult = () => {
@@ -71,9 +71,7 @@ export default function DateCalculatorPage() {
         days: dayDiff,
         months: monthDiff,
         years: yearDiff,
-totalDays: totalDays
-
-
+        totalDays: totalDays
       });
     }
   };
@@ -96,7 +94,7 @@ totalDays: totalDays
     setMonths(e.target.value);
   };
 
-  const handleYearsChange = (e) => {
+  const handleYearsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setYears(e.target.value);
   };
 

@@ -28,11 +28,14 @@ model Course {
   reviewCount  Int?
   imageUrl     String
   category     String
+  tags         String?  // Comma-separated tags
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
   homeFeatured HomeSettingsFeaturedCourse[]
   classes      CourseClass[]
+
+  @@index([category])
 }
 
 model Blog {
@@ -52,6 +55,8 @@ model Blog {
   updatedAt  DateTime @updatedAt
 
   homeLatest HomeSettingsLatestBlog[]
+
+  @@index([category])
 }
 
 model Tip {
@@ -67,6 +72,8 @@ model Tip {
   updatedAt  DateTime @updatedAt
 
   homeLatest HomeSettingsLatestTip[]
+
+  @@index([category])
 }
 
 model HomeSettings {
@@ -125,6 +132,7 @@ model CourseClass {
   contentType  String   // 'video' or 'text'
   videoUrl     String?
   textContent  String?
+  section      String?  // Folder/Section name for grouping
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }

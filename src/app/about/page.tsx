@@ -55,13 +55,13 @@ export default function AboutPage() {
               <div className="bg-background p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border-t-4 border-primary hover:border-accent group">
                 <h3 className="text-xl font-heading font-bold text-primary mb-2 group-hover:text-accent transition-colors duration-300">Practical Knowledge</h3>
                 <p className="text-text">
-                  We focus on actionable strategies that produce real results, not theoretical concepts that sound good but don't work in practice.
+                  We focus on actionable strategies that produce real results, not theoretical concepts that sound good but don&apos;t work in practice.
                 </p>
               </div>
               <div className="bg-background p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border-t-4 border-primary hover:border-accent group">
                 <h3 className="text-xl font-heading font-bold text-primary mb-2 group-hover:text-accent transition-colors duration-300">Transparency</h3>
                 <p className="text-text">
-                  We're honest about what works and what doesn't. We share our successes and failures so you can learn from our experiences.
+                  We&apos;re honest about what works and what doesn&apos;t. We share our successes and failures so you can learn from our experiences.
                 </p>
               </div>
               <div className="bg-background p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border-t-4 border-primary hover:border-accent group">
@@ -159,7 +159,7 @@ export default function AboutPage() {
                   </div>
                   <h3 className="text-xl font-heading font-bold text-primary mb-4">Careers</h3>
                   <p className="text-text mb-6 text-center">
-                    We're always looking for talented individuals who are passionate about helping others achieve financial success.
+                    We&apos;re always looking for talented individuals who are passionate about helping others achieve financial success.
                   </p>
                   <Link href="/careers" className="inline-block px-6 py-3 bg-primary text-background rounded-md hover:bg-accent transition-colors duration-300 font-semibold">
                     View Openings

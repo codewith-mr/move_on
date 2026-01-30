@@ -56,7 +56,7 @@ const TermsOfServicePage = () => {
               </div>
               <div className="pl-14">
                 <p className="text-neutral-700">
-                  Permission is granted to temporarily download one copy of the materials on TBS's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
+                  Permission is granted to temporarily download one copy of the materials on TBS&apos;s website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
                 </p>
                 <div className="bg-neutral-50 rounded-lg p-4 my-4 border-l-4 border-primary">
                   <ul className="list-none space-y-2 mb-0">
@@ -76,7 +76,7 @@ const TermsOfServicePage = () => {
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                       </svg>
-                      <span>Attempt to decompile or reverse engineer any software contained on TBS's website</span>
+                      <span>Attempt to decompile or reverse engineer any software contained on TBS&apos;s website</span>
                     </li>
                     <li className="flex items-start">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
@@ -88,7 +88,7 @@ const TermsOfServicePage = () => {
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                       </svg>
-                      <span>Transfer the materials to another person or "mirror" the materials on any other server</span>
+                      <span>Transfer the materials to another person or &quot;mirror&quot; the materials on any other server</span>
                     </li>
                   </ul>
                 </div>
@@ -104,7 +104,7 @@ const TermsOfServicePage = () => {
                   <h2 className="text-xl font-heading font-semibold text-primary m-0">Disclaimer</h2>
                 </div>
                 <p className="text-neutral-700 text-sm">
-                  The materials on TBS's website are provided on an 'as is' basis. TBS makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
+                  The materials on TBS&apos;s website are provided on an &apos;as is&apos; basis. TBS makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
                 </p>
               </div>
               
@@ -116,7 +116,7 @@ const TermsOfServicePage = () => {
                   <h2 className="text-xl font-heading font-semibold text-primary m-0">Limitations</h2>
                 </div>
                 <p className="text-neutral-700 text-sm">
-                  In no event shall TBS or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on TBS's website, even if TBS or a TBS authorized representative has been notified orally or in writing of the possibility of such damage.
+                  In no event shall TBS or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on TBS&apos;s website, even if TBS or a TBS authorized representative has been notified orally or in writing of the possibility of such damage.
                 </p>
               </div>
             </div>
@@ -130,7 +130,7 @@ const TermsOfServicePage = () => {
               </div>
               <div className="pl-14">
                 <p className="text-neutral-700">
-                  The materials appearing on TBS's website could include technical, typographical, or photographic errors. TBS does not warrant that any of the materials on its website are accurate, complete or current. TBS may make changes to the materials contained on its website at any time without notice.
+                  The materials appearing on TBS&apos;s website could include technical, typographical, or photographic errors. TBS does not warrant that any of the materials on its website are accurate, complete or current. TBS may make changes to the materials contained on its website at any time without notice.
                 </p>
               </div>
             </div>
@@ -144,7 +144,7 @@ const TermsOfServicePage = () => {
               </div>
               <div className="pl-14">
                 <p className="text-neutral-700">
-                  TBS has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by TBS of the site. Use of any such linked website is at the user's own risk.
+                  TBS has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by TBS of the site. Use of any such linked website is at the user&apos;s own risk.
                 </p>
               </div>
             </div>

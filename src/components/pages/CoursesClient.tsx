@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import CourseCard, { CourseCardProps } from '@/components/cards/CourseCard';
 
@@ -15,7 +15,7 @@ export default function CoursesClient({ courses, availableCategories }: { course
   const searchParams = useSearchParams();
 
   // Combine default categories with available ones, removing duplicates
-  const categories = ['All', ...availableCategories.filter(c => c !== 'All')];
+  const categories = useMemo(() => ['All', ...availableCategories.filter(c => c !== 'All')], [availableCategories]);
 
   const handleCategoryChange = (category: string) => {
     if (category === 'All') {
@@ -47,14 +47,25 @@ export default function CoursesClient({ courses, availableCategories }: { course
     if (categoryParam && categories.includes(categoryParam)) {
       setSelectedCategories([categoryParam]);
     }
-  }, [searchParams]);
+  }, [searchParams, categories]);
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const applyFilters = () => {
+  const sortCourses = useCallback((coursesToSort: CourseCardProps[], option: string) => {
+    switch (option) {
+      case 'Newest':
+        return [...coursesToSort].sort((a, b) => parseInt(a.id, 10) - parseInt(b.id, 10)).reverse();
+      case 'Rating':
+        return [...coursesToSort].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
+      default:
+        return [...coursesToSort].sort((a, b) => (b.reviewCount ?? 0) - (a.reviewCount ?? 0));
+    }
+  }, []);
+
+  const applyFilters = useCallback(() => {
     let result = [...courses];
 
     if (!selectedCategories.includes('All')) {
@@ -69,22 +80,11 @@ export default function CoursesClient({ courses, availableCategories }: { course
 
     setFilteredCourses(result);
     setCurrentPage(1);
-  };
-
-  const sortCourses = (coursesToSort: CourseCardProps[], option: string) => {
-    switch (option) {
-      case 'Newest':
-        return [...coursesToSort].sort((a, b) => parseInt(a.id, 10) - parseInt(b.id, 10)).reverse();
-      case 'Rating':
-        return [...coursesToSort].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
-      default:
-        return [...coursesToSort].sort((a, b) => (b.reviewCount ?? 0) - (a.reviewCount ?? 0));
-    }
-  };
+  }, [courses, selectedCategories, selectedLevels, sortOption, sortCourses]);
 
   useEffect(() => {
     applyFilters();
-  }, [selectedCategories, selectedLevels, sortOption]);
+  }, [applyFilters]);
 
   const indexOfLastCourse = currentPage * coursesPerPage;
   const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
@@ -175,7 +175,7 @@ export default function CoursesClient({ courses, availableCategories }: { course
             </div>
 
             {currentCourses.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {currentCourses.map((course) => (
                   <CourseCard key={course.id} {...course} />
                 ))}

@@ -47,7 +47,7 @@ export default async function BlogArticle({ params }: { params: Promise<{ slug: 
               <span className="text-gray-600">{article.publishDate}</span>
               <span className="text-gray-400">•</span>
               <span className="text-gray-600">{article.readTime}</span>
-              <ShareButton title={article.title} description={article.excerpt} className="text-gray-600" showLabel={false} />
+              <ShareButton url={`/blog/${article.slug}`} title={article.title} description={article.excerpt} className="text-gray-600" />
             </div>
           </div>
           <div className="bg-gray-100 px-4 py-2 rounded-md inline-block">

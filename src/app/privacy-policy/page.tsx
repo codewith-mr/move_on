@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 
 export const metadata = {
   title: 'Privacy Policy | TBS',

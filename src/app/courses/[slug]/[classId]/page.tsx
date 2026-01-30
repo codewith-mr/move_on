@@ -64,12 +64,22 @@ export default async function ClassPage({ params }: Props) {
     // 1. Handle YouTube
     if (url.includes('youtube.com') || url.includes('youtu.be')) {
        let videoId = '';
-       if (url.includes('/embed/')) {
-          videoId = url.split('/embed/')[1].split('?')[0];
-       } else if (url.includes('v=')) {
-          videoId = url.split('v=')[1].split('&')[0];
-       } else if (url.includes('youtu.be/')) {
-          videoId = url.split('youtu.be/')[1].split('?')[0];
+       
+       // Try regex matching for various YouTube formats
+       const patterns = [
+         /v=([^&]+)/,           // watch?v=ID
+         /youtu\.be\/([^?]+)/,  // youtu.be/ID
+         /embed\/([^?]+)/,      // embed/ID
+         /live\/([^?]+)/,       // live/ID
+         /shorts\/([^?]+)/      // shorts/ID
+       ];
+
+       for (const pattern of patterns) {
+         const match = url.match(pattern);
+         if (match && match[1]) {
+           videoId = match[1];
+           break;
+         }
        }
        
        if (videoId) {
@@ -79,18 +89,17 @@ export default async function ClassPage({ params }: Props) {
 
     // 2. Handle Google Drive
     if (url.includes('drive.google.com')) {
-      // Convert view/edit links to preview for embedding
-      // e.g. https://drive.google.com/file/d/ID/view -> https://drive.google.com/file/d/ID/preview
-      let embedUrl = url;
-      if (url.includes('/view')) {
-        embedUrl = url.replace('/view', '/preview');
-      } else if (!url.includes('/preview')) {
-        // If it doesn't end with view or preview, try appending preview if it looks like a file link
-        // This is a rough heuristic
-        if (url.match(/\/file\/d\/[^/]+$/)) {
-          embedUrl = `${url}/preview`;
-        }
+      // Extract File ID and force preview mode
+      const match = url.match(/\/file\/d\/([^/?]+)/);
+      if (match && match[1]) {
+        return { type: 'iframe', src: `https://drive.google.com/file/d/${match[1]}/preview` };
       }
+      
+      // Fallback for other Drive URL formats
+      let embedUrl = url;
+      if (url.includes('/view')) embedUrl = url.replace('/view', '/preview');
+      else if (url.includes('/edit')) embedUrl = url.replace('/edit', '/preview');
+      
       return { type: 'iframe', src: embedUrl };
     }
 
@@ -100,7 +109,6 @@ export default async function ClassPage({ params }: Props) {
     }
 
     // 4. Default: Treat as Generic Iframe (User Request)
-    // We assume the user is pasting an embeddable URL
     return { type: 'iframe', src: url };
   };
 
@@ -137,7 +145,7 @@ export default async function ClassPage({ params }: Props) {
                 <Image src="/user-avatar.svg" alt={course.instructor} width={32} height={32} className="rounded-full mr-3" />
                 <span className="font-medium">{course.instructor}</span>
               </div>
-              <ShareButton url={`/courses/${course.slug}/${classItem.id}`} title={classItem.title} description={classItem.textContent || ''} showLabel={false} />
+              <ShareButton url={`/courses/${course.slug}/${classItem.id}`} title={classItem.title} description={classItem.textContent || ''} />
             </div>
           </div>
         </div>
@@ -182,6 +190,22 @@ export default async function ClassPage({ params }: Props) {
         </div>
 
         <div className="max-w-4xl mx-auto mt-12">
+          {/* Tags Section */}
+          {course.tags && (
+            <div className="mb-10">
+              <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">
+                Tags
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {course.tags?.split(',').map((tag: string) => tag.trim()).filter(Boolean).map((tag: string, i: number) => (
+                  <span key={i} className="bg-gray-100 text-gray-700 text-sm px-3 py-1 rounded-full border border-gray-200">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
           <h2 className="text-2xl font-bold text-gray-800 mb-6">
             {nextClass ? 'Continue Learning' : 'Recommended Courses'}
           </h2>

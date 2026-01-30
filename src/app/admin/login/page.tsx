@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation'
 import PasswordInput from '@/components/ui/PasswordInput'
 import { computeSessionToken, ADMIN_USERNAME, ADMIN_PASSWORD, SESSION_SECRET, SESSION_COOKIE_NAME } from '@/lib/admin-auth'
 
-export default function AdminLoginPage({ searchParams }: { searchParams?: Record<string, string | string[] | undefined> }) {
+export default async function AdminLoginPage({ searchParams }: { searchParams?: Promise<Record<string, string | string[] | undefined>> }) {
   async function login(formData: FormData) {
     'use server'
     const normalize = (s: string) => s
@@ -21,7 +21,7 @@ export default function AdminLoginPage({ searchParams }: { searchParams?: Record
     }
 
     const token = await computeSessionToken(ADMIN_USERNAME, SESSION_SECRET)
-    cookies().set(SESSION_COOKIE_NAME, token, {
+    ;(await cookies()).set(SESSION_COOKIE_NAME, token, {
       httpOnly: true,
       sameSite: 'strict',
       secure: process.env.NODE_ENV === 'production',
@@ -30,9 +30,10 @@ export default function AdminLoginPage({ searchParams }: { searchParams?: Record
     redirect('/admin')
   }
 
+  const params = await searchParams;
   return (
     <div className="max-w-md mx-auto">
-      {searchParams?.error && (
+      {params?.error && (
         <div className="mb-4 p-3 rounded border border-red-300 text-red-700 bg-red-50">Invalid username or password</div>
       )}
       <h2 className="text-xl font-semibold mb-4">Admin Login</h2>

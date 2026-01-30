@@ -58,7 +58,7 @@ export default function ContactPage() {
             Contact Us
           </h1>
           <p className="text-xl text-secondary max-w-2xl">
-            Have questions or need assistance? We're here to help you on your journey to success.
+            Have questions or need assistance? We&apos;re here to help you on your journey to success.
           </p>
         </div>
       </div>
@@ -241,7 +241,7 @@ export default function ContactPage() {
             
             <div className="bg-white rounded-lg shadow-1 p-6">
               <h3 className="text-xl font-heading font-semibold text-text mb-3">Do you offer refunds for courses?</h3>
-              <p className="text-neutral-700">Yes, we offer a 14-day money-back guarantee for all our courses if you're not satisfied with your purchase.</p>
+              <p className="text-neutral-700">Yes, we offer a 14-day money-back guarantee for all our courses if you&apos;re not satisfied with your purchase.</p>
             </div>
             
             <div className="bg-white rounded-lg shadow-1 p-6">

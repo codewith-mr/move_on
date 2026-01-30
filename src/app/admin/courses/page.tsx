@@ -22,6 +22,7 @@ export default async function CoursesManager() {
                 <div className="text-sm text-neutral-500">{c.slug}</div>
               </div>
               <div className="flex items-center gap-4">
+                <Link href={`/admin/courses/${c.id}/edit`} className="text-blue-600 hover:text-blue-800">Edit</Link>
                 <Link href={`/admin/course-classes/${c.id}`} className="text-primary">Manage Classes</Link>
                 <form action={deleteCourse}>
                   <input type="hidden" name="id" value={String(c.id)} />

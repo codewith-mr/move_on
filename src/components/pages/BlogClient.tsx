@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import BlogCard, { BlogCardProps } from '@/components/cards/BlogCard';
 
 const categories = [
@@ -42,7 +42,7 @@ export default function BlogClient({ posts }: { posts: BlogCardProps[] }) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const applyFilters = () => {
+  const applyFilters = useCallback(() => {
     let filtered = [...posts];
 
     if (selectedCategory !== 'All') {
@@ -60,11 +60,11 @@ export default function BlogClient({ posts }: { posts: BlogCardProps[] }) {
     }
 
     setFilteredPosts(filtered);
-  };
+  }, [posts, selectedCategory, searchQuery]);
 
   useEffect(() => {
     applyFilters();
-  }, [selectedCategory]);
+  }, [applyFilters, selectedCategory]);
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import MainLayout from '@/components/layout/MainLayout';
 import Hero from '@/components/ui/Hero';
 import CourseCard from '@/components/cards/CourseCard';
@@ -140,11 +139,13 @@ export default async function Home() {
                 level={course.level}
                 duration={course.duration}
                 price={course.price}
-                discountPrice={course.discountPrice ?? undefined}
-                rating={course.rating ?? undefined}
-                reviewCount={course.reviewCount ?? undefined}
+                discountPrice={course.discountPrice || undefined}
+                rating={course.rating || 0}
+                reviewCount={course.reviewCount || 0}
                 imageUrl={course.imageUrl}
                 category={course.category}
+                isStaffPick={true}
+                tags={course.tags ? course.tags.split(',').map(t => t.trim()) : []}
               />
             ))}
           </div>
@@ -272,7 +273,7 @@ export default async function Home() {
                 author={{ name: post.authorName, avatar: post.authorAvatar || '/user-avatar.svg' }}
                 category={post.category}
                 publishDate={post.publishDate}
-                readTime={post.readTime ?? undefined}
+                readTime={post.readTime || '5 min read'}
                 imageUrl={post.imageUrl}
               />
             ))}

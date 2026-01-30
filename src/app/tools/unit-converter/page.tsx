@@ -140,19 +140,19 @@ const conversionFactors = {
   },
   temperature: {
     celsius: {
-      celsius: (c) => c,
-      fahrenheit: (c) => (c * 9/5) + 32,
-      kelvin: (c) => c + 273.15
+      celsius: (c: number) => c,
+      fahrenheit: (c: number) => (c * 9/5) + 32,
+      kelvin: (c: number) => c + 273.15
     },
     fahrenheit: {
-      celsius: (f) => (f - 32) * 5/9,
-      fahrenheit: (f) => f,
-      kelvin: (f) => (f - 32) * 5/9 + 273.15
+      celsius: (f: number) => (f - 32) * 5/9,
+      fahrenheit: (f: number) => f,
+      kelvin: (f: number) => (f - 32) * 5/9 + 273.15
     },
     kelvin: {
-      celsius: (k) => k - 273.15,
-      fahrenheit: (k) => (k - 273.15) * 9/5 + 32,
-      kelvin: (k) => k
+      celsius: (k: number) => k - 273.15,
+      fahrenheit: (k: number) => (k - 273.15) * 9/5 + 32,
+      kelvin: (k: number) => k
     }
   }
 };
@@ -170,33 +170,33 @@ export default function UnitConverterPage() {
     temperature: ['celsius', 'fahrenheit', 'kelvin']
   };
 
-  const handleCategoryChange = (e) => {
-    const newCategory = e.target.value;
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newCategory = e.target.value as keyof typeof categories;
     setCategory(newCategory);
     setFromUnit(categories[newCategory][0]);
     setToUnit(categories[newCategory][1]);
     convert(fromValue, categories[newCategory][0], categories[newCategory][1], newCategory);
   };
 
-  const handleFromUnitChange = (e) => {
+  const handleFromUnitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newFromUnit = e.target.value;
     setFromUnit(newFromUnit);
     convert(fromValue, newFromUnit, toUnit, category);
   };
 
-  const handleToUnitChange = (e) => {
+  const handleToUnitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newToUnit = e.target.value;
     setToUnit(newToUnit);
     convert(fromValue, fromUnit, newToUnit, category);
   };
 
-  const handleFromValueChange = (e) => {
+  const handleFromValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newFromValue = e.target.value;
     setFromValue(newFromValue);
     convert(newFromValue, fromUnit, toUnit, category);
   };
 
-  const convert = (value, from, to, cat) => {
+  const convert = (value: string, from: string, to: string, cat: string) => {
     if (value === '' || isNaN(Number(value))) {
       setToValue('');
       return;
@@ -204,11 +204,14 @@ export default function UnitConverterPage() {
 
     const numValue = parseFloat(value);
     
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const factors = conversionFactors as any;
+
     if (cat === 'temperature') {
-      const result = conversionFactors[cat][from][to](numValue);
+      const result = factors[cat][from][to](numValue);
       setToValue(result.toFixed(6));
     } else {
-      const result = numValue * conversionFactors[cat][from][to];
+      const result = numValue * factors[cat][from][to];
       setToValue(result.toFixed(6));
     }
   };
@@ -284,7 +287,7 @@ export default function UnitConverterPage() {
                     onChange={handleFromUnitChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                   >
-                    {categories[category].map((unit) => (
+                    {categories[category as keyof typeof categories].map((unit) => (
                       <option key={unit} value={unit}>
                         {unit.charAt(0).toUpperCase() + unit.slice(1)}
                       </option>
@@ -334,7 +337,7 @@ export default function UnitConverterPage() {
                     onChange={handleToUnitChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                   >
-                    {categories[category].map((unit) => (
+                    {categories[category as keyof typeof categories].map((unit) => (
                       <option key={unit} value={unit}>
                         {unit.charAt(0).toUpperCase() + unit.slice(1)}
                       </option>
@@ -360,7 +363,8 @@ export default function UnitConverterPage() {
                   </>
                 ) : (
                   <>
-                    1 {fromUnit} = {conversionFactors[category][fromUnit][toUnit]} {toUnit}
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                    1 {fromUnit} = {(conversionFactors as any)[category][fromUnit][toUnit]} {toUnit}
                   </>
                 )}
               </p>

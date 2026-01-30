@@ -84,7 +84,7 @@ export default function FAQPage() {
         </div>
 
         <div className="text-center mt-12">
-          <p className="text-neutral-700 mb-4">Don't see your question here?</p>
+          <p className="text-neutral-700 mb-4">Don&apos;t see your question here?</p>
           <Link
             href="/contact"
             className="inline-block px-6 py-3 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors font-medium"

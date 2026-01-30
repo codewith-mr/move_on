@@ -15,23 +15,6 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
     ? (classes[0].contentType === 'video' ? 'video' : 'text')
     : 'video';
 
-  // Function to format YouTube URLs for embedding if needed
-  const formatVideoUrl = (url: string) => {
-    // Check if it's already an embed URL
-    if (url.includes('/embed/')) {
-      return url;
-    }
-    
-    // Convert YouTube watch URLs to embed format
-    if (url.includes('youtube.com/watch')) {
-      const videoId = new URL(url).searchParams.get('v');
-      return `https://www.youtube.com/embed/${videoId}`;
-    }
-    
-    // Return original URL for other sources
-    return url;
-  };
-
   if (!course) {
     notFound();
   }
@@ -110,7 +93,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
                   </svg>
                   <span className="text-white">{course.duration}</span>
                 </div>
-                <ShareButton url={`/courses/${slug}`} title={course.title} description={course.description} showLabel={false} />
+                <ShareButton url={`/courses/${slug}`} title={course.title} description={course.description} />
               </div>
             </div>
           </div>
@@ -149,25 +132,55 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
           </div>
 
           {/* Class List */}
-          <div className="space-y-4">
-              {classes.length > 0 ? (
-                classes.map((classItem: CourseClass) => (
-                  <Link 
-                    href={`/courses/${slug}/${classItem.id}`}
-                    key={classItem.id} 
-                    className="border border-gray-200 rounded-lg p-4 hover:border-primary transition-colors cursor-pointer block"
-                  >
-                    <div className="flex justify-between items-center">
-                      <h3 className="text-lg font-semibold text-text">
-                        {classItem.index}. {classItem.title}
-                      </h3>
-                      <div className="bg-gray-100 px-2 py-1 rounded text-xs font-medium text-gray-600">
-                        {classItem.index < 10 ? `0${classItem.index}` : classItem.index}
-                      </div>
-                    </div>
-                  </Link>
-                ))
-              ) : (
+          <div className="space-y-6">
+            {classes.length > 0 ? (
+              // Group classes by section
+              Object.entries(
+                classes.reduce((acc, cls) => {
+                  const section = cls.section || 'General';
+                  if (!acc[section]) acc[section] = [];
+                  acc[section].push(cls);
+                  return acc;
+                }, {} as Record<string, typeof classes>)
+              ).map(([section, sectionClasses]) => (
+                <div key={section} className="space-y-4">
+                  {/* Show section header if it's not the default "General" or if there are multiple sections */}
+                  {(section !== 'General' || Object.keys(classes.reduce((acc, cls) => {
+                      const s = cls.section || 'General';
+                      if (!acc[s]) acc[s] = [];
+                      acc[s].push(cls);
+                      return acc;
+                    }, {} as Record<string, typeof classes>)).length > 1) && (
+                    <h3 className="text-xl font-bold text-gray-800 border-b pb-2">{section}</h3>
+                  )}
+                  
+                  <div className="space-y-3">
+                    {sectionClasses.map((classItem) => (
+                      <Link 
+                        href={`/courses/${slug}/${classItem.id}`}
+                        key={classItem.id} 
+                        className="border border-gray-200 rounded-lg p-4 hover:border-primary transition-colors cursor-pointer block bg-white hover:shadow-sm"
+                      >
+                        <div className="flex justify-between items-center">
+                          <h4 className="text-lg font-semibold text-text">
+                            <span className="text-neutral-400 font-normal mr-2 text-sm">#{classItem.index}</span>
+                            {classItem.title}
+                          </h4>
+                          <div className="bg-gray-100 px-3 py-1 rounded-full text-xs font-medium text-gray-600 flex items-center">
+                            {classItem.contentType === 'video' ? (
+                              <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zm12.553 1.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path></svg>
+                            ) : (
+                              <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clipRule="evenodd"></path></svg>
+                            )}
+                            Play
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))
+            ) : (
               <div className="text-center py-8 text-neutral-700">
                 No classes added yet for this course.
               </div>

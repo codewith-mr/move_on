@@ -22,7 +22,6 @@ const BlogCard = ({
   slug,
   title,
   excerpt,
-  author,
   category,
   publishDate,
   readTime,

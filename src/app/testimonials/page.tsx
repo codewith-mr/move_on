@@ -38,7 +38,7 @@ export default function TestimonialsPage() {
                 </div>
               </div>
               <p className="text-neutral-700 italic">
-                "The courses on The Business Starter completely transformed my freelance business. I went from struggling to find clients to having a waitlist in just 3 months. The practical strategies and supportive community made all the difference."
+                &quot;The courses on The Business Starter completely transformed my freelance business. I went from struggling to find clients to having a waitlist in just 3 months. The practical strategies and supportive community made all the difference.&quot;
               </p>
               <div className="flex text-yellow-400 mt-4">
                 <span>★</span>
@@ -66,7 +66,7 @@ export default function TestimonialsPage() {
                 </div>
               </div>
               <p className="text-neutral-700 italic">
-                "I was skeptical at first, but the SEO tools and strategies I learned here helped me increase my store's organic traffic by 215% in just 6 months. The ROI on these courses has been incredible."
+                &quot;I was skeptical at first, but the SEO tools and strategies I learned here helped me increase my store&apos;s organic traffic by 215% in just 6 months. The ROI on these courses has been incredible.&quot;
               </p>
               <div className="flex text-yellow-400 mt-4">
                 <span>★</span>
@@ -94,7 +94,7 @@ export default function TestimonialsPage() {
                 </div>
               </div>
               <p className="text-neutral-700 italic">
-                "The content creation tools saved me hours of work each week. I'm now able to produce twice as much content in half the time, which has directly translated to more subscribers and revenue."
+                &quot;The content creation tools saved me hours of work each week. I&apos;m now able to produce twice as much content in half the time, which has directly translated to more subscribers and revenue.&quot;
               </p>
               <div className="flex text-yellow-400 mt-4">
                 <span>★</span>
@@ -122,7 +122,7 @@ export default function TestimonialsPage() {
                 </div>
               </div>
               <p className="text-neutral-700 italic">
-                "As a marketing consultant, I'm always looking for new strategies to share with my clients. The Business Starter consistently provides cutting-edge tactics that work in the real world, not just theory."
+                &quot;As a marketing consultant, I&apos;m always looking for new strategies to share with my clients. The Business Starter consistently provides cutting-edge tactics that work in the real world, not just theory.&quot;
               </p>
               <div className="flex text-yellow-400 mt-4">
                 <span>★</span>
@@ -150,7 +150,7 @@ export default function TestimonialsPage() {
                 </div>
               </div>
               <p className="text-neutral-700 italic">
-                "The community aspect of The Business Starter has been invaluable. Being able to connect with other entrepreneurs facing similar challenges has provided both practical solutions and emotional support."
+                &quot;The community aspect of The Business Starter has been invaluable. Being able to connect with other entrepreneurs facing similar challenges has provided both practical solutions and emotional support.&quot;
               </p>
               <div className="flex text-yellow-400 mt-4">
                 <span>★</span>
@@ -178,7 +178,7 @@ export default function TestimonialsPage() {
                 </div>
               </div>
               <p className="text-neutral-700 italic">
-                "The tools and resources here helped me validate my business idea before investing significant time and money. This saved me from making costly mistakes and helped me pivot to a more viable model."
+                &quot;The tools and resources here helped me validate my business idea before investing significant time and money. This saved me from making costly mistakes and helped me pivot to a more viable model.&quot;
               </p>
               <div className="flex text-yellow-400 mt-4">
                 <span>★</span>
@@ -193,7 +193,7 @@ export default function TestimonialsPage() {
           <div className="bg-primary rounded-lg shadow-1 p-8 text-center">
             <h2 className="text-2xl font-heading font-bold text-white mb-4">Share Your Story</h2>
             <p className="text-secondary max-w-2xl mx-auto mb-6">
-              Has The Business Starter helped you grow your business? We'd love to hear about your experience!
+              Has The Business Starter helped you grow your business? We&apos;d love to hear about your experience!
             </p>
             <Link
               href="/contact"

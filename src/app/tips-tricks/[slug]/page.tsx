@@ -1,7 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import ShareButton from '@/components/ui/ShareButton'
 
 export default async function TipPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

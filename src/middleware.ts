@@ -5,7 +5,7 @@ import { computeSessionToken, ADMIN_USERNAME, SESSION_SECRET, SESSION_COOKIE_NAM
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  console.log(`[Middleware] Processing request for: ${pathname}`);
+  // console.log(`[Middleware] Processing request for: ${pathname}`);
   
   // Protect all /admin routes
   if (pathname.startsWith('/admin')) {

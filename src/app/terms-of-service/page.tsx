@@ -104,7 +104,7 @@ const TermsOfServicePage = () => {
                   <h2 className="text-xl font-heading font-semibold text-primary m-0">Disclaimer</h2>
                 </div>
                 <p className="text-neutral-700 text-sm">
-                  The materials on TBS&apos;s website are provided on an &apos;as is&apos; basis. TBS makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
+                  The materials on TBS&apos;s website are provided on an &quot;as is&quot; basis. TBS makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
                 </p>
               </div>
               

@@ -8,16 +8,23 @@ import { prisma } from '@/lib/prisma';
 
 export default async function Home() {
   const settings = await prisma.homeSettings.findFirst({ where: { id: 1 } });
+  
+  const [featuredCoursesLinks, latestBlogsLinks] = await Promise.all([
+    prisma.homeSettingsFeaturedCourse.findMany({ where: { homeSettingsId: settings?.id || 1 } }),
+    prisma.homeSettingsLatestBlog.findMany({ where: { homeSettingsId: settings?.id || 1 } })
+  ]);
+
+  const [featuredCourses, latestBlogPosts] = await Promise.all([
+    prisma.course.findMany({ where: { id: { in: featuredCoursesLinks.map(l => l.courseId) } } }),
+    prisma.blog.findMany({ where: { id: { in: latestBlogsLinks.map(l => l.blogId) } } })
+  ]);
+
   const bannerTitle = settings?.bannerTitle || 'Learn Practical Skills That Convert Directly Into Income';
   const bannerSubtitle = settings?.bannerSubtitle || 'Actionable courses, tools, and resources for freelancers, content creators, and side-hustlers';
   const bannerCtaText = settings?.bannerCtaText || 'Explore Courses';
   const bannerCtaLink = settings?.bannerCtaLink || '/courses';
   const bannerSecondaryCtaText = settings?.bannerSecondaryCtaText || 'Try Free Tools';
   const bannerSecondaryCtaLink = settings?.bannerSecondaryCtaLink || '/tools';
-  const featuredCoursesLinks = await prisma.homeSettingsFeaturedCourse.findMany({ where: { homeSettingsId: settings?.id || 1 } });
-  const featuredCourses = await prisma.course.findMany({ where: { id: { in: featuredCoursesLinks.map(l => l.courseId) } } });
-  const latestBlogsLinks = await prisma.homeSettingsLatestBlog.findMany({ where: { homeSettingsId: settings?.id || 1 } });
-  const latestBlogPosts = await prisma.blog.findMany({ where: { id: { in: latestBlogsLinks.map(l => l.blogId) } } });
   const featuredTools = [
     {
       id: '1',

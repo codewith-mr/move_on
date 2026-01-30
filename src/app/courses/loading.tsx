@@ -1,8 +1,10 @@
+import StaticMainLayout from '@/components/layout/StaticMainLayout';
 import { Skeleton } from "@/components/ui/Skeleton"
 
 export default function Loading() {
   return (
-    <div className="container mx-auto px-4 py-8">
+    <StaticMainLayout>
+      <div className="container mx-auto px-4 py-8">
       {/* Search and Filter Skeleton */}
       <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
         <Skeleton className="h-10 w-full md:w-1/3" />
@@ -25,6 +27,7 @@ export default function Loading() {
           </div>
         ))}
       </div>
-    </div>
+      </div>
+    </StaticMainLayout>
   )
 }

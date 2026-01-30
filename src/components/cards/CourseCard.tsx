@@ -91,6 +91,7 @@ const TagsPopover = ({ tags, category }: { tags: string[], category: string }) =
               setShow(!show);
             }}
             onBlur={() => setTimeout(() => setShow(false), 200)}
+            suppressHydrationWarning={true}
           >
             +{remainingCount}
           </button>

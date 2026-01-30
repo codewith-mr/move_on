@@ -8,7 +8,24 @@ import CoursesClient from '@/components/pages/CoursesClient';
 import { CourseCardProps } from '@/components/cards/CourseCard';
 
 export default async function CoursesPage() {
-  const allCourses = await prisma.course.findMany();
+  const allCourses = await prisma.course.findMany({
+    select: {
+      id: true,
+      slug: true,
+      title: true,
+      description: true,
+      instructor: true,
+      level: true,
+      duration: true,
+      price: true,
+      discountPrice: true,
+      rating: true,
+      reviewCount: true,
+      imageUrl: true,
+      category: true,
+      tags: true,
+    }
+  });
   
   // Extract unique categories from courses
   const categories = Array.from(new Set(allCourses.map(c => c.category).filter(Boolean)));

@@ -11,6 +11,8 @@ const nextConfig: NextConfig = {
    * We enable it for optimal performance.
    */
   images: {
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     // unoptimized: true, // Commented out to enable Vercel Image Optimization
   },
 };

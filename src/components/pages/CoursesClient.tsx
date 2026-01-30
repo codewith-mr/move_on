@@ -10,8 +10,9 @@ export default function CoursesClient({ courses, availableCategories }: { course
   const [selectedLevels, setSelectedLevels] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState<string>('Most Popular');
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [searchQuery, setSearchQuery] = useState('');
   const [filteredCourses, setFilteredCourses] = useState<CourseCardProps[]>(courses);
-  const coursesPerPage = 4;
+  const [isLoadMoreExpanded, setIsLoadMoreExpanded] = useState(false);
   const searchParams = useSearchParams();
 
   // Combine default categories with available ones, removing duplicates
@@ -40,6 +41,10 @@ export default function CoursesClient({ courses, availableCategories }: { course
 
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSortOption(e.target.value);
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
   };
 
   useEffect(() => {
@@ -76,20 +81,58 @@ export default function CoursesClient({ courses, availableCategories }: { course
       result = result.filter(course => selectedLevels.includes(course.level));
     }
 
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      result = result.filter(course => 
+        course.title.toLowerCase().includes(query) || 
+        course.description.toLowerCase().includes(query) ||
+        course.instructor.toLowerCase().includes(query)
+      );
+    }
+
     result = sortCourses(result, sortOption);
 
     setFilteredCourses(result);
     setCurrentPage(1);
-  }, [courses, selectedCategories, selectedLevels, sortOption, sortCourses]);
+    setIsLoadMoreExpanded(false);
+  }, [courses, selectedCategories, selectedLevels, sortOption, sortCourses, searchQuery]);
 
   useEffect(() => {
     applyFilters();
   }, [applyFilters]);
 
-  const indexOfLastCourse = currentPage * coursesPerPage;
-  const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
-  const currentCourses = filteredCourses.slice(indexOfFirstCourse, indexOfLastCourse);
-  const totalPages = Math.ceil(filteredCourses.length / coursesPerPage);
+  // Pagination Logic
+  const standardPageSize = 12;
+  const totalPages = Math.ceil(filteredCourses.length / standardPageSize);
+  
+  let currentCourses: CourseCardProps[] = [];
+
+  if (currentPage === 1) {
+    // Page 1: Show 3 (Popular) + 3 (Standard) initially = 6
+    // If expanded: Show 3 (Popular) + 3 (Standard) + 6 (Load More) = 12
+    const limit = isLoadMoreExpanded ? 12 : 6;
+    currentCourses = filteredCourses.slice(0, limit);
+  } else {
+    // Page 2+: Standard pagination (12 items per page)
+    const startIndex = (currentPage - 1) * standardPageSize;
+    const endIndex = startIndex + standardPageSize;
+    currentCourses = filteredCourses.slice(startIndex, endIndex);
+  }
+
+  const showLoadMore = currentPage === 1 && !isLoadMoreExpanded && filteredCourses.length > 6;
+  const showShowLess = currentPage === 1 && isLoadMoreExpanded;
+  // Show pagination if we are expanded on Page 1 (and have more pages) OR if we are on Page 2+
+  const showPagination = ((currentPage === 1 && isLoadMoreExpanded) || currentPage > 1) && totalPages > 1;
+
+  const handleLoadMore = () => {
+    setIsLoadMoreExpanded(true);
+  };
+
+  const handleShowLess = () => {
+    setIsLoadMoreExpanded(false);
+    // Optionally scroll back up to the top of the list or list container
+    // window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <>
@@ -153,24 +196,47 @@ export default function CoursesClient({ courses, availableCategories }: { course
           </div>
 
           <div className="w-full md:w-3/4">
-            <div className="flex justify-between items-center mb-8">
+            <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
               <h2 className="text-2xl font-heading font-bold text-text">
                 {filteredCourses.length} Courses Available
               </h2>
-              <div className="flex items-center bg-white shadow-sm rounded-lg px-4 py-2">
-                <label htmlFor="sort" className="mr-3 text-sm font-medium text-neutral-700 cursor-pointer hover:text-primary transition-colors">
-                  Sort by:
-                </label>
-                <select
-                  id="sort"
-                  value={sortOption}
-                  onChange={handleSortChange}
-                  className="border-none text-sm font-medium text-primary hover:text-accent focus:ring-0 focus:outline-none bg-transparent cursor-pointer transition-colors"
-                >
-                  <option className="text-neutral-800 hover:text-accent hover:bg-gray-50">Most Popular</option>
-                  <option className="text-neutral-800 hover:text-accent hover:bg-gray-50">Newest</option>
-                  <option className="text-neutral-800 hover:text-accent hover:bg-gray-50">Rating</option>
-                </select>
+              <div className="flex items-center gap-4">
+                {/* Mini Active Search Bar */}
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search courses..."
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                    className="pl-9 pr-4 py-2 w-48 md:w-64 text-sm bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all shadow-sm"
+                    suppressHydrationWarning={true}
+                  />
+                  <svg 
+                    className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+
+                <div className="flex items-center bg-white shadow-sm rounded-lg px-4 py-2">
+                  <label htmlFor="sort" className="mr-3 text-sm font-medium text-neutral-700 cursor-pointer hover:text-primary transition-colors">
+                    Sort by:
+                  </label>
+                  <select
+                    id="sort"
+                    value={sortOption}
+                    onChange={handleSortChange}
+                    className="border-none text-sm font-medium text-primary hover:text-accent focus:ring-0 focus:outline-none bg-transparent cursor-pointer transition-colors"
+                    suppressHydrationWarning={true}
+                  >
+                    <option className="text-neutral-800 hover:text-accent hover:bg-gray-50">Most Popular</option>
+                    <option className="text-neutral-800 hover:text-accent hover:bg-gray-50">Newest</option>
+                    <option className="text-neutral-800 hover:text-accent hover:bg-gray-50">Rating</option>
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -187,17 +253,44 @@ export default function CoursesClient({ courses, availableCategories }: { course
             )}
 
             {filteredCourses.length > 0 && (
-              <div className="mt-12 flex justify-center">
-                <nav className="flex items-center space-x-2">
+              <div className="mt-12 flex flex-col items-center gap-8">
+                {showLoadMore && (
                   <button
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className={`px-3 py-2 rounded-md border border-gray-300 text-sm font-medium ${currentPage === 1 ? 'text-neutral-400 cursor-not-allowed' : 'text-neutral-700 hover:bg-gray-50'}`}
+                    onClick={handleLoadMore}
+                    className="group flex items-center gap-2 px-5 py-2.5 bg-white border border-neutral-200 text-neutral-600 text-sm font-medium rounded-full hover:border-primary hover:text-primary transition-all duration-300 shadow-sm hover:shadow"
+                    suppressHydrationWarning={true}
                   >
-                    Previous
+                    <span>Load More</span>
+                    <svg className="w-4 h-4 transition-transform group-hover:translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
                   </button>
+                )}
 
-                  {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
+                {showShowLess && (
+                  <button
+                    onClick={handleShowLess}
+                    className="group flex items-center gap-2 px-5 py-2.5 bg-white border border-neutral-200 text-neutral-600 text-sm font-medium rounded-full hover:border-primary hover:text-primary transition-all duration-300 shadow-sm hover:shadow"
+                    suppressHydrationWarning={true}
+                  >
+                    <span>Show Less</span>
+                    <svg className="w-4 h-4 transition-transform group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                    </svg>
+                  </button>
+                )}
+
+                {showPagination && (
+                  <nav className="flex items-center space-x-2">
+                    <button
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage === 1}
+                      className={`px-3 py-2 rounded-md border border-gray-300 text-sm font-medium ${currentPage === 1 ? 'text-neutral-400 cursor-not-allowed' : 'text-neutral-700 hover:bg-gray-50'}`}
+                    >
+                      Previous
+                    </button>
+
+                    {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
                     let pageNum;
                     if (totalPages <= 5) {
                       pageNum = i + 1;
@@ -241,6 +334,7 @@ export default function CoursesClient({ courses, availableCategories }: { course
                     Next
                   </button>
                 </nav>
+                )}
               </div>
             )}
           </div>

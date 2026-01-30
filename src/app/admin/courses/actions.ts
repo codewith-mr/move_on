@@ -10,12 +10,21 @@ export async function addCourse(prevState: unknown, formData: FormData) {
     const title = String(formData.get('title') || '')
     // Sanitize slug: lowercase, replace spaces/special chars with hyphens
     const rawSlug = String(formData.get('slug') || '')
-    const slug = rawSlug
+    let slug = rawSlug
       .toLowerCase()
       .trim()
       .replace(/[^\w\s-]/g, '') // Remove non-word chars (except spaces and hyphens)
       .replace(/[\s_-]+/g, '-') // Replace spaces and underscores with hyphens
       .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
+
+    // Ensure slug uniqueness
+    let uniqueSlug = slug
+    let counter = 1
+    while (await prisma.course.findUnique({ where: { slug: uniqueSlug } })) {
+      uniqueSlug = `${slug}-${counter}`
+      counter++
+    }
+    slug = uniqueSlug
 
     const description = String(formData.get('description') || '')
     const instructor = String(formData.get('instructor') || '')
@@ -87,7 +96,7 @@ export async function addCourse(prevState: unknown, formData: FormData) {
     return { success: true, message: 'Course added successfully' }
   } catch (error) {
     console.error('Error adding course:', error)
-    return { success: false, message: 'Failed to add course' }
+    return { success: false, message: `Failed to add course: ${error instanceof Error ? error.message : String(error)}` }
   }
 }
 
@@ -99,12 +108,29 @@ export async function updateCourse(prevState: unknown, formData: FormData) {
     const title = String(formData.get('title') || '')
     // Sanitize slug: lowercase, replace spaces/special chars with hyphens
     const rawSlug = String(formData.get('slug') || '')
-    const slug = rawSlug
+    let slug = rawSlug
       .toLowerCase()
       .trim()
       .replace(/[^\w\s-]/g, '')
       .replace(/[\s_-]+/g, '-')
       .replace(/^-+|-+$/g, '');
+
+    // Ensure slug uniqueness (excluding current course)
+    let uniqueSlug = slug
+    let counter = 1
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+      const existing = await prisma.course.findFirst({
+        where: { 
+          slug: uniqueSlug,
+          NOT: { id }
+        }
+      })
+      if (!existing) break
+      uniqueSlug = `${slug}-${counter}`
+      counter++
+    }
+    slug = uniqueSlug
 
     const description = String(formData.get('description') || '')
     const instructor = String(formData.get('instructor') || '')

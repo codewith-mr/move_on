@@ -5,7 +5,16 @@ import MainLayout from '@/components/layout/MainLayout';
 import Link from 'next/link';
 
 // Unit conversion factors
-const conversionFactors = {
+type SimpleConversion = Record<string, Record<string, number>>;
+type TempConversion = Record<string, Record<string, (val: number) => number>>;
+
+interface ConversionFactorsType {
+  length: SimpleConversion;
+  weight: SimpleConversion;
+  temperature: TempConversion;
+}
+
+const conversionFactors: ConversionFactorsType = {
   length: {
     meter: {
       meter: 1,
@@ -363,8 +372,7 @@ export default function UnitConverterPage() {
                   </>
                 ) : (
                   <>
-                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                    1 {fromUnit} = {(conversionFactors as any)[category][fromUnit][toUnit]} {toUnit}
+                    1 {fromUnit} = {conversionFactors[category as 'length' | 'weight'][fromUnit][toUnit]} {toUnit}
                   </>
                 )}
               </p>

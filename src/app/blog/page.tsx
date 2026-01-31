@@ -17,9 +17,13 @@ export default async function BlogPage() {
     readTime: post.readTime ?? '',
     imageUrl: post.imageUrl,
   }));
+
+  // Extract unique categories
+  const categories = Array.from(new Set(allPosts.map(p => p.category).filter(Boolean)));
+
   return (
     <MainLayout>
-      <BlogClient posts={mapped} />
+      <BlogClient posts={mapped} availableCategories={categories} />
     </MainLayout>
   )
 }

@@ -4,12 +4,22 @@ import MainLayout from '@/components/layout/MainLayout';
 import ShareButton from '@/components/ui/ShareButton';
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
+import { marked } from 'marked';
 
 export default async function BlogArticle({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const article = await prisma.blog.findUnique({ where: { slug } })
   if (!article) return notFound()
   const related = await prisma.blog.findMany({ where: { category: article.category, NOT: { id: article.id } }, take: 3 })
+  
+  // Parse tags if available
+  const tagsList = article.tags 
+    ? article.tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0) 
+    : [];
+
+  // Convert Markdown to HTML
+  const contentHtml = article.content ? await marked(article.content, { breaks: true }) : '';
+
   return (
     <MainLayout>
       <div className="container mx-auto px-4 py-8">
@@ -59,18 +69,23 @@ export default async function BlogArticle({ params }: { params: Promise<{ slug: 
           <Image src={article.imageUrl} alt={article.title} fill style={{ objectFit: 'cover' }} priority />
         </div>
 
-        <div className="prose max-w-none" suppressHydrationWarning={true}>
+        <div className="prose max-w-3xl mx-auto" suppressHydrationWarning={true}>
           <p className="text-lg mb-6">{article.excerpt}</p>
-          {article.content && (
-            <div dangerouslySetInnerHTML={{ __html: article.content }} />
+          {contentHtml && (
+            <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
           )}
         </div>
 
-        <div className="mt-12 pt-6 border-t border-gray-200">
+        <div className="mt-12 pt-6 border-t border-gray-200 max-w-3xl mx-auto">
           <div className="flex flex-wrap justify-end items-center">
-            <div>
+            <div className="flex items-center flex-wrap gap-2">
               <span className="font-medium mr-2">Tags:</span>
-              <span className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm mr-2">{article.category}</span>
+              <span className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">{article.category}</span>
+              {tagsList.map((tag, index) => (
+                <span key={index} className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">
+                  {tag}
+                </span>
+              ))}
             </div>
           </div>
         </div>

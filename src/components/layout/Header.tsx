@@ -49,7 +49,7 @@ const Header = ({ logoUrl }: { logoUrl: string }) => {
             href="/tools" 
             className={`font-body font-semibold transition-colors ${isActive('/tools') ? 'text-primary' : 'text-text hover:text-primary'}`}
           >
-            Tools
+            Apps & Tools
           </Link>
           <Link 
             href="/tips-tricks" 
@@ -113,7 +113,7 @@ const Header = ({ logoUrl }: { logoUrl: string }) => {
               className={`font-body font-semibold py-2 transition-colors ${isActive('/tools') ? 'text-primary' : 'text-text hover:text-primary'}`}
               onClick={() => setIsMenuOpen(false)}
             >
-              Tools
+              Apps & Tools
             </Link>
             <Link 
               href="/tips-tricks" 

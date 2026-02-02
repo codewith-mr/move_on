@@ -1,17 +1,17 @@
 'use client'
 
 import { useActionState, useRef, useState, useEffect } from 'react'
-import { addBlog, updateBlog } from '@/app/admin/blogs/actions'
+import { addTip, updateTip } from '@/app/admin/tips/actions'
 import { marked } from 'marked'
 
-interface BlogFormProps {
+interface TipFormProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   initialData?: any;
 }
 
-export default function BlogForm({ initialData }: BlogFormProps) {
+export default function TipForm({ initialData }: TipFormProps) {
   const isEditing = !!initialData;
-  const action = isEditing ? updateBlog : addBlog;
+  const action = isEditing ? updateTip : addTip;
   
   const [state, formAction, isPending] = useActionState(action, { success: false, message: '' })
   const contentRef = useRef<HTMLTextAreaElement>(null);
@@ -265,7 +265,7 @@ export default function BlogForm({ initialData }: BlogFormProps) {
   return (
     <form action={formAction} className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-6 rounded-lg shadow-sm border">
       <div className="md:col-span-2 border-b pb-2 mb-2">
-        <h3 className="font-semibold text-lg">{isEditing ? 'Edit Blog' : 'Add New Blog'}</h3>
+        <h3 className="font-semibold text-lg">{isEditing ? 'Edit Tip' : 'Add New Tip'}</h3>
         {state.message && (
           <div className={`mt-2 text-sm p-2 rounded ${state.success ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600'}`}>
             {state.message}
@@ -277,7 +277,7 @@ export default function BlogForm({ initialData }: BlogFormProps) {
 
       <div className="space-y-2">
         <label className="block text-sm font-medium">Title</label>
-        <input name="title" defaultValue={initialData?.title} placeholder="Blog Title" className="w-full border rounded px-3 py-2" required />
+        <input name="title" defaultValue={initialData?.title} placeholder="Tip Title" className="w-full border rounded px-3 py-2" required />
       </div>
 
       <div className="space-y-2">
@@ -285,7 +285,7 @@ export default function BlogForm({ initialData }: BlogFormProps) {
         <input 
           name="slug" 
           defaultValue={initialData?.slug}
-          placeholder="blog-post-slug" 
+          placeholder="tip-post-slug" 
           className="w-full border rounded px-3 py-2" 
           required 
           pattern="[a-z0-9-]+"
@@ -305,18 +305,8 @@ export default function BlogForm({ initialData }: BlogFormProps) {
       </div>
 
       <div className="space-y-2">
-        <label className="block text-sm font-medium">Author</label>
-        <input name="authorName" defaultValue={initialData?.authorName} placeholder="Author Name" className="w-full border rounded px-3 py-2" />
-      </div>
-
-      <div className="space-y-2">
         <label className="block text-sm font-medium">Category</label>
         <input name="category" defaultValue={initialData?.category} placeholder="Category" className="w-full border rounded px-3 py-2" />
-      </div>
-
-      <div className="space-y-2">
-        <label className="block text-sm font-medium">Publish Date</label>
-        <input name="publishDate" defaultValue={initialData?.publishDate} placeholder="e.g. October 15, 2023" className="w-full border rounded px-3 py-2" />
       </div>
 
       <div className="space-y-2">
@@ -335,13 +325,8 @@ export default function BlogForm({ initialData }: BlogFormProps) {
       </div>
 
       <div className="md:col-span-2 space-y-2">
-        <label className="block text-sm font-medium">Tags (Comma Separated)</label>
-        <input name="tags" defaultValue={initialData?.tags} placeholder="Technology, Guide, Tips" className="w-full border rounded px-3 py-2" />
-      </div>
-
-      <div className="md:col-span-2 space-y-2">
-        <label className="block text-sm font-medium">Excerpt</label>
-        <textarea name="excerpt" defaultValue={initialData?.excerpt} className="w-full border rounded px-3 py-2" rows={2} placeholder="Brief summary for cards"></textarea>
+        <label className="block text-sm font-medium">Description</label>
+        <textarea name="description" defaultValue={initialData?.description} className="w-full border rounded px-3 py-2" rows={2} placeholder="Brief summary for cards"></textarea>
       </div>
 
       <div className="md:col-span-2 space-y-2">
@@ -406,7 +391,7 @@ export default function BlogForm({ initialData }: BlogFormProps) {
                   onChange={(e) => setContent(e.target.value)}
                   className="w-full border rounded px-3 py-2 font-mono text-sm" 
                   rows={12} 
-                  placeholder="Write your blog content here... Use the toolbar above for formatting. Toggle 'Preview' to see the result."
+                  placeholder="Write your tip content here... Use the toolbar above for formatting. Toggle 'Preview' to see the result."
                 ></textarea>
             </>
         ) : (
@@ -422,7 +407,7 @@ export default function BlogForm({ initialData }: BlogFormProps) {
           disabled={isPending}
           className="px-6 py-2 bg-primary text-white rounded hover:bg-primary/90 transition-colors disabled:opacity-50"
         >
-          {isPending ? 'Saving...' : (isEditing ? 'Update Blog' : 'Add Blog')}
+          {isPending ? 'Saving...' : (isEditing ? 'Update Tip' : 'Add Tip')}
         </button>
       </div>
 

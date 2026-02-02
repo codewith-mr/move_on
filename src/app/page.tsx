@@ -292,12 +292,12 @@ export default async function Home() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-10">
-            <h2 className="text-3xl font-heading font-bold text-text">Featured Tools</h2>
+            <h2 className="text-3xl font-heading font-bold text-text">Featured Apps & Tools</h2>
             <Link
               href="/tools"
               className="text-primary hover:text-accent transition-colors font-semibold flex items-center"
             >
-              View All Tools
+              View All Apps & Tools
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 ml-1"
@@ -315,7 +315,7 @@ export default async function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredTools.map((tool) => (
               <ToolCard key={tool.id} {...tool} />
             ))}

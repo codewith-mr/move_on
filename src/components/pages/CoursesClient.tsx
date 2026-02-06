@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 import CourseCard, { CourseCardProps } from '@/components/cards/CourseCard';
 
 export default function CoursesClient({ courses, availableCategories }: { courses: CourseCardProps[], availableCategories: string[] }) {
@@ -12,7 +13,6 @@ export default function CoursesClient({ courses, availableCategories }: { course
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredCourses, setFilteredCourses] = useState<CourseCardProps[]>(courses);
-  const [isLoadMoreExpanded, setIsLoadMoreExpanded] = useState(false);
   const searchParams = useSearchParams();
 
   // Combine default categories with available ones, removing duplicates
@@ -94,7 +94,6 @@ export default function CoursesClient({ courses, availableCategories }: { course
 
     setFilteredCourses(result);
     setCurrentPage(1);
-    setIsLoadMoreExpanded(false);
   }, [courses, selectedCategories, selectedLevels, sortOption, sortCourses, searchQuery]);
 
   useEffect(() => {
@@ -102,37 +101,15 @@ export default function CoursesClient({ courses, availableCategories }: { course
   }, [applyFilters]);
 
   // Pagination Logic
-  const standardPageSize = 12;
+  const standardPageSize = 10;
   const totalPages = Math.ceil(filteredCourses.length / standardPageSize);
   
-  let currentCourses: CourseCardProps[] = [];
+  const startIndex = (currentPage - 1) * standardPageSize;
+  const endIndex = startIndex + standardPageSize;
+  const currentCourses = filteredCourses.slice(startIndex, endIndex);
 
-  if (currentPage === 1) {
-    // Page 1: Show 3 (Popular) + 3 (Standard) initially = 6
-    // If expanded: Show 3 (Popular) + 3 (Standard) + 6 (Load More) = 12
-    const limit = isLoadMoreExpanded ? 12 : 6;
-    currentCourses = filteredCourses.slice(0, limit);
-  } else {
-    // Page 2+: Standard pagination (12 items per page)
-    const startIndex = (currentPage - 1) * standardPageSize;
-    const endIndex = startIndex + standardPageSize;
-    currentCourses = filteredCourses.slice(startIndex, endIndex);
-  }
-
-  const showLoadMore = currentPage === 1 && !isLoadMoreExpanded && filteredCourses.length > 6;
-  const showShowLess = currentPage === 1 && isLoadMoreExpanded;
-  // Show pagination if we are expanded on Page 1 (and have more pages) OR if we are on Page 2+
-  const showPagination = ((currentPage === 1 && isLoadMoreExpanded) || currentPage > 1) && totalPages > 1;
-
-  const handleLoadMore = () => {
-    setIsLoadMoreExpanded(true);
-  };
-
-  const handleShowLess = () => {
-    setIsLoadMoreExpanded(false);
-    // Optionally scroll back up to the top of the list or list container
-    // window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  // Show pagination if we have more than 1 page
+  const showPagination = totalPages > 1;
 
   return (
     <>
@@ -240,46 +217,54 @@ export default function CoursesClient({ courses, availableCategories }: { course
               </div>
             </div>
 
-            {currentCourses.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {currentCourses.map((course) => (
-                  <CourseCard key={course.id} {...course} />
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-12">
-                <p className="text-lg text-neutral-700">No courses match your filters. Try adjusting your criteria.</p>
-              </div>
-            )}
+            <AnimatePresence mode="wait">
+              {currentCourses.length > 0 ? (
+                <motion.div 
+                  key={currentPage + selectedCategories.join(',') + selectedLevels.join(',') + sortOption + searchQuery}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
+                >
+                  {currentCourses.map((course, index) => (
+                    <motion.div
+                      key={course.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                    >
+                      <CourseCard {...course} />
+                    </motion.div>
+                  ))}
+                </motion.div>
+              ) : (
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-center py-20 bg-gray-50 rounded-lg border border-dashed border-gray-300"
+                >
+                  <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                  <h3 className="mt-2 text-sm font-medium text-gray-900">No courses found</h3>
+                  <p className="mt-1 text-sm text-gray-500">Try adjusting your search or filters to find what you're looking for.</p>
+                  <button
+                    onClick={() => {
+                      setSearchQuery('');
+                      setSelectedCategories(['All']);
+                      setSelectedLevels([]);
+                    }}
+                    className="mt-6 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary bg-primary/10 hover:bg-primary/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
+                  >
+                    Clear all filters
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {filteredCourses.length > 0 && (
               <div className="mt-12 flex flex-col items-center gap-8">
-                {showLoadMore && (
-                  <button
-                    onClick={handleLoadMore}
-                    className="group flex items-center gap-2 px-5 py-2.5 bg-white border border-neutral-200 text-neutral-600 text-sm font-medium rounded-full hover:border-primary hover:text-primary transition-all duration-300 shadow-sm hover:shadow"
-                    suppressHydrationWarning={true}
-                  >
-                    <span>Load More</span>
-                    <svg className="w-4 h-4 transition-transform group-hover:translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                )}
-
-                {showShowLess && (
-                  <button
-                    onClick={handleShowLess}
-                    className="group flex items-center gap-2 px-5 py-2.5 bg-white border border-neutral-200 text-neutral-600 text-sm font-medium rounded-full hover:border-primary hover:text-primary transition-all duration-300 shadow-sm hover:shadow"
-                    suppressHydrationWarning={true}
-                  >
-                    <span>Show Less</span>
-                    <svg className="w-4 h-4 transition-transform group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-                    </svg>
-                  </button>
-                )}
-
                 {showPagination && (
                   <nav className="flex items-center space-x-2">
                     <button

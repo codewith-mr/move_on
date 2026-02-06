@@ -2,21 +2,26 @@ import MainLayout from '@/components/layout/MainLayout';
 import Hero from '@/components/ui/Hero';
 import CourseCard from '@/components/cards/CourseCard';
 import BlogCard from '@/components/cards/BlogCard';
+import TipCard from '@/components/cards/TipCard';
 import ToolCard from '@/components/cards/ToolCard';
+import StaggeredList from '@/components/ui/StaggeredList';
+import SectionHeader from '@/components/ui/SectionHeader';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 
 export default async function Home() {
   const settings = await prisma.homeSettings.findFirst({ where: { id: 1 } });
   
-  const [featuredCoursesLinks, latestBlogsLinks] = await Promise.all([
+  const [featuredCoursesLinks, latestBlogsLinks, latestTipsLinks] = await Promise.all([
     prisma.homeSettingsFeaturedCourse.findMany({ where: { homeSettingsId: settings?.id || 1 } }),
-    prisma.homeSettingsLatestBlog.findMany({ where: { homeSettingsId: settings?.id || 1 } })
+    prisma.homeSettingsLatestBlog.findMany({ where: { homeSettingsId: settings?.id || 1 } }),
+    prisma.homeSettingsLatestTip.findMany({ where: { homeSettingsId: settings?.id || 1 } })
   ]);
 
-  const [featuredCourses, latestBlogPosts] = await Promise.all([
+  const [featuredCourses, latestBlogPosts, latestTips] = await Promise.all([
     prisma.course.findMany({ where: { id: { in: featuredCoursesLinks.map(l => l.courseId) } } }),
-    prisma.blog.findMany({ where: { id: { in: latestBlogsLinks.map(l => l.blogId) } } })
+    prisma.blog.findMany({ where: { id: { in: latestBlogsLinks.map(l => l.blogId) } } }),
+    prisma.tip.findMany({ where: { id: { in: latestTipsLinks.map(l => l.tipId) } } })
   ]);
 
   const bannerTitle = settings?.bannerTitle || 'Learn Practical Skills That Convert Directly Into Income';
@@ -58,18 +63,21 @@ export default async function Home() {
       />
 
       {/* Mini Categories Section */}
-      <section className="py-10">
+      <section className="py-8 border-b border-neutral-100 bg-white">
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-heading font-bold text-text">Popular Categories</h2>
+          <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+            <h2 className="text-xl font-heading font-bold text-neutral-800 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-primary"></span>
+              Popular Categories
+            </h2>
             <Link
               href="/courses"
-              className="text-primary hover:text-accent transition-colors font-semibold flex items-center"
+              className="text-sm text-neutral-500 hover:text-primary transition-colors font-medium flex items-center group"
             >
               Browse All
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 ml-1"
+                className="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -78,14 +86,14 @@ export default async function Home() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  d="M9 5l7 7-7 7"
                 />
               </svg>
             </Link>
           </div>
 
           {/* Category chips */}
-          <div className="flex flex-wrap gap-3">
+          <StaggeredList className="flex flex-wrap gap-2.5" itemClassName="">
             {[
               'Freelancing',
               'Content Creation',
@@ -99,28 +107,33 @@ export default async function Home() {
               <Link
                 key={cat}
                 href={`/courses?category=${encodeURIComponent(cat)}`}
-                className="inline-flex items-center px-4 py-2 bg-white border border-neutral-200 rounded-full shadow-sm hover:border-primary hover:text-primary transition-colors text-sm font-medium"
+                className="inline-flex items-center px-4 py-1.5 bg-neutral-50 border border-neutral-200 rounded-full text-xs font-semibold text-neutral-600 hover:border-primary/30 hover:bg-primary/5 hover:text-primary transition-all duration-200"
               >
                 {cat}
               </Link>
             ))}
-          </div>
+          </StaggeredList>
         </div>
       </section>
 
       {/* Featured Courses Section */}
-      <section className="py-16 bg-neutral-100">
+      <section className="py-20 bg-neutral-50">
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-10">
-            <h2 className="text-3xl font-heading font-bold text-text">Featured Courses</h2>
-            <Link
+          <SectionHeader
+            subtitle="Start Learning"
+            title="Featured Courses"
+            description="Explore our highest-rated courses designed to help you succeed."
+          />
+          
+          <div className="flex justify-end mb-6">
+             <Link
               href="/courses"
-              className="text-primary hover:text-accent transition-colors font-semibold flex items-center"
+              className="text-primary hover:text-accent transition-colors font-semibold flex items-center group"
             >
               View All Courses
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 ml-1"
+                className="h-5 w-5 ml-1 transform group-hover:translate-x-1 transition-transform"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -135,7 +148,7 @@ export default async function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <StaggeredList className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredCourses.map((course) => (
               <CourseCard key={String(course.id)}
                 id={String(course.id)}
@@ -155,24 +168,22 @@ export default async function Home() {
                 tags={course.tags ? course.tags.split(',').map(t => t.trim()) : []}
               />
             ))}
-          </div>
+          </StaggeredList>
         </div>
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-16">
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-heading font-bold text-text mb-4">Why Choose TBS?</h2>
-            <p className="text-neutral-600 max-w-2xl mx-auto">
-              We focus on practical skills that directly translate to income opportunities, with a
-              proven track record of helping students succeed.
-            </p>
-          </div>
+          <SectionHeader
+            subtitle="Our Promise"
+            title="Why Choose TBS?"
+            description="We focus on practical skills that directly translate to income opportunities, with a proven track record of helping students succeed."
+          />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-lg shadow-1 text-center">
-              <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+          <StaggeredList className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div className="bg-neutral-50 p-8 rounded-2xl border border-neutral-100 text-center hover:shadow-lg transition-shadow duration-300">
+              <div className="bg-primary/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 transform rotate-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-8 w-8 text-primary"
@@ -188,17 +199,17 @@ export default async function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-heading font-bold text-text mb-2">Action-Oriented Learning</h3>
-              <p className="text-neutral-600">
+              <h3 className="text-xl font-heading font-bold text-text mb-3">Action-Oriented Learning</h3>
+              <p className="text-neutral-600 leading-relaxed">
                 Our courses focus on practical skills and actionable steps, not just theory. Learn by doing.
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-lg shadow-1 text-center">
-              <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="bg-neutral-50 p-8 rounded-2xl border border-neutral-100 text-center hover:shadow-lg transition-shadow duration-300">
+              <div className="bg-primary/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 transform -rotate-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-8 w-8 text-primary"
+                  className="h-10 w-10 text-primary"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -211,17 +222,17 @@ export default async function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-heading font-bold text-text mb-2">Expert Instructors</h3>
-              <p className="text-neutral-600">
+              <h3 className="text-xl font-heading font-bold text-text mb-3">Expert Instructors</h3>
+              <p className="text-neutral-600 leading-relaxed">
                 Learn from industry professionals who have achieved success in their respective fields.
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-lg shadow-1 text-center">
-              <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="bg-neutral-50 p-8 rounded-2xl border border-neutral-100 text-center hover:shadow-lg transition-shadow duration-300">
+              <div className="bg-primary/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 transform rotate-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-8 w-8 text-primary"
+                  className="h-10 w-10 text-primary"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -234,28 +245,33 @@ export default async function Home() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-heading font-bold text-text mb-2">Income-Focused</h3>
-              <p className="text-neutral-600">
+              <h3 className="text-xl font-heading font-bold text-text mb-3">Income-Focused</h3>
+              <p className="text-neutral-600 leading-relaxed">
                 Our courses are designed to help you earn more money through freelancing, content creation, or trading.
               </p>
             </div>
-          </div>
+          </StaggeredList>
         </div>
       </section>
 
       {/* Latest Blog Posts Section */}
-      <section className="py-16 bg-neutral-50">
+      <section className="py-20 bg-neutral-50">
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-10">
-            <h2 className="text-3xl font-heading font-bold text-text">Latest from the Blog</h2>
+          <SectionHeader
+            subtitle="Read Our Blog"
+            title="Latest Insights"
+            description="Stay updated with the latest trends and strategies."
+          />
+
+           <div className="flex justify-end mb-6">
             <Link
               href="/blog"
-              className="text-primary hover:text-accent transition-colors font-semibold flex items-center"
+              className="text-primary hover:text-accent transition-colors font-semibold flex items-center group"
             >
               View All Posts
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 ml-1"
+                className="h-5 w-5 ml-1 transform group-hover:translate-x-1 transition-transform"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -270,7 +286,7 @@ export default async function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <StaggeredList className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {latestBlogPosts.map((post) => (
               <BlogCard key={String(post.id)}
                 id={String(post.id)}
@@ -284,23 +300,28 @@ export default async function Home() {
                 imageUrl={post.imageUrl}
               />
             ))}
-          </div>
+          </StaggeredList>
         </div>
       </section>
 
-      {/* Featured Tools Section */}
-      <section className="py-16">
+      {/* Latest Tips Section */}
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-10">
-            <h2 className="text-3xl font-heading font-bold text-text">Featured Apps & Tools</h2>
+          <SectionHeader
+            subtitle="Quick Tips"
+            title="Tips & Tricks"
+            description="Bite-sized knowledge to boost your productivity."
+          />
+
+          <div className="flex justify-end mb-6">
             <Link
-              href="/tools"
-              className="text-primary hover:text-accent transition-colors font-semibold flex items-center"
+              href="/tips-tricks"
+              className="text-primary hover:text-accent transition-colors font-semibold flex items-center group"
             >
-              View All Apps & Tools
+              View All Tips
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 ml-1"
+                className="h-5 w-5 ml-1 transform group-hover:translate-x-1 transition-transform"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -315,17 +336,66 @@ export default async function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <StaggeredList className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {latestTips.map((tip) => (
+              <TipCard key={String(tip.id)}
+                id={tip.id}
+                slug={tip.slug}
+                title={tip.title}
+                description={tip.description}
+                category={tip.category}
+                readTime={tip.readTime}
+                imageUrl={tip.imageUrl}
+                createdAt={tip.createdAt}
+              />
+            ))}
+          </StaggeredList>
+        </div>
+      </section>
+
+      {/* Featured Tools Section */}
+      <section className="py-20 bg-neutral-50">
+        <div className="container mx-auto px-4">
+           <SectionHeader
+             subtitle="Useful Tools"
+             title="Featured Apps & Tools"
+             description="Powerful tools to automate your workflow and calculate your success."
+           />
+
+          <div className="flex justify-end mb-6">
+            <Link
+              href="/tools"
+              className="text-primary hover:text-accent transition-colors font-semibold flex items-center group"
+            >
+              View All Apps & Tools
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 ml-1 transform group-hover:translate-x-1 transition-transform"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                />
+              </svg>
+            </Link>
+          </div>
+
+          <StaggeredList className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredTools.map((tool) => (
               <ToolCard key={tool.id} {...tool} />
             ))}
-          </div>
+          </StaggeredList>
         </div>
       </section>
 
       {/* Call to Action Section */}
       <section className="py-20 bg-primary text-white">
-        <div className="container mx-auto px-4 text-center">
+        <StaggeredList className="container mx-auto px-4 text-center" itemClassName="">
           <h2 className="text-3xl font-heading font-bold mb-6">Ready to Start Your Journey?</h2>
           <p className="text-secondary text-xl max-w-2xl mx-auto mb-8">
             Join thousands of students who are already learning practical skills and earning more income.
@@ -344,7 +414,7 @@ export default async function Home() {
               Sign Up Free
             </Link>
           </div>
-        </div>
+        </StaggeredList>
       </section>
     </MainLayout>
   );

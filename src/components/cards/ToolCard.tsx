@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 
 export interface ToolCardProps {
   id: string;
@@ -32,19 +31,16 @@ const ToolCard = ({
 
   return (
     <Link href={linkHref} className="block h-full">
-      <motion.div 
-        className="group relative flex flex-col h-full bg-white rounded-2xl border border-neutral-200 overflow-hidden"
-        whileHover={{ y: -4, boxShadow: "0 20px 40px -15px rgba(0,0,0,0.1)" }}
-        initial={{ border: "1px solid #e5e5e5" }}
-        transition={{ duration: 0.2 }}
+      <div 
+        className="group relative flex flex-col h-full bg-white rounded-2xl overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_24px_rgba(0,0,0,0.08)] transition-all duration-300"
       >
         {/* Hover Gradient Border Effect */}
-        <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-primary/10 transition-colors duration-300 pointer-events-none z-10" />
+        <div className="absolute inset-0 rounded-2xl border border-transparent group-hover:border-primary/10 transition-colors duration-300 pointer-events-none z-10" />
         
-        <div className="p-5 flex flex-col h-full relative z-0">
+        <div className="p-6 flex flex-col h-full relative z-0">
           {/* Header with Icon and Badges */}
           <div className="flex justify-between items-start mb-5">
-            <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-neutral-50 to-neutral-100 border border-neutral-100 flex items-center justify-center overflow-hidden shadow-sm group-hover:shadow-md transition-all duration-300">
+            <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-neutral-50 to-neutral-100 flex items-center justify-center overflow-hidden shadow-sm group-hover:shadow-md transition-all duration-300">
               <Image
                 src={imageUrl}
                 alt={title}
@@ -71,7 +67,7 @@ const ToolCard = ({
           <div className="mb-4 flex-1">
             <h3 className="text-lg font-bold text-neutral-900 mb-2 group-hover:text-primary transition-colors flex items-center">
               {title}
-              <motion.svg 
+              <svg 
                 xmlns="http://www.w3.org/2000/svg" 
                 className="h-4 w-4 ml-1 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-primary" 
                 fill="none" 
@@ -79,7 +75,7 @@ const ToolCard = ({
                 stroke="currentColor"
               >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </motion.svg>
+              </svg>
             </h3>
             <p className="text-sm text-neutral-500 line-clamp-2 leading-relaxed">
               {description}
@@ -102,7 +98,7 @@ const ToolCard = ({
             )}
           </div>
         </div>
-      </motion.div>
+      </div>
     </Link>
   );
 };

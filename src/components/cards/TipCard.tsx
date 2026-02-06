@@ -31,29 +31,34 @@ const TipCard = ({
   });
 
   return (
-    <div className="group flex flex-col bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden hover:shadow-md transition-all h-full relative">
+    <div 
+      className="group flex flex-col bg-white rounded-2xl overflow-hidden h-full relative shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_24px_rgba(0,0,0,0.08)] transition-all duration-300"
+    >
+      {/* Hover Gradient Border Effect */}
+      <div className="absolute inset-0 rounded-2xl border border-transparent group-hover:border-primary/10 transition-colors duration-300 pointer-events-none z-10" />
+
       {/* Tip Image */}
-      <Link href={`/tips-tricks/${slug}`} className="relative aspect-video w-full bg-gray-200 block overflow-hidden">
+      <Link href={`/tips-tricks/${slug}`} className="relative aspect-video w-full bg-gray-100 block overflow-hidden">
         <Image
           src={imageUrl || '/placeholder-tip.jpg'} // Fallback image if needed
           alt={title}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         {/* Gradient Overlay */}
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
         
         {/* Category Badge - positioned top left */}
         <div className="absolute top-3 left-3 z-10">
-             <span className="bg-primary/90 backdrop-blur-sm text-white text-[10px] font-bold px-2.5 py-1 rounded-md shadow-sm uppercase tracking-wider">
+             <span className="bg-white/90 backdrop-blur-sm text-primary text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm uppercase tracking-wider">
               {category}
             </span>
         </div>
       </Link>
 
       {/* Tip Content */}
-      <div className="p-5 flex flex-col flex-grow">
+      <div className="p-6 flex flex-col flex-grow relative z-0">
         
         {/* Meta Row */}
         <div className="flex justify-between items-center mb-3 text-xs text-neutral-500 font-medium">
@@ -75,13 +80,22 @@ const TipCard = ({
 
         {/* Title */}
         <Link href={`/tips-tricks/${slug}`} className="mb-2 block group/title">
-          <h3 className="text-lg font-bold text-gray-900 leading-snug line-clamp-2 group-hover/title:text-primary transition-colors">
+          <h3 className="text-lg font-bold text-gray-900 leading-snug line-clamp-2 group-hover/title:text-primary transition-colors flex items-start">
             {title}
+             <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                className="h-5 w-5 ml-1 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-primary flex-shrink-0" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
           </h3>
         </Link>
         
         {/* Description */}
-        <p className="text-sm text-neutral-600 line-clamp-3 mb-4 flex-grow">
+        <p className="text-sm text-neutral-600 line-clamp-3 mb-4 flex-grow leading-relaxed">
             {description}
         </p>
 

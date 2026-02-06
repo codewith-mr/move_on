@@ -32,24 +32,30 @@ const BlogCard = ({
   const showStaffPick = true;
 
   return (
-    <div className="group flex flex-col bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden hover:shadow-md transition-all h-full relative">
+    <div 
+      className="group flex flex-col bg-white rounded-2xl overflow-hidden h-full relative shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_24px_rgba(0,0,0,0.08)] transition-all duration-300"
+    >
+      {/* Hover Gradient Border Effect */}
+      <div className="absolute inset-0 rounded-2xl border border-transparent group-hover:border-primary/10 transition-colors duration-300 pointer-events-none z-10" />
+
       {/* Blog Image */}
-      <Link href={`/blog/${slug}`} className="relative aspect-video w-full bg-gray-200 block overflow-hidden">
+      <Link href={`/blog/${slug}`} className="relative aspect-video w-full bg-gray-100 block overflow-hidden">
         <Image
           src={imageUrl}
           alt={title}
           fill
           unoptimized={imageUrl.endsWith('.svg')}
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         {/* Gradient Overlay */}
-        <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-black/30 to-transparent pointer-events-none z-0" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none z-0" />
         
         {/* Staff Pick Badge */}
         {showStaffPick && (
           <div className="absolute top-3 left-3 z-10">
-            <span className="bg-black/80 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-md tracking-wide shadow-sm">
+            <span className="bg-white/90 backdrop-blur-sm text-primary text-[10px] font-bold px-2.5 py-1 rounded-full tracking-wide shadow-sm flex items-center gap-1">
+               <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
               Tum Bi Sikho.
             </span>
           </div>
@@ -57,14 +63,14 @@ const BlogCard = ({
 
         {/* Category Badge - positioned top right */}
         <div className="absolute top-3 right-3 z-10">
-             <span className="bg-white/90 backdrop-blur-sm text-primary text-[10px] font-bold px-2.5 py-1 rounded-md shadow-sm">
+             <span className="bg-white/90 backdrop-blur-sm text-neutral-800 text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm">
               {category}
             </span>
         </div>
       </Link>
 
       {/* Blog Content */}
-      <div className="p-4 flex flex-col flex-grow">
+      <div className="p-5 flex flex-col flex-grow relative z-0">
         {/* Author Row */}
         <div className="flex justify-between items-start mb-3">
           <div className="flex items-center gap-2">
@@ -94,18 +100,27 @@ const BlogCard = ({
 
         {/* Title */}
         <Link href={`/blog/${slug}`} className="mb-2 block group/title">
-          <h3 className="text-base font-bold text-gray-900 leading-snug line-clamp-2 group-hover/title:text-primary transition-colors">
+          <h3 className="text-lg font-bold text-gray-900 leading-snug line-clamp-2 group-hover/title:text-primary transition-colors flex items-start">
             {title}
+            <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                className="h-5 w-5 ml-1 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-primary flex-shrink-0" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
           </h3>
         </Link>
 
         {/* Excerpt */}
-        <p className="text-sm text-gray-600 line-clamp-2 mb-4">
+        <p className="text-sm text-gray-600 line-clamp-2 mb-4 leading-relaxed">
             {excerpt}
         </p>
 
         {/* Divider & Footer */}
-        <div className="mt-auto border-t border-gray-100 pt-3 flex items-center justify-between text-xs text-gray-600 font-medium">
+        <div className="mt-auto border-t border-gray-100 pt-4 flex items-center justify-between text-xs text-gray-600 font-medium">
           <div className="flex items-center gap-4">
             {/* Read Time */}
              <div className="flex items-center gap-1.5">

@@ -43,6 +43,7 @@ const LevelIcon = ({ level }: { level: string }) => {
       <path 
         d="M2 20h4V14H2v6zm7 0h4V10H9v10zm7 0h4V4h-4v16z" 
         fill="none" 
+        
       />
       {/* Bar 1 (Low) */}
       <rect 
@@ -117,6 +118,8 @@ const CourseCard = ({
   instructor,
   level,
   duration,
+  price,
+  discountPrice,
   rating = 0,
   reviewCount = 0,
   imageUrl,
@@ -153,23 +156,29 @@ const CourseCard = ({
   const displayTags = tags.length > 0 ? tags : rotatedTags;
 
   return (
-    <div className="group flex flex-col bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden hover:shadow-md transition-all h-full relative">
+    <div 
+      className="group flex flex-col bg-white rounded-2xl overflow-hidden h-full relative shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_24px_rgba(0,0,0,0.08)] transition-all duration-300"
+    >
+      {/* Hover Gradient Border Effect */}
+      <div className="absolute inset-0 rounded-2xl border border-transparent group-hover:border-primary/10 transition-colors duration-300 pointer-events-none z-10" />
+
       {/* Course Image */}
-      <Link href={`/courses/${slug}`} className="relative aspect-video w-full bg-gray-200 block overflow-hidden">
+      <Link href={`/courses/${slug}`} className="relative h-44 w-full bg-gray-100 block overflow-hidden">
         <Image
           src={imageUrl}
           alt={title}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         {/* Gradient Overlay for Text Visibility */}
-        <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-black/30 to-transparent pointer-events-none z-0" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none z-0" />
         
         {/* Staff Pick Badge */}
         {showStaffPick && (
           <div className="absolute top-3 left-3 z-10">
-            <span className="bg-black/80 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-md tracking-wide shadow-sm">
+            <span className="bg-white/90 backdrop-blur-sm text-primary text-[10px] font-bold px-2.5 py-1 rounded-full tracking-wide shadow-sm flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
               Tum Bi Sikho.
             </span>
           </div>
@@ -177,11 +186,11 @@ const CourseCard = ({
       </Link>
 
       {/* Course Content */}
-      <div className="p-4 flex flex-col flex-grow">
+      <div className="p-5 flex flex-col flex-grow relative z-0">
         {/* Instructor & Rating Row */}
-        <div className="flex justify-between items-start mb-3">
+        <div className="flex justify-between items-start mb-2">
           <div className="flex items-center gap-2">
-            <div className="relative w-6 h-6 rounded-full overflow-hidden bg-gray-100 flex-shrink-0 ring-1 ring-gray-100">
+            <div className="relative w-5 h-5 rounded-full overflow-hidden bg-gray-100 flex-shrink-0 ring-1 ring-gray-100">
                <Image 
                  src={avatarUrl} 
                  alt={instructor}
@@ -190,66 +199,88 @@ const CourseCard = ({
                />
             </div>
             <div className="flex items-center gap-1">
-              <span className="text-xs font-bold text-gray-900 line-clamp-1 max-w-[120px]">
+              <span className="text-[11px] font-bold text-gray-900 line-clamp-1 max-w-[100px]">
                 {instructor}
               </span>
               {/* Verified Badge */}
-              <svg className="w-3 h-3 text-green-500 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+              <svg className="w-2.5 h-2.5 text-green-500 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
               </svg>
             </div>
           </div>
           
-          <div className="flex items-center gap-1 bg-gray-50 px-1.5 py-0.5 rounded-md border border-gray-100">
-            <svg className="w-3 h-3 text-yellow-500 fill-current" viewBox="0 0 24 24">
-              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+          <div className="flex items-center gap-1 bg-amber-50 px-1.5 py-0.5 rounded-md border border-amber-100/50">
+            <svg className="w-2.5 h-2.5 text-amber-500 fill-current" viewBox="0 0 24 24">
+              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
             </svg>
-            <span className="text-xs font-bold text-gray-900">{rating.toFixed(1)}</span>
-            <span className="text-[10px] text-gray-500">({reviewCount})</span>
+            <span className="text-[9px] font-bold text-amber-700">{rating.toFixed(1)}</span>
+            <span className="text-[9px] text-amber-600/70">({formatCount(reviewCount)})</span>
           </div>
         </div>
 
         {/* Title */}
-        <Link href={`/courses/${slug}`} className="mb-3 block group/title">
-          <h3 className="text-base font-bold text-gray-900 leading-snug line-clamp-2 group-hover/title:text-primary transition-colors">
+        <Link href={`/courses/${slug}`} className="mb-1 block group/title">
+          <h3 className="text-base font-bold text-gray-900 leading-snug line-clamp-2 group-hover/title:text-primary transition-colors flex items-start">
             {title}
+             <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                className="h-4 w-4 ml-1 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-primary flex-shrink-0" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
           </h3>
         </Link>
+        
+        {/* Meta Info Row (Level, Duration, Students) */}
+        <div className="flex items-center gap-2 text-[10px] text-gray-500 font-medium mb-2 whitespace-nowrap overflow-hidden">
+           <div className="flex items-center gap-1 flex-shrink-0" title={`Level: ${level}`}>
+              <LevelIcon level={level} />
+              <span>{level}</span>
+           </div>
+           
+           <div className="w-0.5 h-0.5 rounded-full bg-gray-300 flex-shrink-0" />
+           
+           <div className="flex items-center gap-1 flex-shrink-0">
+             <svg className="w-2.5 h-2.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+             </svg>
+             <span>{duration}</span>
+           </div>
+           
+           <div className="w-0.5 h-0.5 rounded-full bg-gray-300 flex-shrink-0" />
+           
+           <div className="flex items-center gap-1 flex-shrink-0">
+             <svg className="w-2.5 h-2.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+             </svg>
+             <span>{formatCount(students)}</span>
+           </div>
+        </div>
 
-        {/* Tags */}
-        <div className="mb-4">
+        {/* Tags Popover */}
+        <div className="mb-2">
           <TagsPopover tags={displayTags} category={category} />
         </div>
 
-        {/* Divider */}
-        <div className="mt-auto border-t border-gray-100 pt-3 flex items-center justify-between text-xs text-gray-600 font-medium">
-          <div className="flex items-center gap-4">
-            {/* Level */}
-            <div className="flex items-center gap-1.5" title={`Level: ${level}`}>
-              <LevelIcon level={level} />
-              <span className="hidden sm:inline">{level}</span>
-            </div>
-            
-            {/* Students */}
-            <div className="flex items-center gap-1.5" title={`${formatCount(students)} students`}>
-              <svg className="w-3.5 h-3.5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                <circle cx="9" cy="7" r="4"></circle>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-              </svg>
-              <span>{formatCount(students)}</span>
-            </div>
-
-            {/* Duration */}
-            <div className="flex items-center gap-1.5" title={`Duration: ${duration}`}>
-              <svg className="w-3.5 h-3.5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <polyline points="12 6 12 12 16 14"></polyline>
-              </svg>
-              <span>{duration.replace(' hours', 'h').replace(' hour', 'h')}</span>
-            </div>
+        {/* Divider & Footer (Price & Button) */}
+        <div className="mt-auto border-t border-gray-100 pt-2 flex items-center justify-between">
+          <div className="flex flex-col">
+            {discountPrice ? (
+               <div className="flex items-baseline gap-1.5">
+                 <span className="text-base font-bold text-gray-900">${discountPrice}</span>
+                 <span className="text-[10px] text-gray-400 line-through">${price}</span>
+               </div>
+            ) : (
+               <span className="text-base font-bold text-gray-900">{price === 0 ? 'Free' : `$${price}`}</span>
+            )}
           </div>
+
+          <Link href={`/courses/${slug}`} className="px-3 py-1.5 bg-neutral-900 hover:bg-primary text-white text-[10px] font-bold rounded-md transition-all shadow-sm hover:shadow-md hover:scale-105">
+            Watch Now
+          </Link>
         </div>
       </div>
     </div>

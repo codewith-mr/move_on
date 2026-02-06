@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback, useMemo, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import TipCard, { TipCardProps } from '@/components/cards/TipCard';
 
 export default function TipsClient({ tips, availableCategories = [] }: { tips: TipCardProps[], availableCategories?: string[] }) {
@@ -143,30 +144,37 @@ export default function TipsClient({ tips, availableCategories = [] }: { tips: T
               </div>
             </div>
 
-            {currentTips.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {currentTips.map((tip) => (
-                  <TipCard key={tip.id} {...tip} />
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-20 bg-gray-50 rounded-lg border border-dashed border-gray-300">
-                <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <h3 className="mt-2 text-sm font-medium text-gray-900">No tips found</h3>
-                <p className="mt-1 text-sm text-gray-500">Try adjusting your search or filters.</p>
-                <button
-                  onClick={() => {
-                    setSearchQuery('');
-                    setSelectedCategories(['All']);
-                  }}
-                  className="mt-6 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary bg-primary/10 hover:bg-primary/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors"
+            <AnimatePresence mode="wait">
+              {currentTips.length > 0 ? (
+                <motion.div 
+                  key={currentPage + selectedCategories.join(',') + searchQuery}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                 >
-                  Clear all filters
-                </button>
-              </div>
-            )}
+                  {currentTips.map((tip, index) => (
+                    <motion.div
+                      key={tip.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                    >
+                      <TipCard {...tip} />
+                    </motion.div>
+                  ))}
+                </motion.div>
+              ) : (
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-center py-12"
+                >
+                  <p className="text-lg text-neutral-700">No tips match your filters. Try adjusting your criteria.</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* Pagination */}
             {totalPages > 1 && (

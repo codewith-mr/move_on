@@ -214,10 +214,10 @@ export default function ToolsClient() {
                     <button
                       key={category.id}
                       onClick={() => handleCategoryChange(category.name)}
-                      className={`flex items-center w-full px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 group ${
+                      className={`flex items-center w-full px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 group border ${
                         selectedCategory === category.name
-                          ? 'bg-primary/5 text-primary shadow-sm ring-1 ring-primary/10'
-                          : 'text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900'
+                          ? 'bg-primary/5 text-primary shadow-sm border-primary'
+                          : 'text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 border-transparent'
                       }`}
                     >
                       <span className={`mr-3 transition-transform duration-300 ${selectedCategory === category.name ? 'scale-110' : 'group-hover:scale-110 text-neutral-400 group-hover:text-neutral-600'}`}>

@@ -58,6 +58,12 @@ const Header = ({ logoUrl }: { logoUrl: string }) => {
             Tips & Tricks
           </Link>
           <Link 
+            href="/creativity" 
+            className={`font-body font-semibold transition-colors ${isActive('/creativity') ? 'text-primary' : 'text-text hover:text-primary'}`}
+          >
+            Creativity
+          </Link>
+          <Link 
             href="/about" 
             className={`font-body font-semibold transition-colors ${isActive('/about') ? 'text-primary' : 'text-text hover:text-primary'}`}
           >
@@ -121,6 +127,13 @@ const Header = ({ logoUrl }: { logoUrl: string }) => {
               onClick={() => setIsMenuOpen(false)}
             >
               Tips & Tricks
+            </Link>
+            <Link 
+              href="/creativity" 
+              className={`font-body font-semibold py-2 transition-colors ${isActive('/creativity') ? 'text-primary' : 'text-text hover:text-primary'}`}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Creativity
             </Link>
             <Link 
               href="/about" 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import BlogCard, { BlogCardProps } from '@/components/cards/BlogCard';
 
 export default function BlogClient({ posts, availableCategories = [] }: { posts: BlogCardProps[], availableCategories?: string[] }) {
@@ -141,17 +142,37 @@ export default function BlogClient({ posts, availableCategories = [] }: { posts:
               </div>
             </div>
 
-            {currentPosts.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {currentPosts.map((post) => (
-                  <BlogCard key={post.id} {...post} />
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-12">
-                <p className="text-lg text-neutral-700">No articles match your filters. Try adjusting your criteria.</p>
-              </div>
-            )}
+            <AnimatePresence mode="wait">
+              {currentPosts.length > 0 ? (
+                <motion.div 
+                  key={currentPage + selectedCategories.join(',') + searchQuery}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                >
+                  {currentPosts.map((post, index) => (
+                    <motion.div
+                      key={post.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                    >
+                      <BlogCard {...post} />
+                    </motion.div>
+                  ))}
+                </motion.div>
+              ) : (
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-center py-12"
+                >
+                  <p className="text-lg text-neutral-700">No articles match your filters. Try adjusting your criteria.</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {filteredPosts.length > 0 && totalPages > 1 && (
               <div className="mt-12 flex flex-col items-center gap-8">

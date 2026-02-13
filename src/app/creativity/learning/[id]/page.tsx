@@ -17,15 +17,15 @@ const MarkdownContent = ({ content, className = '', dark = false }: { content: s
 
 // Explicit color mapping for Tailwind (reused)
 const categoryStyles: Record<string, { bg: string, text: string, border: string, accent: string, icon: string }> = {
-  'Digital Skills': { bg: 'bg-blue-50', text: 'text-blue-900', border: 'border-blue-200', accent: 'bg-blue-600', icon: '🔵' },
-  'Business': { bg: 'bg-emerald-50', text: 'text-emerald-900', border: 'border-emerald-200', accent: 'bg-emerald-600', icon: '💼' },
-  'Mindset': { bg: 'bg-purple-50', text: 'text-purple-900', border: 'border-purple-200', accent: 'bg-purple-600', icon: '🧠' },
-  'Books': { bg: 'bg-amber-50', text: 'text-amber-900', border: 'border-amber-200', accent: 'bg-amber-600', icon: '📚' },
-  'Design': { bg: 'bg-pink-50', text: 'text-pink-900', border: 'border-pink-200', accent: 'bg-pink-600', icon: '🎨' },
-  'Crafting': { bg: 'bg-indigo-50', text: 'text-indigo-900', border: 'border-indigo-200', accent: 'bg-indigo-600', icon: '🛠️' },
+  'Digital Skills': { bg: 'bg-blue-50', text: 'text-blue-900', border: 'border-blue-200', accent: 'bg-blue-600', icon: '01' },
+  'Business': { bg: 'bg-emerald-50', text: 'text-emerald-900', border: 'border-emerald-200', accent: 'bg-emerald-600', icon: '02' },
+  'Mindset': { bg: 'bg-purple-50', text: 'text-purple-900', border: 'border-purple-200', accent: 'bg-purple-600', icon: '03' },
+  'Books': { bg: 'bg-amber-50', text: 'text-amber-900', border: 'border-amber-200', accent: 'bg-amber-600', icon: '04' },
+  'Design': { bg: 'bg-pink-50', text: 'text-pink-900', border: 'border-pink-200', accent: 'bg-pink-600', icon: '05' },
+  'Crafting': { bg: 'bg-indigo-50', text: 'text-indigo-900', border: 'border-indigo-200', accent: 'bg-indigo-600', icon: '06' },
 };
 
-const defaultStyle = { bg: 'bg-neutral-50', text: 'text-neutral-900', border: 'border-neutral-200', accent: 'bg-neutral-900', icon: '✨' };
+const defaultStyle = { bg: 'bg-neutral-50', text: 'text-neutral-900', border: 'border-neutral-200', accent: 'bg-neutral-900', icon: '--' };
 
 export function generateStaticParams() {
   return learningModules.map((module) => ({
@@ -76,27 +76,18 @@ function StandardLayout({ module }: { module: LearningModule }) {
       </nav>
 
       <main className="max-w-7xl mx-auto px-6 pt-40 pb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-           <div className="lg:col-span-8">
-              {/* Header */}
-              <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] text-neutral-900 mb-8">
-                {module.title}
-              </h1>
-              <p className="text-xl md:text-2xl font-medium text-neutral-600 leading-relaxed mb-12 border-l-4 border-neutral-200 pl-6">
-                {module.shortDescription}
-              </p>
+        <div className="max-w-4xl">
+           {/* Header */}
+           <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] text-neutral-900 mb-8">
+             {module.title}
+           </h1>
+           <p className="text-xl md:text-2xl font-medium text-neutral-600 leading-relaxed mb-12 border-l-4 border-neutral-200 pl-6">
+             {module.shortDescription}
+           </p>
 
-              {/* Content */}
-              <div className="prose prose-lg prose-neutral max-w-none prose-headings:font-bold prose-p:text-neutral-600 prose-strong:text-neutral-900">
-                <MarkdownContent content={module.fullExplanation} />
-              </div>
-           </div>
-           
-           {/* Sidebar Visual */}
-           <div className="lg:col-span-4">
-              <div className="sticky top-32">
-                 <Visualizer module={module} variant="large" />
-              </div>
+           {/* Content */}
+           <div className="prose prose-lg prose-neutral max-w-none prose-headings:font-bold prose-p:text-neutral-600 prose-strong:text-neutral-900">
+             <MarkdownContent content={module.fullExplanation} />
            </div>
         </div>
       </main>
@@ -135,41 +126,20 @@ function StructuredLayout({ module }: { module: LearningModule }) {
 
       {/* Hero Section */}
       <header className="max-w-7xl mx-auto px-6 pt-40 pb-24 border-b border-neutral-100">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-           <div className="lg:col-span-8">
-              <div className="flex items-center gap-4 mb-8">
-                 <span className="text-xs font-bold uppercase tracking-[0.3em] text-neutral-400">Curriculum</span>
-                 <div className="h-px w-12 bg-neutral-200"></div>
-                 <span className="text-xs font-bold uppercase tracking-[0.3em] text-neutral-900">{module.id.toUpperCase()}</span>
-              </div>
-              <h1 className="text-6xl md:text-[10rem] font-black tracking-tighter leading-[0.8] text-neutral-900 mb-16">
-                {module.title.split(' ').map((word, i) => (
-                  <span key={i} className="block">{word}</span>
-                ))}
-              </h1>
-              <p className="text-2xl md:text-5xl font-medium text-neutral-800 leading-[1.1] max-w-4xl tracking-tight">
-                {hook}
-              </p>
+        <div className="max-w-4xl">
+           <div className="flex items-center gap-4 mb-8">
+              <span className="text-xs font-bold uppercase tracking-[0.3em] text-neutral-900">{module.id.toUpperCase()}</span>
+              <div className="h-px w-12 bg-neutral-200"></div>
+              <span className="text-xs font-bold uppercase tracking-[0.3em] text-neutral-400">Module</span>
            </div>
-           <div className="lg:col-span-4 hidden lg:block">
-              <div className="sticky top-32">
-                 <div className="aspect-[3/4] bg-neutral-50 flex items-center justify-center p-12 border border-neutral-100 relative group overflow-hidden rounded-3xl">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(0,0,0,0.05),transparent)] opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
-                    {/* Floating Accent Elements */}
-                    <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-px h-0 bg-neutral-200 group-hover:h-full transition-all duration-1000 ease-in-out`}></div>
-                    <div className="absolute inset-0 flex items-center justify-center transform group-hover:scale-105 group-hover:rotate-1 transition-transform duration-700">
-                       <Visualizer module={module} variant="large" />
-                    </div>
-                    <div className="absolute bottom-8 left-8 right-8 flex justify-between items-end">
-                       <div>
-                          <span className="block text-[8px] font-black uppercase tracking-[0.3em] text-neutral-300 mb-1">Visual ID</span>
-                          <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-900">{module.id.toUpperCase()}</span>
-                       </div>
-                       <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">v.2.0</span>
-                    </div>
-                 </div>
-              </div>
-           </div>
+           <h1 className="text-6xl md:text-[10rem] font-black tracking-tighter leading-[0.8] text-neutral-900 mb-16">
+             {module.title.split(' ').map((word, i) => (
+               <span key={i} className="block">{word}</span>
+             ))}
+           </h1>
+           <p className="text-2xl md:text-5xl font-medium text-neutral-800 leading-[1.1] max-w-4xl tracking-tight">
+             {hook}
+           </p>
         </div>
       </header>
 
@@ -177,15 +147,15 @@ function StructuredLayout({ module }: { module: LearningModule }) {
       {reality && (
         <section className="bg-neutral-900 text-white py-32 md:py-48 relative overflow-hidden">
           {/* Decorative Swiss Background Elements */}
-          <div className="absolute top-0 right-0 text-[30rem] font-black text-white/[0.03] leading-none select-none pointer-events-none translate-x-1/4 -translate-y-1/4">
+          <div className="absolute -top-12 md:-top-24 right-0 text-[40vw] font-black text-white/[0.03] leading-none select-none pointer-events-none whitespace-nowrap z-0 translate-x-1/10">
             {module.id.toUpperCase()}
           </div>
           <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black to-transparent opacity-40"></div>
           
           <div className="max-w-7xl mx-auto px-6 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
               <div className="lg:col-span-4">
-                <div className="sticky top-12">
+                <div className="lg:sticky lg:top-12">
                    <div className={`w-12 h-2 ${styles.accent} mb-8 shadow-[0_0_20px_rgba(255,255,255,0.3)]`}></div>
                    <span className="text-sm font-bold uppercase tracking-[0.4em] text-white/40">
                      The Reality
@@ -193,8 +163,10 @@ function StructuredLayout({ module }: { module: LearningModule }) {
                 </div>
               </div>
               <div className="lg:col-span-8">
-                <div className="prose prose-2xl md:prose-[5rem] prose-invert max-w-none font-bold leading-[1.05] tracking-tight">
-                  <MarkdownContent content={reality} dark={true} />
+                <div className="relative">
+                  <div className="prose prose-2xl md:prose-[5rem] prose-invert max-w-none font-bold leading-[1.05] tracking-tight">
+                    <MarkdownContent content={reality} dark={true} />
+                  </div>
                 </div>
               </div>
             </div>
@@ -436,9 +408,14 @@ function Visualizer({ module, variant = 'standard' }: { module: LearningModule, 
           <div className="absolute inset-0 bg-neutral-900 rounded-r-xl rounded-l-sm shadow-2xl transform rotate-Y-[-25deg] group-hover:rotate-Y-[-5deg] transition-transform duration-700 origin-left flex flex-col p-8 border-l-8 border-neutral-800">
             <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none"></div>
             <div className="text-white/30 text-[9px] font-black uppercase tracking-[0.3em] mb-auto">Swiss Design Library</div>
-            <div className="text-7xl text-center my-8 filter drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)] transform group-hover:scale-110 transition-transform duration-500">
-              {module.visualContent || '📚'}
+            
+            {/* Geometric Abstract Visual instead of Emoji */}
+            <div className="relative w-full h-32 my-8 flex items-center justify-center">
+              <div className={`absolute w-16 h-16 border-4 border-white/20 rounded-full group-hover:scale-150 transition-transform duration-1000`}></div>
+              <div className={`absolute w-12 h-12 bg-white/10 rotate-45 group-hover:rotate-90 transition-transform duration-1000`}></div>
+              <div className={`w-4 h-4 ${styles.accent} rounded-full`}></div>
             </div>
+
             <div className="mt-auto">
               <div className={`w-8 h-1 ${styles.accent} mb-4`}></div>
               <div className="text-white font-black text-xl leading-[1.1] tracking-tight line-clamp-2">
@@ -458,7 +435,7 @@ function Visualizer({ module, variant = 'standard' }: { module: LearningModule, 
              {[1, 2, 3].map(i => (
                <div key={i} className="flex items-center gap-4">
                  <div className={`w-5 h-5 rounded-full border-2 border-white/20 flex items-center justify-center group-hover:border-white/50 transition-colors`}>
-                   <div className={`w-2 h-2 rounded-full ${styles.accent} scale-0 group-hover:scale-100 transition-transform duration-500`} style={{ delay: `${i * 150}ms` }}></div>
+                   <div className={`w-2 h-2 rounded-full ${styles.accent} scale-0 group-hover:scale-100 transition-transform duration-500`} style={{ transitionDelay: `${i * 150}ms` }}></div>
                  </div>
                  <div className="h-1 bg-white/10 rounded-full flex-grow overflow-hidden">
                     <div className={`h-full ${styles.accent} w-0 group-hover:w-full transition-all duration-1000`} style={{ transitionDelay: `${i * 200}ms` }}></div>
@@ -498,10 +475,13 @@ function Visualizer({ module, variant = 'standard' }: { module: LearningModule, 
            <div className="absolute inset-0 bg-gradient-to-br from-neutral-50 to-transparent"></div>
            
            <div className="relative z-10 flex flex-col items-center">
-             <span className="text-8xl transform group-hover:scale-110 group-hover:-rotate-12 transition-all duration-700 filter drop-shadow-2xl">
-               {module.visualContent || (styles.icon)}
-             </span>
-             <div className={`mt-6 h-1 w-0 ${styles.accent} group-hover:w-12 transition-all duration-500 rounded-full`}></div>
+             {/* Abstract Geometric Icon instead of Emoji */}
+             <div className="w-24 h-24 relative flex items-center justify-center">
+                <div className={`absolute inset-0 border-[6px] border-neutral-100 rounded-2xl rotate-12 group-hover:rotate-45 transition-transform duration-700`}></div>
+                <div className={`absolute inset-4 border-[6px] border-neutral-200 rounded-xl -rotate-12 group-hover:-rotate-45 transition-transform duration-700`}></div>
+                <div className={`w-6 h-6 ${styles.accent} rounded-full shadow-lg`}></div>
+             </div>
+             <div className={`mt-8 h-1 w-0 ${styles.accent} group-hover:w-12 transition-all duration-500 rounded-full`}></div>
            </div>
 
            {/* Decorative Corner Labels */}
@@ -515,7 +495,11 @@ function Visualizer({ module, variant = 'standard' }: { module: LearningModule, 
          <div className="bg-neutral-900 p-10 rounded-2xl shadow-2xl text-white w-full max-w-xs relative overflow-hidden border border-white/10 group">
             <div className="absolute -top-10 -right-10 w-40 h-40 border border-white/5 rounded-full group-hover:scale-150 transition-transform duration-1000"></div>
             <div className="relative z-10">
-              <span className="text-[8rem] font-black tracking-tighter leading-none block mb-4 group-hover:translate-x-2 transition-transform duration-500 italic">Aa</span>    
+              {/* Abstract Typographic Element */}
+              <div className="relative h-24 mb-6 flex items-baseline">
+                <span className="text-[8rem] font-black tracking-tighter leading-none block group-hover:translate-x-2 transition-transform duration-500 italic text-white/10 absolute -left-4 -top-4">A</span>    
+                <span className="text-[6rem] font-black tracking-tighter leading-none block group-hover:-translate-x-2 transition-transform duration-500 relative z-10">Aa</span>    
+              </div>
               <div className="space-y-6">
                 <div className="flex justify-between text-[10px] text-white/40 font-black uppercase tracking-widest">
                   <span>Structural Analysis</span>
@@ -534,11 +518,12 @@ function Visualizer({ module, variant = 'standard' }: { module: LearningModule, 
        );
     default:
       return (
-        <div className="text-center group">
-           <div className="text-9xl mb-6 transform group-hover:scale-110 transition-transform duration-700 filter drop-shadow-2xl grayscale group-hover:grayscale-0">   
-             {module.visualContent || (styles.icon)}
+        <div className="text-center group p-12 bg-white border border-neutral-100 rounded-[3rem] shadow-xl">
+           <div className="relative w-32 h-32 mx-auto mb-8 flex items-center justify-center">
+              <div className="absolute inset-0 border-2 border-dashed border-neutral-200 rounded-full animate-spin-slow"></div>
+              <div className={`w-12 h-12 ${styles.accent} rounded-lg rotate-45 group-hover:rotate-90 transition-transform duration-700`}></div>
            </div>
-           <div className="text-[10px] font-black uppercase tracking-[0.4em] text-neutral-300">Default Visual</div>
+           <div className="text-[10px] font-black uppercase tracking-[0.4em] text-neutral-400">System Visual {module.id}</div>
         </div>
       );
   }

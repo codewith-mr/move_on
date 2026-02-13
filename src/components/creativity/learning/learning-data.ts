@@ -21,7 +21,7 @@ export interface LearningModule {
     achievement: string; 
     exercises: { level: 'Easy' | 'Medium' | 'Hard'; task: string }[];
     tips: string[];
-    resources: { name: string; type: 'Free' | 'Paid' | 'AI'; url?: string }[];
+    resources: { name: string; type: 'Free' | 'Paid' | 'AI' | 'Free/Paid'; url?: string }[];
     challenges: string[];
     career: string;
     story?: string;
@@ -30,7 +30,7 @@ export interface LearningModule {
 
 export const learningModules: LearningModule[] = [
   // ==================================================================================
-  // 1. DIGITAL MASTERY (10 Cards)
+  // SECTION 1: LEVERAGE (01-04)
   // ==================================================================================
   {
     id: 'd1',
@@ -67,12 +67,6 @@ export const learningModules: LearningModule[] = [
       // Legacy
       achievement: "Stop working hard. Start working smart. Turn 8 hours of drudgery into 15 minutes of supervision. From Student → Commander.",
       story: "**The $100,000 Question**\n\nMost people ask ChatGPT: *\"Write a blog post about coffee.\"*\nThey get a boring, generic result.\n\nA Pro Prompt Engineer asks: *\"Act as a world-class barista and historian. Write a passionate, 500-word story about the dark history of espresso, using the tone of Anthony Bourdain. Focus on the sensory details of the smell and the noise of the machine.\"*\n\n**The Result:** A masterpiece that went viral. The difference wasn't the AI; it was the **Prompt**. The Pro got paid $1,000 for that article. The amateur got ignored.",
-      realWorldUses: [
-        "Negotiation: 'Act as a Harvard Negotiator. Help me script a reply to ask for a raise.'",
-        "Learning: 'Explain Quantum Physics like I am 12 years old. Use analogies involving pizza.'",
-        "Coding: 'Find the bug in this code, explain why it happened, and fix it.'",
-        "Health: 'Here is my fridge content. Create a high-protein meal plan for the week.'"
-      ],
       exercises: [
         { level: "Easy", task: "Use the RTF Framework to get ChatGPT to write a personalized birthday poem for your best friend." },
         { level: "Medium", task: "Use 'Few-Shot Prompting' to teach the AI your specific writing style." },
@@ -130,138 +124,142 @@ export const learningModules: LearningModule[] = [
       achievement: "Build an asset that pays you while you sleep. Stop renting attention from social media. Own your traffic.",
       story: "**The Bakery vs. Starbucks**\n\nA tiny local bakery couldn't afford TV ads. Starbucks was crushing them.\n\n**The Pivot:** They started a blog answering questions: *\"Best gluten-free cake in Seattle\"*, *\"How to keep sourdough fresh.\"*\n\n**The Result:** 6 months later, they were the #1 result on Google. People traveled across the city to find them. They didn't pay for attention; they **earned** it by being helpful. That is the power of SEO.",
       exercises: [
-        { level: "Easy", task: "Use Google Autocomplete to find 5 questions people ask about your hobby." },
-        { level: "Medium", task: "Write a blog post title that includes a 'Power Keyword' (e.g., Ultimate, Guide, Fast)." },
-        { level: "Hard", task: "Update an old piece of content to be 2x longer and more helpful, then measure the traffic change." }
+        { level: "Easy", task: "Use Google Trends to find 3 trending topics in your niche." },
+        { level: "Medium", task: "Write a 500-word blog post answering a specific question your customers ask." },
+        { level: "Hard", task: "Audit your own website (or a friend's) using a tool like PageSpeed Insights and fix 3 issues." }
       ],
       tips: [
-        "Don't write for robots; write for humans. Google is smart enough to know the difference now.",
-        "Long-tail keywords (e.g., 'best running shoes for flat feet') are easier to win than short ones ('shoes').",
-        "Consistency beats intensity. One article a week for a year > 10 articles in one week."
+        "Focus on the user, not the search engine.",
+        "Keywords are important, but quality content is king.",
+        "Be patient. SEO takes time to show results."
       ],
       resources: [
         { name: "Google Search Console", type: "Free" },
-        { name: "Ubersuggest", type: "Free/Paid" },
-        { name: "AnswerThePublic", type: "Free" }
+        { name: "Ahrefs / SEMrush", type: "Paid" },
+        { name: "Ubersuggest", type: "Free/Paid" }
       ],
       challenges: [
-        "The 'Snippet Sniper': Find a question on Google where the answer is bad. Write a better 50-word answer to try and steal the 'Featured Snippet'."
+        "The 'Page One' Challenge: Get one of your blog posts to the first page of Google for a specific long-tail keyword."
       ],
-      career: "SEO experts charge $100-$300/hour. Or you can build your own niche sites and live off the ad revenue."
+      career: "SEO Specialists are in high demand, with salaries ranging from $60k to $120k+."
     }
   },
   {
     id: 'd3',
     category: 'Digital Skills',
-    title: 'Viral Content Strategy',
-    shortDescription: 'Cracking the code of human attention.',
-    fullExplanation: 'The algorithm isn\'t a black box; it\'s a mirror of human psychology. If you can grab attention (Hook), hold it (Retention), and satisfy it (Reward), you can grow an audience of millions on YouTube, TikTok, or Instagram.',
-    visualType: 'icon',
-    visualContent: '🔥',
-    tags: ['Social', 'Growth', 'Psychology'],
+    title: 'Content Design',
+    shortDescription: 'Making ideas beautiful and readable.',
+    fullExplanation: 'Design is not just about making things look "pretty." It is about communication. In a world of infinite scrolling, Content Design is how you stop the thumb and earn the click.',
+    visualType: 'design',
+    visualContent: '🎨',
+    tags: ['Design', 'Visuals', 'Communication'],
     structuredContent: {
-      hook: "1 billion hours of video are watched daily. Most creators get 0 views. The difference isn't luck; it's psychology.",
-      reality: "The algorithm isn't a black box. It's a mirror. It shows people what they want. If you blame the algorithm, you lose. If you study human nature, you win.",
-      concept: "Viral Content is a **Value Exchange**. You ask for their Time (Attention). You must give them Value (Entertainment, Education, or Emotion). If the Value > Time, they share it.",
-      power: "*   **Reach:** Touch millions of lives instantly.\n*   **Authority:** People trust who they see.\n*   **Leverage:** One video can bring 10,000 customers.",
+      hook: "You have 0.05 seconds for a user to form an opinion about your website. Design isn't an 'extra'—it's the first thing they judge.",
+      reality: "Good design is invisible. Bad design is everywhere. You don't need to be an artist to be a good designer; you just need to understand **Hierarchy and Contrast**.",
+      concept: "Content Design is **Visual Storytelling**. You use layout, color, and typography to lead the eye from the most important thing to the least important thing.",
+      power: "*   **Trust:** Professional design builds instant authority.\n*   **Retention:** People read what is easy to read.\n*   **Conversion:** Clear calls-to-action (CTAs) lead to more sales.",
       roadmap: [
-        "Step 1: The Hook (First 3 Seconds)",
-        "Step 2: Storytelling & Pacing (Retention)",
-        "Step 3: Packaging (Titles & Thumbnails)",
-        "Step 4: Analytics & Iteration"
+        "Level 1: Typography (The power of fonts)",
+        "Level 2: Color Theory (Emotional triggers)",
+        "Level 3: Layout & Grids (The Swiss Style)",
+        "Expert: Design Systems (Scaling your brand)"
       ],
       secrets: [
-        "**The Pattern Interrupt:** Change the angle, sound, or visual every 3-5 seconds to reset the brain's attention span.",
-        "**The 'Curiosity Gap':** Write titles that make it impossible *not* to click (e.g., 'I survived 50 hours in Antarctica').",
-        "**Comments are Content:** Your next video idea is in your comment section."
+        "**The 'Squint Test':** Squint your eyes at your design. If you can still tell what the most important part is, it's a good layout.",
+        "**Whitespace is your friend:** Don't crowd the page. Let your elements breathe.",
+        "**Limit your fonts:** Use no more than 2 font families. One for headings, one for body text."
       ],
       examples: [
-        "**MrBeast:** Spends $10,000 on a thumbnail because he knows if they don't click, the video doesn't exist.",
-        "**Educational TikTok:** 'Here is a Excel trick your boss doesn't want you to know.' (Instant authority + Secret).",
-        "**Storytelling:** 'I tried to sell a pen to Elon Musk.' (High stakes + Celebrity name)."
+        "**Apple:** Uses massive whitespace and high-quality photography to signal luxury.",
+        "**Medium:** Focused entirely on typography to make reading long articles effortless.",
+        "**Stripe:** Built a multi-billion dollar business by having the best-looking documentation in the world."
       ],
-      mindset: "Attention is the new oil. But you have to drill for it. Stop posting what *you* want. Post what *they* need.",
+      mindset: "Design is thinking made visual. If it's confusing to look at, it's because the idea is confusing. Simplify until it's clear.",
       
       // Legacy
-      achievement: "Stop shouting into the void. Command attention. Build a loyal army of fans who hang on your every word.",
-      story: "**The MrBeast Formula**\n\nJimmy (MrBeast) didn't get lucky. He spent 1,000 days with his friends analyzing the YouTube algorithm.\n\n**The Discovery:** It wasn't about the camera quality. It was about the **CTR** (Click Through Rate) and **Retention** (Watch Time).\n\n**The Fix:** He spent more time on the *Thumbnail* than the video. He cut every boring second. He treated attention like oxygen. Today, he is the biggest creator on earth.",
+      achievement: "Learn the rules of visual communication so you can break them. Build a brand that people recognize instantly.",
+      story: "**The $300 Million Button**\n\nA major e-commerce site changed one button label from 'Register' to 'Continue'. \n\n**The Result:** Purchases increased by 45%, resulting in an extra $300 million in revenue in the first year. They didn't change the product; they changed the **Content Design**. Design is the difference between a bounce and a buy.",
       exercises: [
-        { level: "Easy", task: "Write 10 headlines for a single video idea. Pick the best one." },
-        { level: "Medium", task: "Create a 60-second TikTok/Short that has a 'Pattern Interrupt' every 5 seconds." },
-        { level: "Hard", task: "Analyze a viral video frame-by-frame. Write down exactly why you kept watching." }
+        { level: "Easy", task: "Redesign your email signature using only two fonts and one accent color." },
+        { level: "Medium", task: "Create a social media post using the 'Rule of Thirds'." },
+        { level: "Hard", task: "Design a landing page mockup in Figma focusing on visual hierarchy." }
       ],
       tips: [
-        "The Thumbnail is 50% of the work. If they don't click, they can't watch.",
-        "Start 'In Media Res' (in the middle of the action). No logos. No intros.",
-        "Reply to every comment in the first hour. The algorithm loves engagement."
+        "Less is more. Always.",
+        "Use high-quality images. No cheesy stock photos.",
+        "Consistency is key to a professional look."
       ],
       resources: [
-        { name: "CapCut", type: "Free" },
-        { name: "Canva", type: "Free" },
-        { name: "YouTube Studio", type: "Free" }
+        { name: "Figma", type: "Free/Paid" },
+        { name: "Canva", type: "Free/Paid" },
+        { name: "Coolors.co", type: "Free" }
       ],
       challenges: [
-        "The '30-Day Sprint': Post 1 Short/Reel every day for 30 days. Don't look at the views. Just improve 1% each time."
+        "The 'Design Audit': Take a look at your current project and remove 3 unnecessary elements to improve clarity."
       ],
-      career: "Content Creators are the new media companies. Brands pay $5k-$50k for a single sponsored post."
+      career: "Content Designers and UX/UI Designers earn between $70k and $150k+."
     }
   },
   {
     id: 'd4',
     category: 'Digital Skills',
-    title: 'Social Media Strategy',
-    shortDescription: 'Turning followers into fans and customers.',
-    fullExplanation: 'Social media is not a megaphone; it is a telephone. It is about listening, engaging, and building a tribe. The goal is not "more followers"; it is "more trust."',
+    title: 'Personal Branding',
+    shortDescription: 'The insurance policy for your career.',
+    fullExplanation: 'In the digital age, your reputation is your most valuable asset. Personal branding is the process of intentionally managing how you are perceived by the world to unlock opportunities.',
     visualType: 'icon',
-    visualContent: '📱',
-    tags: ['Branding', 'Community', 'Trust'],
+    visualContent: '🆔',
+    tags: ['Career', 'Social Media', 'Reputation'],
     structuredContent: {
-      hook: "Social Media is not a megaphone. It is a cocktail party. If you stand on a chair and scream about your product, you get kicked out.",
-      reality: "Most brands treat social media like a billboard. That is why they fail. The goal is not to broadcast; it is to **build a tribe**.",
-      concept: "Social Media Strategy is **Community Architecture**. You are building a digital city.\n*   **Twitter/X:** The Town Square (Ideas & News).\n*   **Instagram:** The Art Gallery (Visuals & Lifestyle).\n*   **LinkedIn:** The Office (Professional & Networking).\n*   **TikTok:** The Stage (Entertainment & Trends).",
-      power: "*   **Trust:** People buy from friends, not logos.\n*   **Feedback:** Instant access to what your customers are thinking.\n*   **Moat:** A loyal community is the only defense against competition.",
+      hook: "If they don't know you, they can't hire you. Your brand is what people say about you when you're not in the room.",
+      reality: "You already have a personal brand. It's called your digital footprint. The only question is: are you **controlling** it, or is it controlling you?",
+      concept: "Personal Branding is **Permission Marketing**. You share your journey, your expertise, and your values so that the right people (clients, employers, partners) find you.",
+      power: "*   **Inbound Opportunities:** Jobs and deals come to you.\n*   **Pricing Power:** Specialists with a brand charge 3x more than generalists.\n*   **Career Resilience:** You are no longer dependent on a single company.",
       roadmap: [
-        "Phase 1: Foundation (Bio, Avatar, Niche)",
-        "Phase 2: Consistency (Posting Schedule)",
-        "Phase 3: Engagement (Replying & DMs)",
-        "Phase 4: Monetization (Selling without selling)"
+        "Level 1: The Foundation (Your 'Why' and 'Who')",
+        "Level 2: Content Strategy (What to say)",
+        "Level 3: Platform Selection (Where to say it)",
+        "Expert: Community Building (Turning fans into family)"
       ],
       secrets: [
-        "**The 80/20 Rule:** 80% Value (Help/Entertain), 20% Ask (Sell). Violate this and you die.",
-        "**Document, Don't Create:** Don't try to be a guru. Just show your journey. 'Here is what I learned today' beats 'Here is what you should do'.",
-        "**The 'Dream 100':** Interact with the top 100 people in your niche every day. You will borrow their audience."
+        "**The 'Curate vs Create' Rule:** You don't always have to have new ideas. Curate the best ideas from others and add your unique perspective.",
+        "**Consistency > Intensity:** Posting once a week for a year is better than posting every day for a month and quitting.",
+        "**Show your work:** Don't just show the finished product. Show the messy process. It builds trust."
       ],
       examples: [
-        "**Wendy's Twitter:** Roasts people. Acts like a funny friend. Result: Massive viral brand awareness.",
-        "**Gymshark:** Built a billion-dollar brand by sending free clothes to fitness influencers before 'influencer marketing' was a word.",
-        "**Justin Welsh:** Built a $5M business on LinkedIn just by writing about solopreneurship every day."
+        "**Gary Vaynerchuk:** Built a massive empire by documenting his life and business daily.",
+        "**James Clear:** Became the world's leading habit expert by writing one high-quality newsletter a week.",
+        "**Justin Welsh:** Built a multi-million dollar solo business by sharing his 'Solopreneur' journey on LinkedIn."
       ],
-      mindset: "Don't chase followers. Chase **connections**. 1,000 true fans are better than 100,000 bots.",
+      mindset: "Don't be a 'Guru.' Be a 'Guide.' People don't want to follow someone who is perfect; they want to follow someone who is one step ahead of them.",
       
       // Legacy
-      achievement: "Turn strangers into friends, and friends into customers. Build a personal brand that opens doors you didn't even know existed.",
-      story: "**The $0 Marketing Budget**\n\nGymshark is now a billion-dollar company. But they started in a garage.\n\n**The Strategy:** They didn't buy ads. They sent free t-shirts to their favorite fitness YouTubers (who were small at the time).\n\n**The Result:** The YouTubers wore the shirts in videos because they genuinely liked them. Their fans asked 'Where can I buy that?' Gymshark built a community, not just a customer list.",
+      achievement: "Build a digital reputation that works for you 24/7. Become the 'Go-To' person in your niche.",
+      story: "**The Laid-Off Engineer**\n\nAn engineer spent 5 years at a tech giant but never posted online. When he was laid off, he had to start from scratch. \n\n**The Contrast:** Another engineer at the same company spent 1 hour a week sharing his coding tips on Twitter. When he was laid off, he had 5 job offers in his inbox by the next morning. His brand was his **Insurance Policy**.",
       exercises: [
-        { level: "Easy", task: "Optimize your bio. Who are you? Who do you help? (e.g., 'Helping Dads get fit')." },
-        { level: "Medium", task: "Comment on 5 posts from 'Big Accounts' in your niche. Add value, don't spam." },
-        { level: "Hard", task: "Post a 'Vulnerable Story' about a time you failed. Watch the engagement soar." }
+        { level: "Easy", task: "Update your LinkedIn headline to reflect the specific problem you solve." },
+        { level: "Medium", task: "Write a 'Value-Add' post on your platform of choice sharing one thing you learned this week." },
+        { level: "Hard", task: "Create a 'Personal Manifesto' that outlines your values and mission." }
       ],
       tips: [
-        "Consistency > Virality. Showing up every day builds trust.",
-        "Don't 'Post and Ghost'. Stick around for 15 mins after posting to reply to comments.",
-        "Use 'Hooks' in your captions. The first line is the most important."
+        "Be authentic. People can smell a fake from a mile away.",
+        "Focus on helping others, not just promoting yourself.",
+        "Engage with your audience. It's a two-way conversation."
       ],
       resources: [
-        { name: "Buffer", type: "Free" },
-        { name: "Typefully", type: "Free" },
-        { name: "Canva", type: "Free" }
+        { name: "LinkedIn", type: "Free" },
+        { name: "Twitter/X", type: "Free" },
+        { name: "Substack", type: "Free/Paid" }
       ],
       challenges: [
-        "The 'Go Live' Fear: Go live for 10 minutes. Talk about one thing you learned this week. It will be scary. Do it anyway."
+        "The '30-Day Content Challenge': Post one helpful tip or insight every day for 30 days."
       ],
-      career: "Social Media Managers earn $50k-$100k. Personal Brands earn unlimited upside."
+      career: "Personal Branding can lead to speaking engagements, book deals, and high-paying consulting roles."
     }
   },
+
+  // ==================================================================================
+  // SECTION 2: ATTENTION (05-08)
+  // ==================================================================================
   {
     id: 'd5',
     category: 'Digital Skills',
@@ -321,66 +319,9 @@ export const learningModules: LearningModule[] = [
   {
     id: 'd6',
     category: 'Digital Skills',
-    title: 'Data Analytics',
-    shortDescription: 'Reading the matrix of business.',
-    fullExplanation: 'Data is the voice of your customer. They might lie in surveys, but their actions (clicks, purchases, time spent) never lie. Analytics is the skill of listening to that truth and making decisions based on facts, not feelings.',
-    visualType: 'chart',
-    visualContent: '📊',
-    tags: ['Data', 'Logic', 'Truth'],
-    structuredContent: {
-      hook: "Gut feelings are great for lunch, but terrible for business. Stop guessing. Start knowing.",
-      reality: "Amateurs guess. Pros measure. If you can't measure it, you can't improve it. Data is not boring math. It is the map to the treasure.",
-      concept: "Data Analytics is the skill of listening to the truth.\n*   **Descriptive:** What happened? ('Sales are down.')\n*   **Diagnostic:** Why? ('The website broke.')\n*   **Predictive:** What will happen? ('We will lose money next week.')\n*   **Prescriptive:** What should we do? ('Fix the server now!')",
-      power: "*   **Truth:** Numbers don't lie. People do.\n*   **Optimization:** You can double your profit without finding new customers, just by fixing leaks.\n*   **Confidence:** Make decisions knowing you are right.",
-      roadmap: [
-        "Step 1: Collection (Google Analytics/Excel)",
-        "Step 2: Visualization (Seeing the story)",
-        "Step 3: Insight (Finding the 'Why')",
-        "Step 4: Action (Changing the strategy)"
-      ],
-      secrets: [
-        "**Pirate Metrics (AARRR):** Acquisition, Activation, Retention, Referral, Revenue. The only metrics that matter for startups.",
-        "**Correlation vs Causation:** Just because ice cream sales and shark attacks both go up in summer doesn't mean ice cream causes shark attacks.",
-        "**The 5-Second Rule:** If you can't explain the chart in 5 seconds, it's too complex."
-      ],
-      examples: [
-        "**Marketing:** Knowing which ad makes money and which burns money.",
-        "**Product:** Seeing where users get stuck in your app.",
-        "**Personal Finance:** Tracking exactly where every dollar goes.",
-        "**Health:** Tracking sleep and food to optimize energy."
-      ],
-      mindset: "You are not a gambler. You are a **Scientist**. You don't 'hope' it works. You test, you measure, you learn.",
-      
-      // Legacy
-      achievement: "Find the hidden money in your business. Turn confusion into clarity. From Gambler → Scientist.",
-      story: "**Moneyball**\n\nThe Oakland A's baseball team was poor. They couldn't buy star players.\n\n**The Pivot:** They stopped looking at 'athleticism' and started looking at 'data'. They found undervalued players who had high 'On-Base Percentage' but looked funny.\n\n**The Result:** They broke a 103-year record for consecutive wins. They beat teams with 10x their budget. **Data > Money.**",
-      exercises: [
-        { level: "Easy", task: "Track your screen time for a week. Visualize it in a simple chart." },
-        { level: "Medium", task: "Create a Pivot Table in Excel to find the most expensive category in your bank statement." },
-        { level: "Hard", task: "Set up Google Analytics on a personal site and track 'User Flow'." }
-      ],
-      tips: [
-        "Correlation is not Causation. Just because ice cream sales and shark attacks both go up in summer doesn't mean ice cream causes shark attacks.",
-        "Keep it simple. If you can't explain the chart in 5 seconds, it's too complex.",
-        "Garbage In, Garbage Out. Ensure your data is clean."
-      ],
-      resources: [
-        { name: "Google Analytics", type: "Free" },
-        { name: "Tableau Public", type: "Free" },
-        { name: "Excel / Sheets", type: "Free" }
-      ],
-      challenges: [
-        "The 'Truth' Audit: Look at your last 3 months of spending. What does the data say about your priorities? Does it match what you *say* your priorities are?"
-      ],
-      career: "Data Analysts start at $70k. Data Scientists earn $150k+. It is the language of the C-Suite."
-    }
-  },
-  {
-    id: 'd7',
-    category: 'Digital Skills',
     title: 'No-Code Development',
     shortDescription: 'Building empires without code.',
-    fullExplanation: 'You used to need \$100k and a CTO to build a tech startup. Now you need \$50 and a weekend. No-Code tools allow you to drag-and-drop your way to fully functional apps, marketplaces, and SaaS products.',
+    fullExplanation: 'You used to need $100k and a CTO to build a tech startup. Now you need $50 and a weekend. No-Code tools allow you to drag-and-drop your way to fully functional apps, marketplaces, and SaaS products.',
     visualType: 'icon',
     visualContent: '🚀',
     tags: ['Startup', 'Building', 'Speed'],
@@ -409,7 +350,7 @@ export const learningModules: LearningModule[] = [
       
       // Legacy
       achievement: "Turn ideas into apps in 48 hours. Become a one-person startup. From Dreamer → Builder.",
-      story: "**The \$0 Millionaire**\n\nTara wanted to build an art recommendation app. Developers quoted her **$500,000**. She had $0.\n\n**The Pivot:** She used Bubble (a no-code tool) to build it herself on nights and weekends.\n\n**The Result:** She launched 'Kollecto' in 3 weeks, got thousands of users, and generated millions in revenue. She became her own CTO. She didn't wait for a technical co-founder; she became one.",
+      story: "**The $0 Millionaire**\n\nTara wanted to build an art recommendation app. Developers quoted her **$500,000**. She had $0.\n\n**The Pivot:** She used Bubble (a no-code tool) to build it herself on nights and weekends.\n\n**The Result:** She launched 'Kollecto' in 3 weeks, got thousands of users, and generated millions in revenue. She became her own CTO. She didn't wait for a technical co-founder; she became one.",
       exercises: [
         { level: "Easy", task: "Build a personal portfolio site using Carrd or Framer." },
         { level: "Medium", task: "Build a 'Job Board' using Airtable and Softr." },
@@ -432,119 +373,7 @@ export const learningModules: LearningModule[] = [
     }
   },
   {
-    id: 'd8',
-    category: 'Digital Skills',
-    title: 'Cyber Security',
-    shortDescription: 'Protecting your digital kingdom.',
-    fullExplanation: 'Your entire life is online. Your money, your memories, your identity. Security isn\'t about paranoia; it\'s about hygiene. It\'s about locking the door so you can sleep soundly.',
-    visualType: 'icon',
-    visualContent: '🛡️',
-    tags: ['Security', 'Safety', 'Privacy'],
-    structuredContent: {
-      hook: "The internet is a battlefield. You are walking through it naked. Let's put some armor on you.",
-      reality: "Hackers don't target \"systems.\" They target **you**. 90% of hacks happen because a human clicked a link or used \"Password123\". You are the firewall.",
-      concept: "Security is about layers (Defense in Depth).\n1.  **Password Manager:** If you know your password, it's not strong enough. Let a machine generate it: *Xy9#mK2$pL*.\n2.  **2FA (Two-Factor Auth):** Even if they have your password, they can't get in without your phone. Use an App (Authy), not SMS.\n3.  **Updates:** Those annoying \"Update Now\" popups? They are patching holes that hackers use. Click them.",
-      power: "*   **Asset Protection:** Keep your money where it belongs.\n*   **Identity:** Preventing identity theft saves you years of legal hell.\n*   **Privacy:** Keep your private life private.",
-      roadmap: [
-        "Phase 1: Hygiene (Passwords & 2FA)",
-        "Phase 2: Network (VPNs & Updates)",
-        "Phase 3: Privacy (Data Removal)",
-        "Phase 4: Defense (Phishing Awareness)"
-      ],
-      secrets: [
-        "**Phishing 101 - The Hook:** Urgency. \"Your account is locked!\" The scammers rely on fear to make you act fast.",
-        "**The Line:** A fake link. \"Click here to fix.\" Always check the URL.",
-        "**The Rule:** Never click. Go to the app/site directly."
-      ],
-      examples: [
-        "**Personal:** Keeping your bank account safe.",
-        "**Family:** Protecting your kids' photos and location.",
-        "**Business:** Ensuring client data doesn't leak.",
-        "**Travel:** Using airport Wi-Fi without getting snooped on."
-      ],
-      mindset: "You are not a victim. You are a **Fortress**. Security is not an inconvenience; it is a necessity.",
-      // Legacy
-      achievement: "Lock your digital doors. Sleep soundly. Protect your money and your name. From Victim → Fortress.",
-      story: "**The HVAC Hack**\n\nTarget (the massive store) got hacked. 40 million credit cards stolen.\n\n**The Twist:** The hackers didn't break into Target's servers. They stole the password of the **Air Conditioning Repairman** (HVAC) who had access to the network.\n\n**The Lesson:** You are only as strong as your weakest link. Don't be the HVAC guy.",
-      exercises: [
-        { level: "Easy", task: "Check 'Have I Been Pwned' to see if your email was leaked." },
-        { level: "Medium", task: "Install a Password Manager (Bitwarden/1Password) and change your top 5 passwords." },
-        { level: "Hard", task: "Set up a Hardware Key (YubiKey) for your primary email." }
-      ],
-      tips: [
-        "Don't use the same password twice. Ever.",
-        "Cover your webcam. Yes, really.",
-        "If it's free, YOU are the product. Check your privacy settings."
-      ],
-      resources: [
-        { name: "Bitwarden", type: "Free" },
-        { name: "Malwarebytes", type: "Free" },
-        { name: "Privacy.com", type: "Free" }
-      ],
-      challenges: [
-        "The 'Lockdown': Enable 2FA on every single account you own. Email, Social, Bank, Amazon. All of it."
-      ],
-      career: "Cybersecurity is the only field with 0% unemployment. Millions of unfilled jobs."
-    }
-  },
-  {
-    id: 'd9',
-    category: 'Digital Skills',
-    title: 'Growth Hacking',
-    shortDescription: 'Science applied to marketing.',
-    fullExplanation: 'Growth hacking isn\'t magic. It\'s the scientific method applied to sales. It\'s running rapid experiments to find the "One Thing" that explodes your growth. It\'s about doing more with less.',
-    visualType: 'chart',
-    visualContent: '📈',
-    tags: ['Growth', 'Experiments', 'Scale'],
-    structuredContent: {
-      hook: "Marketing burns money. Growth Hacking prints money. Stop shouting, start experimenting.",
-      reality: "Traditional marketing is \"Mad Men\" (creative guessing). Growth Hacking is \"Moneyball\" (data-driven winning). You don't need a budget. You need a brain.",
-      concept: "Growth Hacking is the **Lab Coat Mindset**.\nA marketer says: \"I think this blue button looks nice.\"\nA growth hacker says: \"Let's test Blue vs. Red and see which one makes more money.\"\n**Data wins arguments.**",
-      power: "*   **Leverage:** One small change can double your revenue.\n*   **Speed:** Find out what works in hours, not months.\n*   **Cost:** Grow without paying Zuckerberg.",
-      roadmap: [
-        "Step 1: Product Market Fit (Do they want it?)",
-        "Step 2: The Funnel (Where do they drop off?)",
-        "Step 3: Rapid Experimentation (Testing)",
-        "Step 4: Viral Loops (Referrals)"
-      ],
-      secrets: [
-        "**The Viral Loop:** How to get free users forever: User gets value -> User invites friend -> Friend joins -> Repeat.",
-        "**The Pirate Funnel (AARRR):** Acquisition, Activation, Retention (The King), Referral, Revenue.",
-        "**Retention is King:** Don't fill a leaky bucket. Fixing retention is 10x cheaper than buying new users."
-      ],
-      examples: [
-        "**Startups:** Getting first users with $0.",
-        "**Creators:** Growing a newsletter via referrals.",
-        "**E-Commerce:** Increasing 'Average Order Value' with upsells.",
-        "**Apps:** Gamifying the experience to keep users coming back."
-      ],
-      mindset: "You are not a gambler. You are a **Scientist**. Every failure is just data. Every win is scalable. From Unknown → Viral.",
-      // Legacy
-      achievement: "Get 10,000 users for $0. Turn your product into a virus (the good kind). From Unknown → Viral.",
-      story: "**The Dropbox Hack**\n\nDropbox was dying. Ads were too expensive.\n\n**The Hack:** They added a button: *\"Get 500MB free for every friend you invite.\"*\n\n**The Result:** Signups went up 60% permanently. They grew from 100k to 4 million users in 15 months. They didn't buy ads; they turned their users into their sales team.",
-      exercises: [
-        { level: "Easy", task: "Analyze a 'Referral Program' (like Uber or Airbnb). How do they incentivize you?" },
-        { level: "Medium", task: "Design a 'Viral Loop' for a lemonade stand." },
-        { level: "Hard", task: "Run an A/B test on a landing page headline." }
-      ],
-      tips: [
-        "Retention is King. Don't fill a leaky bucket.",
-        "Speed of testing is the #1 predictor of success.",
-        "Steal like an artist. See what competitors are doing and improve it."
-      ],
-      resources: [
-        { name: "Google Optimize", type: "Free" },
-        { name: "Viral Loops", type: "Paid" },
-        { name: "Hotjar", type: "Free" }
-      ],
-      challenges: [
-        "The '100 User' Sprint: Get 100 people to sign up for a newsletter/waitlist without spending $1. Use forums, DMs, and content."
-      ],
-      career: "Head of Growth is one of the highest-paid roles in tech. It's high pressure, high reward."
-    }
-  },
-  {
-    id: 'd10',
+    id: 'd7',
     category: 'Digital Skills',
     title: 'AI Tool Mastery',
     shortDescription: 'Becoming a Centaur (Human + AI).',
@@ -575,9 +404,10 @@ export const learningModules: LearningModule[] = [
         "**Learning:** Summarizing 50-page PDFs in 10 seconds."
       ],
       mindset: "Don't fear the machine. Ride the machine. You are the Pilot. From User → Centaur.",
+      
       // Legacy
       achievement: "Build a 'Second Brain' and a 'Digital Team' that handles your grunt work, creative blocks, and technical tasks.",
-      story: "**The Centaur**\n\nIn chess, a 'Centaur' is a Human + AI team. \n*   Human = Strategy & Intuition.\n*   AI = Calculation & Speed.\n\n**The Truth:** A Centaur beats a Human. But a Centaur also beats a pure AI. \n**The Goal:** Don't compete with AI. Collaborate with it. Become the Centaur.",
+      story: "**The Centaur**\n\nIn chess, a 'Centaur' is a Human + AI team. \n*   Human = Strategy & Intuition.\n*   AI = Calculation & Speed.\n\n**The Truth:** A Centaur beats a Human. But a Centaur also beats a pure AI. \n**The Goal:** Don't compete with AI. Collaboration with it. Become the Centaur.",
       exercises: [
         { level: "Easy", task: "Use ChatGPT to plan a 3-course meal and generate a shopping list." },
         { level: "Medium", task: "Use Midjourney to create a logo for a fake brand." },
@@ -599,64 +429,232 @@ export const learningModules: LearningModule[] = [
       career: "AI Operations Manager is a role that didn't exist 2 years ago. Now companies are hiring them to fix their workflows."
     }
   },
-
-  // ==================================================================================
-  // 2. BUSINESS & STRATEGY (10 Cards)
-  // ==================================================================================
   {
-    id: 'b1',
-    category: 'Business',
-    title: 'The Lean Startup',
-    shortDescription: 'Build fast, fail fast, learn faster.',
-    fullExplanation: 'The old way: Write a 50-page business plan, raise money, build for 2 years, launch, and fail. The Lean way: Build a prototype in 2 days, try to sell it, learn from customers, and iterate. Stop wasting time building things nobody wants.',
-    visualType: 'book',
-    visualContent: '🚀',
-    tags: ['Startup', 'Methodology', 'Speed'],
+    id: 'd8',
+    category: 'Digital Skills',
+    title: 'Marketing Psychology',
+    shortDescription: 'The science of why people click.',
+    fullExplanation: 'Marketing is not about tricking people; it is about understanding how the human brain makes decisions. When you master psychology, you stop guessing and start building things people actually want.',
+    visualType: 'icon',
+    visualContent: '🧠',
+    tags: ['Psychology', 'Marketing', 'Sales'],
     structuredContent: {
-      hook: "Most startups fail not because they couldn't build the product, but because they built the WRONG product.",
-      reality: "The old way: Write a 50-page business plan, raise money, build for 2 years, launch, and fail. The Lean way: Build a prototype in 2 days, try to sell it, learn from customers, and iterate.",
-      concept: "The **Build-Measure-Learn Loop** is the engine of innovation.\n1.  **Build:** Create a small experiment.\n2.  **Measure:** Collect data. (Did they click? Did they buy?)\n3.  **Learn:** Why did it happen?\n4.  **Repeat.**",
-      power: "*   **Vanity Metrics:** \"We got 10,000 likes!\" (Who cares? Likes don't pay bills).\n*   **Actionable Metrics:** \"We got 10 sales.\" (This proves value).\n*   **Efficiency:** Validate a million-dollar idea without spending a million dollars.",
+      hook: "95% of purchasing decisions are subconscious. If you're only talking to the rational brain, you're missing the sale.",
+      reality: "Humans are not rational creatures; we are rationalizing creatures. We buy based on emotion and justify with logic. Marketing Psychology is the map of those emotions.",
+      concept: "Marketing Psychology is **Influence Design**. You use proven principles like Scarcity, Social Proof, and Reciprocity to nudge people toward a desired action.",
+      power: "*   **Conversion:** Turn visitors into customers.\n*   **Loyalty:** Build deep emotional bonds with your audience.\n*   **Efficiency:** Spend less on ads by having better messaging.",
       roadmap: [
-        "Step 1: The Hypothesis (I think people want X)",
-        "Step 2: The MVP (The smallest version of X)",
-        "Step 3: The Test (Do they buy?)",
-        "Step 4: Pivot or Persevere"
+        "Level 1: The Cialdini Principles (Influence)",
+        "Level 2: Cognitive Biases (Decision making)",
+        "Level 3: Emotional Triggers (Copywriting)",
+        "Expert: Behavioral Economics (Pricing & Strategy)"
       ],
       secrets: [
-        "**Kill Your Darlings:** If the data says your idea is bad, **kill it.** Don't fall in love with your solution. Fall in love with the *problem*.",
-        "**The $1 Challenge:** Make your first $1 from a stranger online. It changes your brain chemistry.",
-        "**Surveys Lie:** Wallets tell the truth. Don't ask \"Would you buy this?\" Ask \"Will you buy this right now?\""
+        "**The 'Decoy Effect':** Adding a third, less-attractive option can make your preferred option look like a steal.",
+        "**Loss Aversion:** People are more motivated to avoid losing $100 than they are to gain $100. Frame your offer accordingly.",
+        "**The Power of 'Because':** Giving a reason for a request—even a simple one—dramatically increases compliance."
       ],
       examples: [
-        "**Entrepreneurship:** Testing a new business idea.",
-        "**Corporate:** Launching a new product line.",
-        "**Freelancing:** Testing a new service offering.",
-        "**Life:** Trying a new diet (The Lean Body?)."
+        "**Booking.com:** Uses 'Only 1 room left!' to trigger Scarcity and Urgency.",
+        "**Amazon:** Uses 'Customers who bought this also bought...' to leverage Social Proof.",
+        "**Starbucks:** Uses a complex rewards program to build habits and Reciprocity."
       ],
-      mindset: "Fail fast. Failure is not the opposite of success; it is part of success. You either win or you learn.",
+      mindset: "Don't sell products. Sell transformations. People don't buy a drill; they buy a hole in the wall. Focus on the 'After' state.",
+      
       // Legacy
-      achievement: "Validate a million-dollar idea without spending a million dollars.",
-      story: "**The Zappos Test**\n\nNick wanted to sell shoes online. Everyone said: \"People need to try shoes on!\"\n\n**The Test:** He didn't build a warehouse. He went to a local shoe store, took photos, and put them on a simple website. When someone bought a pair, he walked to the store, bought them, and mailed them.\n\n**The Result:** He proved people *would* buy shoes online. He sold Zappos to Amazon for **$1.2 Billion**. He started with a camera and a website.",
+      achievement: "Understand the hidden drivers of human behavior. Build products and campaigns that resonate on a deep, subconscious level.",
+      story: "**The Jam Experiment**\n\nA grocery store set up a display with 24 flavors of jam. Lots of people stopped, but only 3% bought.\n\n**The Pivot:** They reduced the display to only 6 flavors. Fewer people stopped, but 30% bought.\n\n**The Lesson:** Choice Paralysis is real. More options often lead to fewer sales. Psychology taught them that **Simplicity Scales**.",
       exercises: [
-        { level: "Easy", task: "Write down 3 assumptions you have about a business idea." },
-        { level: "Medium", task: "Create a 'Landing Page' (using Carrd) to test one of those assumptions." },
-        { level: "Hard", task: "Try to pre-sell a product that doesn't exist yet (be ethical: refund if you don't build it)." }
+        { level: "Easy", task: "Find 3 examples of 'Social Proof' on your favorite website." },
+        { level: "Medium", task: "Rewrite a product description using 'Loss Aversion' framing." },
+        { level: "Hard", task: "Design a pricing page using the 'Decoy Effect'." }
       ],
       tips: [
-        "If you aren't embarrassed by the first version of your product, you launched too late.",
-        "Talk to customers. Surveys lie. Wallets tell the truth.",
-        "Fail fast. Failure is just learning what doesn't work."
+        "Always be ethical. Use your powers for good.",
+        "Test everything. What works for one audience might not work for another.",
+        "Focus on the benefits, not just the features."
       ],
       resources: [
-        { name: "The Lean Startup (Book)", type: "Paid" },
-        { name: "Steve Blank (Blog)", type: "Free" },
-        { name: "Y Combinator Library", type: "Free" }
+        { name: "Influence by Robert Cialdini", type: "Paid" },
+        { name: "Predictably Irrational by Dan Ariely", type: "Paid" },
+        { name: "Marketing Examples", type: "Free" }
       ],
       challenges: [
-        "The '$1 Challenge': Make your first $1 from a stranger online. It changes your brain chemistry."
+        { level: "Ethics Check", task: "Audit your marketing and ensure you are providing genuine value and not just using 'dark patterns'." }
       ],
-      career: "Product Managers who understand Lean methodology are the CEOs of the product."
+      career: "Marketing Psychologists and Growth Hackers can earn upwards of $150k in tech companies."
+    }
+  },
+
+  // ==================================================================================
+  // SECTION 3: WEALTH (09-11)
+  // ==================================================================================
+  {
+    id: 'd9',
+    category: 'Digital Skills',
+    title: 'Data & Analytics',
+    shortDescription: 'The scoreboard of your business.',
+    fullExplanation: 'If you can\'t measure it, you can\'t improve it. Data & Analytics is the art of turning raw numbers into actionable insights that drive growth.',
+    visualType: 'chart',
+    visualContent: '📊',
+    tags: ['Data', 'Analytics', 'Growth'],
+    structuredContent: {
+      hook: "In God we trust; all others must bring data. Stop guessing and start knowing.",
+      reality: "Most people are drowning in data but starving for insights. Analytics isn't about the numbers; it's about the **questions** you ask them.",
+      concept: "Data & Analytics is **Business Intelligence**. You track the user journey to find out where they are coming from, what they are doing, and why they are leaving.",
+      power: "*   **Optimization:** Find the leaks in your funnel.\n*   **ROI:** Know exactly which marketing channels are making you money.\n*   **Prediction:** Use historical data to forecast future trends.",
+      roadmap: [
+        "Level 1: Tracking Basics (Google Analytics)",
+        "Level 2: Conversion Rate Optimization (CRO)",
+        "Level 3: Customer Lifetime Value (CLV)",
+        "Expert: Data Science & Predictive Modeling"
+      ],
+      secrets: [
+        "**The '80/20' Rule:** 80% of your results usually come from 20% of your efforts. Use data to find that 20%.",
+        "**Correlation vs Causation:** Just because two things happen together doesn't mean one caused the other. Be a detective.",
+        "**The Power of Cohorts:** Don't just look at total users. Look at how users who joined in January behave compared to those who joined in June."
+      ],
+      examples: [
+        "**Netflix:** Uses data to decide which shows to produce (e.g., House of Cards).",
+        "**Uber:** Uses real-time data to set prices and predict demand.",
+        "**Airbnb:** Uses A/B testing on every single button and image to maximize bookings."
+      ],
+      mindset: "Numbers don't lie, but they can be misinterpreted. Always ask 'Why?' behind every 'What?'. Be data-informed, not just data-driven.",
+      
+      // Legacy
+      achievement: "Master the tools of modern business. Turn data into a competitive advantage that competitors can't touch.",
+      story: "**The $1 Billion Data Point**\n\nA small gaming company noticed that players who made a friend in the first 24 hours were 5x more likely to stay. \n\n**The Fix:** They redesigned the onboarding to focus entirely on social connection. \n\n**The Result:** Retention skyrocketed, leading to a multi-billion dollar exit. They didn't guess; they found the **One Metric That Mattered**.",
+      exercises: [
+        { level: "Easy", task: "Install Google Analytics on your website or blog." },
+        { level: "Medium", task: "Identify your 'North Star Metric' (the one number that matters most)." },
+        { level: "Hard", task: "Run an A/B test on a landing page headline." }
+      ],
+      tips: [
+        "Keep it simple. Don't track everything.",
+        "Focus on actionable metrics, not 'vanity' metrics (like likes).",
+        "Data is a tool, not a substitute for intuition."
+      ],
+      resources: [
+        { name: "Google Analytics 4", type: "Free" },
+        { name: "Mixpanel", type: "Free/Paid" },
+        { name: "Hotjar", type: "Free/Paid" }
+      ],
+      challenges: [
+        "The 'Metric Clean-Up': Identify and stop tracking 3 vanity metrics that are distracting you."
+      ],
+      career: "Data Analysts and Data Scientists are among the highest-paid professionals in the world."
+    }
+  },
+  {
+    id: 'd10',
+    category: 'Mindset',
+    title: 'The Sovereign Mind',
+    shortDescription: 'Unlocking the internal barriers to wealth.',
+    fullExplanation: 'Your external world is a reflection of your internal state. If you have "money blocks" or a "fixed mindset," no amount of strategy will save you. This module is about upgrading your mental operating system.',
+    visualType: 'icon',
+    visualContent: '🧘',
+    tags: ['Mindset', 'Wealth', 'Philosophy'],
+    structuredContent: {
+      hook: "The biggest bottleneck in your business isn't the market or the tech—it's you.",
+      reality: "We are programmed by our environment, our education, and our past. Most of that programming is designed to keep us 'safe' (average). To be exceptional, you must **de-program**.",
+      concept: "The Sovereign Mind is **Self-Mastery**. It is the ability to control your attention, your emotions, and your beliefs so you can act with clarity and courage.",
+      power: "*   **Resilience:** Bounce back from failure instantly.\n*   **Clarity:** Make high-stakes decisions without fear.\n*   **Wealth:** Attract and keep money by having an 'Abundance Mindset'.",
+      roadmap: [
+        "Level 1: Awareness (Identifying your limiting beliefs)",
+        "Level 2: Discipline (Controlling your inputs and habits)",
+        "Level 3: Vision (Defining your own 'North Star')",
+        "Expert: Non-Attachment (Playing the game without being played)"
+      ],
+      secrets: [
+        "**The 'Internal Locus of Control':** Believe that YOU are responsible for your life, not luck or the economy.",
+        "**Input Control:** Your mind is a garden. If you let in junk (news, toxic people), you will grow weeds. Guard the gates.",
+        "**The '1% Rule':** Don't try to change everything at once. Just be 1% better every day."
+      ],
+      examples: [
+        "**Naval Ravikant:** Built massive wealth by focusing on 'Specific Knowledge' and 'Leverage' through a clear mind.",
+        "**Steve Jobs:** Used Zen meditation to develop the focus needed to create Apple.",
+        "**Marcus Aurelius:** Used Stoic philosophy to lead the Roman Empire without losing his sanity."
+      ],
+      mindset: "You don't get what you want; you get who you are. Become the person who deserves the success you seek.",
+      
+      // Legacy
+      achievement: "Break free from the mental chains of the '9-to-5' world. Build a mind that is unshakeable and a life that is truly yours.",
+      story: "**The Two Builders**\n\nTwo people started the same business. One saw every setback as a disaster and quit after 3 months. The other saw every setback as a lesson and kept going for 3 years.\n\n**The Result:** The second person is now a multi-millionaire. The difference wasn't the business; it was the **Mindset**. The first person was a slave to their emotions; the second was Sovereign.",
+      exercises: [
+        { level: "Easy", task: "Write down 3 limiting beliefs you have about money." },
+        { level: "Medium", task: "Go 24 hours without checking any news or social media." },
+        { level: "Hard", task: "Define your 'Ideal Day' in detail and identify one step to move closer to it." }
+      ],
+      tips: [
+        "Practice gratitude daily.",
+        "Meditate to improve your focus.",
+        "Surround yourself with people who challenge you."
+      ],
+      resources: [
+        { name: "The Almanack of Naval Ravikant", type: "Free/Paid" },
+        { name: "Meditations by Marcus Aurelius", type: "Free/Paid" },
+        { name: "The Psychology of Money", type: "Paid" }
+      ],
+      challenges: [
+        "The 'Fear Setting' Challenge: Identify your biggest fear and write down exactly what you would do if it came true."
+      ],
+      career: "A Sovereign Mind is the ultimate career advantage. It makes you a leader, not a follower."
+    }
+  },
+  {
+    id: 'd11',
+    category: 'Business',
+    title: 'The Lean Startup',
+    shortDescription: 'How to build without wasting time.',
+    fullExplanation: 'Most startups fail because they build something nobody wants. The Lean Startup is a methodology for developing businesses and products that aims to shorten product development cycles and rapidly discover if a proposed business model is viable.',
+    visualType: 'checklist',
+    visualContent: '📋',
+    tags: ['Business', 'Strategy', 'Efficiency'],
+    structuredContent: {
+      hook: "Don't build a masterpiece in a vacuum. Build a prototype in the real world.",
+      reality: "Planning is just guessing. The only way to know if your idea works is to put it in front of customers as fast as possible.",
+      concept: "The Lean Startup is **Validated Learning**. You use the Build-Measure-Learn feedback loop to iterate your way to a successful product.",
+      power: "*   **Speed:** Launch in weeks, not years.\n*   **Efficiency:** Don't waste money on features people don't use.\n*   **Certainty:** Build based on facts, not assumptions.",
+      roadmap: [
+        "Level 1: The MVP (Minimum Viable Product)",
+        "Level 2: The Feedback Loop (Build-Measure-Learn)",
+        "Level 3: Pivoting (When to change direction)",
+        "Expert: Scaling (Moving from MVP to Growth)"
+      ],
+      secrets: [
+        "**The 'Smoke Test':** Sell the product before you build it. Use a landing page and see if people click 'Buy'.",
+        "**Vanilla MVP:** Use off-the-shelf tools to build your first version. Don't custom code anything yet.",
+        "**Talk to Users:** 10 conversations are worth more than 1,000 surveys."
+      ],
+      examples: [
+        "**Dropbox:** Started with a simple 3-minute video explaining the concept.",
+        "**Zappos:** The founder took photos of shoes in a local store and posted them online to see if people would buy.",
+        "**Airbnb:** The founders rented out air mattresses in their living room to prove the concept."
+      ],
+      mindset: "Failure is just data. If you're not embarrassed by your first version, you launched too late. Be a scientist, not an artist.",
+      
+      // Legacy
+      achievement: "Master the art of the 'Smart Start'. Build a business that is built to last by starting small and iterating fast.",
+      story: "**The $50,000 Mistake**\n\nA founder spent $50,000 and 6 months building a complex app for pet owners. When he launched, he realized people only wanted one simple feature: a way to find local dog walkers. \n\n**The Pivot:** He stripped away everything else and focused on that one feature. \n\n**The Lesson:** He could have learned that in one weekend for $50. Don't build the whole car; build a skateboard first.",
+      exercises: [
+        { level: "Easy", task: "Create a 1-page Business Model Canvas for your idea." },
+        { level: "Medium", task: "Build a 'Coming Soon' landing page for a fake product." },
+        { level: "Hard", task: "Interview 5 potential customers about a problem they have." }
+      ],
+      tips: [
+        "Focus on the 'Minimum' in MVP.",
+        "Measure what matters, not just everything.",
+        "Be ready to pivot."
+      ],
+      resources: [
+        { name: "The Lean Startup by Eric Ries", type: "Paid" },
+        { name: "The Mom Test", type: "Paid" },
+        { name: "Strategyzer", type: "Free/Paid" }
+      ],
+      challenges: [
+        "The '24-Hour MVP': Build and launch a prototype of your idea in 24 hours."
+      ],
+      career: "Lean Startup principles are used by the world's most successful entrepreneurs and product managers."
     }
   }
 ];

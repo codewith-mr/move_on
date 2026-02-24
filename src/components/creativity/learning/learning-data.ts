@@ -1,6 +1,16 @@
 export interface LearningModule {
   id: string;
-  category: 'Digital Skills' | 'Business' | 'Mindset' | 'Books' | 'Design' | 'Crafting';
+  category:
+    | 'Digital Skills'
+    | 'Business'
+    | 'Mindset'
+    | 'Books'
+    | 'Design'
+    | 'Crafting'
+    | 'Earn & Careers'
+    | 'Self Development'
+    | 'Resources'
+    | 'Opportunities';
   title: string;
   shortDescription: string;
   fullExplanation: string;
@@ -255,6 +265,132 @@ export const learningModules: LearningModule[] = [
       ],
       career: "Personal Branding can lead to speaking engagements, book deals, and high-paying consulting roles."
     }
+  },
+
+  // ==================================================================================
+  // SECTION: EARN & CAREERS
+  // ==================================================================================
+  {
+    id: 'ec1',
+    category: 'Earn & Careers',
+    title: 'Freelancing Foundations',
+    shortDescription: 'Turn skills into income with client work instead of random gigs.',
+    fullExplanation:
+      'Freelancing is the fastest path from student to earner. Instead of waiting for someone to hire you full-time, you start solving small problems for real people and get paid for it.',
+    visualType: 'checklist',
+    visualContent: '💼',
+    tags: ['Freelancing', 'Clients', 'Online Earning']
+  },
+  {
+    id: 'ec2',
+    category: 'Earn & Careers',
+    title: 'Remote Job Ready',
+    shortDescription: 'Prepare a portfolio, CV, and online presence for remote roles.',
+    fullExplanation:
+      'Remote jobs reward proof of skill more than degrees. To compete globally, you need a focused CV, portfolio, and presence that tells one clear story about what you can do.',
+    visualType: 'icon',
+    visualContent: '🌐',
+    tags: ['Remote Work', 'CV', 'Portfolio']
+  },
+  {
+    id: 'ec3',
+    category: 'Earn & Careers',
+    title: 'Side Hustle Blueprint',
+    shortDescription: 'Design a small, low-risk income project around your strengths.',
+    fullExplanation:
+      'A side hustle is a small, controlled experiment in earning. Done right, it teaches you skills, brings in extra cash, and can grow into something bigger without risking your studies.',
+    visualType: 'chart',
+    visualContent: '📈',
+    tags: ['Side Hustle', 'Experiments', 'Cashflow']
+  },
+
+  // ==================================================================================
+  // SECTION: SELF DEVELOPMENT
+  // ==================================================================================
+  {
+    id: 'sd1',
+    category: 'Self Development',
+    title: 'Student Productivity System',
+    shortDescription: 'A simple way to juggle classes, work, and self-study without burnout.',
+    fullExplanation:
+      'Most students rely on motivation. High performers rely on systems. A good productivity system turns your goals into weekly and daily actions you can actually follow.',
+    visualType: 'checklist',
+    visualContent: '🧠',
+    tags: ['Productivity', 'Planning', 'Focus']
+  },
+  {
+    id: 'sd2',
+    category: 'Self Development',
+    title: 'Time Management For Busy Students',
+    shortDescription: 'Plan weeks, not days, so deadlines stop being emergencies.',
+    fullExplanation:
+      'Time management is not about squeezing more tasks into a day. It is about protecting time for deep work, rest, and long-term projects that move your life forward.',
+    visualType: 'chart',
+    visualContent: '⏱️',
+    tags: ['Time', 'Scheduling', 'Deadlines']
+  },
+  {
+    id: 'sd3',
+    category: 'Self Development',
+    title: 'Confidence And Communication',
+    shortDescription: 'Learn to speak, email, and present in a way that opens doors.',
+    fullExplanation:
+      'Opportunities often come through people. Clear, confident communication makes teachers, employers, and clients remember you and trust you with bigger responsibilities.',
+    visualType: 'icon',
+    visualContent: '🎤',
+    tags: ['Confidence', 'Communication', 'Interviews']
+  },
+
+  // ==================================================================================
+  // SECTION: RESOURCES
+  // ==================================================================================
+  {
+    id: 'r1',
+    category: 'Resources',
+    title: 'Student Resource Library',
+    shortDescription: 'Organised PDFs, templates, and cheat sheets for fast execution.',
+    fullExplanation:
+      'Instead of starting from a blank page every time, you can plug into checklists, templates, and roadmaps that give you a starting structure for work, study, and applications.',
+    visualType: 'book',
+    visualContent: '📚',
+    tags: ['Templates', 'PDFs', 'Cheat Sheets']
+  },
+  {
+    id: 'r2',
+    category: 'Resources',
+    title: 'Career Guide Collection',
+    shortDescription: 'Short guides that explain what different careers really involve.',
+    fullExplanation:
+      'Job titles are confusing. Career guides translate them into plain language: what the work feels like day-to-day, what skills you need, and how to get a first opportunity.',
+    visualType: 'book',
+    visualContent: '📖',
+    tags: ['Careers', 'Guides', 'Planning']
+  },
+
+  // ==================================================================================
+  // SECTION: OPPORTUNITIES
+  // ==================================================================================
+  {
+    id: 'o1',
+    category: 'Opportunities',
+    title: 'Scholarships And Programs Radar',
+    shortDescription: 'A structured way to discover and track scholarships and exchanges.',
+    fullExplanation:
+      'There are more scholarships and exchange programs than most students realise. The challenge is not just finding them, but tracking deadlines and requirements calmly.',
+    visualType: 'chart',
+    visualContent: '🌍',
+    tags: ['Scholarships', 'Exchange', 'Tracking']
+  },
+  {
+    id: 'o2',
+    category: 'Opportunities',
+    title: 'Internships, Jobs, And Competitions',
+    shortDescription: 'Use small opportunities to build experience before graduation.',
+    fullExplanation:
+      'Early internships, projects, and competitions give you stories for your CV and interviews. They also help you test whether you actually enjoy a field before committing.',
+    visualType: 'icon',
+    visualContent: '🏁',
+    tags: ['Internships', 'Jobs', 'Competitions']
   },
 
   // ==================================================================================

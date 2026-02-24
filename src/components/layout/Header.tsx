@@ -19,7 +19,7 @@ const Header = ({ logoUrl }: { logoUrl: string }) => {
   };
 
   return (
-    <header className="bg-background shadow-1 sticky top-0 z-50">
+    <header className="bg-background shadow-1 sticky top-0 z-50 print:hidden">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center">
@@ -42,7 +42,7 @@ const Header = ({ logoUrl }: { logoUrl: string }) => {
             onMouseLeave={() => setIsCoursesDropdownOpen(false)}
           >
             <button 
-              className={`flex items-center gap-1 font-body font-semibold transition-colors ${isActive('/courses') || isActive('/gov-schemes') ? 'text-primary' : 'text-text hover:text-primary'}`}
+              className={`flex items-center gap-1 font-body font-semibold transition-colors ${isActive('/courses') || isActive('/gov-schemes') || isActive('/global-scholar') ? 'text-primary' : 'text-text hover:text-primary'}`}
             >
               Courses
               <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 transition-transform duration-200 ${isCoursesDropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -52,37 +52,240 @@ const Header = ({ logoUrl }: { logoUrl: string }) => {
 
             {/* Dropdown Menu - Premium Minimalist Redesign */}
             {isCoursesDropdownOpen && (
-              <div className="absolute top-full left-0 w-64 pt-4 z-[60]">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[680px] max-w-[90vw] pt-4 z-[60]">
                 <div className="bg-white/95 backdrop-blur-xl rounded-2xl border border-slate-100 shadow-[0_20px_50px_rgba(0,0,0,0.1)] overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
-                  <Link 
-                    href="/courses" 
-                    className="flex items-center gap-4 px-5 py-4 hover:bg-slate-50 transition-all group"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center group-hover:bg-white group-hover:border-slate-200 transition-all shadow-sm">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-slate-600 group-hover:text-primary transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                      </svg>
+                  <div className="flex">
+                    <div className="w-64 flex flex-col divide-y divide-slate-100">
+                      <Link 
+                        href="/courses" 
+                        className="flex items-center gap-3 px-5 py-4 transition-all duration-150 group hover:bg-slate-50 hover:-translate-y-0.5"
+                      >
+                        <div className="w-10 h-10 shrink-0 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center transition-all shadow-sm group-hover:bg-white group-hover:border-slate-200 group-hover:shadow-md group-hover:scale-105">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-5 h-5 text-slate-700 transition-colors group-hover:text-primary"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={1.6}
+                              d="M5 6h5v5H5zM14 6h5v5h-5zM5 13h5v5H5zM14 13h5v5h-5z"
+                            />
+                          </svg>
+                        </div>
+                        <div>
+                          <div className="text-[13px] font-bold text-slate-900 tracking-tight group-hover:text-primary">All Courses</div>
+                          <div className="text-[12px] text-slate-500 group-hover:text-slate-600">Browse full structured learning tracks.</div>
+                        </div>
+                      </Link>
+                      <Link 
+                        href="/gov-schemes" 
+                        className="flex items-center gap-3 px-5 py-4 transition-all duration-150 group hover:bg-slate-50 hover:-translate-y-0.5"
+                      >
+                        <div className="w-10 h-10 shrink-0 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center transition-all shadow-sm group-hover:bg-white group-hover:border-emerald-200 group-hover:shadow-md group-hover:scale-105">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-5 h-5 text-slate-700 transition-colors group-hover:text-emerald-700"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={1.6}
+                              d="M12 4l7 3v5c0 4.418-3.134 6.84-7 8-3.866-1.16-7-3.582-7-8V7z"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={1.6}
+                              d="M9 12l2 2 4-4"
+                            />
+                          </svg>
+                        </div>
+                        <div>
+                          <div className="text-[13px] font-bold text-slate-900 tracking-tight group-hover:text-emerald-700">Gov Portal</div>
+                          <div className="text-[12px] text-slate-500 group-hover:text-slate-600">Pakistani schemes, subsidies, and updates.</div>
+                        </div>
+                      </Link>
+                      <Link 
+                        href="/global-scholar" 
+                        className="flex items-center gap-3 px-5 py-4 transition-all duration-150 group hover:bg-slate-50 hover:-translate-y-0.5"
+                      >
+                        <div className="w-10 h-10 shrink-0 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center transition-all shadow-sm group-hover:bg-white group-hover:border-sky-200 group-hover:shadow-md group-hover:scale-105">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-5 h-5 text-slate-700 transition-colors group-hover:text-sky-700"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="7"
+                              strokeWidth={1.6}
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={1.4}
+                              d="M5 12h14M12 5a9 9 0 010 14M12 5a9 9 0 000 14"
+                            />
+                          </svg>
+                        </div>
+                        <div>
+                          <div className="text-[13px] font-bold text-slate-900 tracking-tight group-hover:text-sky-700">Global Scholar</div>
+                          <div className="text-[12px] text-slate-500 group-hover:text-slate-600">Scholarships, visas, and studying abroad.</div>
+                        </div>
+                      </Link>
                     </div>
-                    <div>
-                      <div className="text-sm font-bold text-slate-900 tracking-tight">The Academy</div>
-                      <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Skill Mastery</div>
+                    <div className="w-px bg-slate-100" />
+                    <div className="flex-1 grid grid-cols-2 gap-3 p-4">
+                      <Link 
+                        href="/earn-careers" 
+                        className="flex items-start gap-3 px-3 py-3 rounded-xl transition-all duration-150 group border border-transparent hover:border-emerald-200 hover:bg-emerald-50/40 hover:-translate-y-0.5"
+                      >
+                        <div className="w-10 h-10 shrink-0 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center transition-all shadow-sm group-hover:bg-white group-hover:border-emerald-300 group-hover:shadow-md group-hover:scale-105">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-5 h-5 text-slate-700 transition-colors group-hover:text-emerald-700"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={1.6}
+                              d="M9 7V6a2 2 0 012-2h2a2 2 0 012 2v1"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={1.6}
+                              d="M7 7h10v10H7z"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={1.6}
+                              d="M9 12h6"
+                            />
+                          </svg>
+                        </div>
+                        <div>
+                          <div className="text-[13px] font-bold text-slate-900 tracking-tight group-hover:text-emerald-700">Earn & Careers</div>
+                          <div className="text-[12px] text-slate-500 leading-snug group-hover:text-slate-600">
+                            Freelancing, online earning, remote jobs, internships, and side hustles for students.
+                          </div>
+                        </div>
+                      </Link>
+                      <Link 
+                        href="/self-development" 
+                        className="flex items-start gap-3 px-3 py-3 rounded-xl transition-all duration-150 group border border-transparent hover:border-indigo-200 hover:bg-indigo-50/40 hover:-translate-y-0.5"
+                      >
+                        <div className="w-10 h-10 shrink-0 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center transition-all shadow-sm group-hover:bg-white group-hover:border-indigo-300 group-hover:shadow-md group-hover:scale-105">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-5 h-5 text-slate-700 transition-colors group-hover:text-indigo-700"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={1.6}
+                              d="M12 5a3 3 0 110 6 3 3 0 010-6z"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={1.6}
+                              d="M5 19a7 7 0 0114 0"
+                            />
+                          </svg>
+                        </div>
+                        <div>
+                          <div className="text-[13px] font-bold text-slate-900 tracking-tight group-hover:text-indigo-700">Self Development</div>
+                          <div className="text-[12px] text-slate-500 leading-snug group-hover:text-slate-600">
+                            Productivity, study systems, health, confidence, and habits for independent students.
+                          </div>
+                        </div>
+                      </Link>
+                      <Link 
+                        href="/resources" 
+                        className="flex items-start gap-3 px-3 py-3 rounded-xl transition-all duration-150 group border border-transparent hover:border-amber-200 hover:bg-amber-50/40 hover:-translate-y-0.5"
+                      >
+                        <div className="w-10 h-10 shrink-0 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center transition-all shadow-sm group-hover:bg-white group-hover:border-amber-300 group-hover:shadow-md group-hover:scale-105">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-5 h-5 text-slate-700 transition-colors group-hover:text-amber-700"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={1.6}
+                              d="M7 4h9l3 3v13H7z"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={1.6}
+                              d="M7 10h10M7 14h8"
+                            />
+                          </svg>
+                        </div>
+                        <div>
+                          <div className="text-[13px] font-bold text-slate-900 tracking-tight group-hover:text-amber-700">Resources Hub</div>
+                          <div className="text-[12px] text-slate-500 leading-snug group-hover:text-slate-600">
+                            PDFs, templates, roadmaps, and forms that support study and career moves.
+                          </div>
+                        </div>
+                      </Link>
+                      <Link 
+                        href="/opportunities" 
+                        className="flex items-start gap-3 px-3 py-3 rounded-xl transition-all duration-150 group border border-transparent hover:border-sky-200 hover:bg-sky-50/40 hover:-translate-y-0.5"
+                      >
+                        <div className="w-10 h-10 shrink-0 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center transition-all shadow-sm group-hover:bg-white group-hover:border-sky-300 group-hover:shadow-md group-hover:scale-105">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-5 h-5 text-slate-700 transition-colors group-hover:text-sky-700"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="7"
+                              strokeWidth={1.6}
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={1.6}
+                              d="M10 14l4-4M11 9h3v3"
+                            />
+                          </svg>
+                        </div>
+                        <div>
+                          <div className="text-[13px] font-bold text-slate-900 tracking-tight group-hover:text-sky-700">Opportunities</div>
+                          <div className="text-[12px] text-slate-500 leading-snug group-hover:text-slate-600">
+                            Scholarships, internships, government jobs, competitions, and exchange programs.
+                          </div>
+                        </div>
+                      </Link>
                     </div>
-                  </Link>
-                  <div className="h-px bg-slate-50 mx-5"></div>
-                  <Link 
-                    href="/gov-schemes" 
-                    className="flex items-center gap-4 px-5 py-4 hover:bg-slate-50 transition-all group"
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center group-hover:bg-white group-hover:border-slate-200 transition-all shadow-sm">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-slate-600 group-hover:text-green-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <div className="text-sm font-bold text-slate-900 tracking-tight">Gov Portal</div>
-                      <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Pak Updates 🇵🇰</div>
-                    </div>
-                  </Link>
+                  </div>
                 </div>
               </div>
             )}
@@ -156,12 +359,47 @@ const Header = ({ logoUrl }: { logoUrl: string }) => {
               All Courses
             </Link>
             <Link 
+              href="/earn-careers" 
+              className={`font-body font-semibold py-2 transition-colors ${isActive('/earn-careers') ? 'text-primary' : 'text-text hover:text-primary'}`}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Earn & Careers
+            </Link>
+            <Link 
+              href="/self-development" 
+              className={`font-body font-semibold py-2 transition-colors ${isActive('/self-development') ? 'text-primary' : 'text-text hover:text-primary'}`}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Self Development
+            </Link>
+            <Link 
+              href="/resources" 
+              className={`font-body font-semibold py-2 transition-colors ${isActive('/resources') ? 'text-primary' : 'text-text hover:text-primary'}`}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Resources Hub
+            </Link>
+            <Link 
+              href="/opportunities" 
+              className={`font-body font-semibold py-2 transition-colors ${isActive('/opportunities') ? 'text-primary' : 'text-text hover:text-primary'}`}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Opportunities
+            </Link>
+            <Link 
               href="/gov-schemes" 
               className={`font-body font-semibold py-2 transition-colors ${isActive('/gov-schemes') ? 'text-primary' : 'text-text hover:text-primary'}`}
               onClick={() => setIsMenuOpen(false)}
             >
-              Gov Schemes 🇵🇰
+              Gov Portal
             </Link>
+            <Link 
+               href="/global-scholar" 
+               className={`font-body font-semibold py-2 transition-colors ${isActive('/global-scholar') ? 'text-primary' : 'text-text hover:text-primary'}`}
+               onClick={() => setIsMenuOpen(false)}
+             >
+               Global Scholar
+             </Link>
             <Link 
               href="/blog" 
               className={`font-body font-semibold py-2 transition-colors ${isActive('/blog') ? 'text-primary' : 'text-text hover:text-primary'}`}

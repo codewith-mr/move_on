@@ -41,6 +41,30 @@ const sections = [
     title: 'Crafting & Creation',
     description: 'Building, making, designing, and creating with hands + mind.',
     category: 'Crafting'
+  },
+  {
+    id: 'earn',
+    title: 'Earn & Careers',
+    description: 'Practical paths from skills to income, jobs, and long-term career growth.',
+    category: 'Earn & Careers'
+  },
+  {
+    id: 'self',
+    title: 'Self Development',
+    description: 'Productivity, habits, and mental models so students can perform at their peak.',
+    category: 'Self Development'
+  },
+  {
+    id: 'resources',
+    title: 'Resources Library',
+    description: 'Ready-to-use PDFs, templates, and guides that make execution faster.',
+    category: 'Resources'
+  },
+  {
+    id: 'opportunities',
+    title: 'Opportunities Radar',
+    description: 'Scholarships, internships, and programs that turn learning into real chances.',
+    category: 'Opportunities'
   }
 ];
 

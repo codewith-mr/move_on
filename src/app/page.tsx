@@ -53,14 +53,7 @@ export default async function Home() {
   return (
     <MainLayout>
       {/* Hero Section */}
-      <Hero
-        title={bannerTitle}
-        subtitle={bannerSubtitle}
-        ctaText={bannerCtaText}
-        ctaLink={bannerCtaLink}
-        secondaryCtaText={bannerSecondaryCtaText}
-        secondaryCtaLink={bannerSecondaryCtaLink}
-      />
+      <Hero />
 
       {/* Mini Categories Section */}
       <section className="py-8 border-b border-neutral-100 bg-white">
@@ -169,6 +162,177 @@ export default async function Home() {
               />
             ))}
           </StaggeredList>
+        </div>
+      </section>
+
+      {/* Strategic Hubs: Gov Portal */}
+      <section className="py-24 bg-white border-t border-neutral-100">
+        <div className="container mx-auto px-4">
+          <SectionHeader
+            subtitle="Official Access"
+            title="Gov Portal"
+            description="Navigate government schemes, subsidies, and official documentation with precision and ease."
+          />
+          <div className="mt-12 bg-blue-50 rounded-[3rem] p-12 flex flex-col md:flex-row items-center justify-between gap-12 border border-blue-100">
+            <div className="md:w-1/2">
+              <div className="text-4xl mb-6">🏛️</div>
+              <h3 className="text-2xl font-heading font-bold text-neutral-900 mb-4">Empowering Citizens through Digital Access</h3>
+              <p className="text-neutral-600 mb-8 leading-relaxed">
+                Stay updated with the latest government initiatives designed to support small businesses, 
+                freelancers, and students. We simplify complex bureaucratic processes into actionable steps.
+              </p>
+              <Link href="/gov-schemes" className="inline-flex items-center px-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-black transition-all">
+                Enter Gov Portal <span className="ml-2">→</span>
+              </Link>
+            </div>
+            <div className="md:w-1/3 aspect-square bg-white rounded-[2rem] shadow-xl flex items-center justify-center text-8xl grayscale opacity-20">🏛️</div>
+          </div>
+        </div>
+      </section>
+
+      {/* Strategic Hubs: Global Scholar */}
+      <section className="py-24 bg-neutral-50">
+        <div className="container mx-auto px-4 text-center">
+          <SectionHeader
+            subtitle="International Paths"
+            title="Global Scholar"
+            description="Access international education paths, scholarships, and global career guidance for the modern student."
+          />
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <div className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-neutral-100 text-left group hover:border-emerald-500/30 transition-all">
+              <div className="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">🎓</div>
+              <h3 className="text-xl font-heading font-bold text-neutral-900 mb-4">International Education</h3>
+              <p className="text-neutral-500 text-sm mb-8 leading-relaxed">Comprehensive guides on studying abroad, university selections, and application protocols.</p>
+              <Link href="/global-scholar" className="text-emerald-600 font-black text-xs uppercase tracking-widest hover:underline">Explore Guides →</Link>
+            </div>
+            <div className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-neutral-100 text-left group hover:border-emerald-500/30 transition-all">
+              <div className="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">🌎</div>
+              <h3 className="text-xl font-heading font-bold text-neutral-900 mb-4">Scholarship Network</h3>
+              <p className="text-neutral-500 text-sm mb-8 leading-relaxed">Vetted scholarship opportunities from top institutions and global organizations.</p>
+              <Link href="/global-scholar" className="text-emerald-600 font-black text-xs uppercase tracking-widest hover:underline">View Scholarships →</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Strategic Hubs: Earn & Careers */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <SectionHeader
+            subtitle="Income Growth"
+            title="Earn & Careers"
+            description="Master the skills that directly translate to income opportunities in the digital economy."
+          />
+          <div className="mt-12 bg-amber-50 rounded-[3rem] p-12 overflow-hidden relative border border-amber-100">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-amber-200/20 rounded-full blur-[80px] -mr-32 -mt-32"></div>
+            <div className="max-w-2xl relative z-10">
+              <h3 className="text-3xl font-heading font-bold text-neutral-900 mb-6 uppercase tracking-tighter">Your Path to <span className="text-amber-600 italic">Financial Freedom.</span></h3>
+              <p className="text-neutral-600 mb-10 text-lg leading-relaxed">
+                From freelancing mastery to corporate career acceleration—we provide the blueprint for 
+                modern professionals to scale their earnings.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Link href="/earn-careers" className="px-8 py-4 bg-amber-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-amber-700 transition-all shadow-lg shadow-amber-600/20">
+                  Career Blueprint
+                </Link>
+                <Link href="/earn-careers" className="px-8 py-4 bg-white text-amber-600 border border-amber-200 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-amber-50 transition-all">
+                  Earning Paths
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Strategic Hubs: Self Development */}
+      <section className="py-24 bg-neutral-50">
+        <div className="container mx-auto px-4 text-center">
+          <SectionHeader
+            subtitle="Personal Mastery"
+            title="Self Development"
+            description="Upgrade your mindset and soft skills to navigate the complexities of the modern world."
+          />
+          <div className="mt-16 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { i: '🧠', t: 'Mindset', d: 'Master the psychology of success and resilience.' },
+                { i: '🗣️', t: 'Communication', d: 'High-impact speaking and persuasive writing.' },
+                { i: '⚡', t: 'Productivity', d: 'Systems to maximize output and focus.' },
+                { i: '🎨', t: 'Creativity', d: 'Unlocking original ideas and digital art.' }
+              ].map((item) => (
+                <div key={item.t} className="bg-white p-8 rounded-[2rem] border border-neutral-100 flex flex-col items-center group hover:border-primary/20 hover:shadow-xl transition-all duration-300">
+                  <div className="text-4xl mb-6 transform group-hover:scale-110 transition-transform duration-500">{item.i}</div>
+                  <h4 className="text-sm font-black uppercase tracking-widest text-neutral-900 mb-3">{item.t}</h4>
+                  <p className="text-xs text-neutral-500 leading-relaxed">{item.d}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-16">
+              <Link href="/self-development" className="inline-flex items-center px-10 py-5 bg-purple-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-purple-700 transition-all shadow-xl shadow-purple-600/20">
+                Explore Growth Paths <span className="ml-2">→</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Strategic Hubs: Resources Hub */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <SectionHeader
+            subtitle="The Builder's Library"
+            title="Resources Hub"
+            description="A curated collection of free templates, checklists, and assets to accelerate your projects."
+          />
+          <div className="mt-12 bg-rose-50 rounded-[3rem] p-12 flex flex-col md:flex-row gap-12 border border-rose-100">
+            <div className="md:w-1/3 aspect-video bg-white rounded-2xl shadow-inner border border-rose-100 flex items-center justify-center">
+              <div className="text-6xl grayscale opacity-10">📂</div>
+            </div>
+            <div className="md:w-2/3">
+              <h3 className="text-2xl font-heading font-bold text-neutral-900 mb-4 uppercase tracking-tight">Stop Building From Scratch.</h3>
+              <p className="text-neutral-600 mb-8 leading-relaxed">
+                Download our professional-grade templates for business proposals, content calendars, 
+                and financial tracking—vetted by our community of experts.
+              </p>
+              <Link href="/resources" className="inline-flex items-center text-rose-600 font-black text-xs uppercase tracking-widest group">
+                Access All Assets <span className="ml-2 transform group-hover:translate-x-1 transition-transform">→</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Strategic Hubs: Opportunities */}
+      <section className="py-24 bg-neutral-900 text-white mx-6 rounded-[4rem] relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px] -mr-48 -mt-48"></div>
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <span className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.4em] mb-4 block">Vetted Paths</span>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase leading-none mb-8 text-white">
+              Strategic <span className="text-emerald-400 italic">Opportunities.</span>
+            </h2>
+            <p className="text-lg text-white font-medium max-w-2xl mx-auto leading-relaxed">
+              Discover legitimate side-hustles, vetted projects, and income-generating paths updated weekly.
+            </p>
+          </div>
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {[
+              { t: 'High-Ticket Sales', d: 'Connect with brands needing vetted closer talent.', i: '💰' },
+              { t: 'Digital Agency', d: 'Blueprint for scaling service-based businesses.', i: '🏢' },
+              { t: 'Arbitrage Master', d: 'Finding market gaps for quick profit turnarounds.', i: '⚖️' }
+            ].map((opp) => (
+              <div key={opp.t} className="bg-white/5 border border-white/10 p-8 rounded-[2rem] hover:bg-white/10 transition-all group">
+                <div className="text-3xl mb-6">{opp.i}</div>
+                <h4 className="text-lg font-black uppercase tracking-tight text-emerald-400 mb-3">{opp.t}</h4>
+                <p className="text-white text-sm font-medium leading-relaxed">{opp.d}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-16 text-center">
+            <Link href="/opportunities" className="inline-block px-12 py-6 bg-emerald-500 text-neutral-900 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-emerald-400 transition-all shadow-2xl shadow-emerald-500/20">
+              Access Full Dashboard <span className="ml-2">→</span>
+            </Link>
+          </div>
         </div>
       </section>
 

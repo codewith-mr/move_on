@@ -1,7 +1,10 @@
-"use client";
-
 import MainLayout from '@/components/layout/MainLayout';
 import Link from 'next/link';
+
+export const metadata = {
+  title: 'Careers | Join the TBS Team',
+  description: 'Help entrepreneurs and small businesses succeed by joining our mission-driven, remote-first team.',
+};
 
 export default function CareersPage() {
   return (

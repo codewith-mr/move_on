@@ -75,6 +75,13 @@ const Footer = async () => {
                   Contact
                 </Link>
               </li>
+              <li>
+                <Link href="/collaboration" className="group relative inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-secondary hover:text-primary hover:border-secondary transition-all duration-500 mt-4 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-secondary/0 via-secondary/10 to-secondary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                  <span className="relative text-[11px] font-black uppercase tracking-[0.2em]">Collab With Us</span>
+                  <span className="relative transform group-hover:translate-x-1 transition-transform">→</span>
+                </Link>
+              </li>
             </ul>
           </div>
 

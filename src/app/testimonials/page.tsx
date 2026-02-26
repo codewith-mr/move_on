@@ -1,8 +1,11 @@
-"use client";
-
 import MainLayout from '@/components/layout/MainLayout';
 import Image from 'next/image';
 import Link from 'next/link';
+
+export const metadata = {
+  title: 'Testimonials | What Our Community Says',
+  description: 'Real stories from entrepreneurs and freelancers who transformed their businesses with TBS.',
+};
 
 export default function TestimonialsPage() {
   return (

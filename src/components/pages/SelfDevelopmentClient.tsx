@@ -286,6 +286,61 @@ export default function SelfDevelopmentClient() {
                 </div>
             </section>
 
+            {/* The Mastery Stack & Library (Final Polish for Maximum Guidance) */}
+            <section className="py-40 px-6 border-t border-slate-100 bg-slate-50/30">
+                <div className="max-w-7xl mx-auto">
+                    <div className="grid lg:grid-cols-2 gap-20">
+                        {/* Digital & Physical Toolset */}
+                        <div>
+                            <div className="flex items-center gap-4 mb-12">
+                                <span className="text-[10px] font-black text-slate-300 uppercase tracking-[0.4em]">Resource_Nodes</span>
+                                <h3 className="text-3xl font-black text-slate-900 tracking-tighter uppercase">The Mastery Stack</h3>
+                            </div>
+                            <div className="grid sm:grid-cols-2 gap-4">
+                                {[
+                                    { n: "Notion", c: "Cognitive Architecture", i: "📓" },
+                                    { n: "Obsidian", c: "Second Brain Protocol", i: "💎" },
+                                    { n: "Anki", c: "Spaced Repetition Lab", i: "🗂️" },
+                                    { n: "Freedom", c: "Distortion Shield", i: "🛡️" },
+                                    { n: "Oura / Whoop", c: "Bio-Feedback Sync", i: "💍" },
+                                    { n: "Blue Light Blockers", c: "Circadian Guard", i: "👓" }
+                                ].map((tool, i) => (
+                                    <div key={i} className="p-6 rounded-3xl bg-white border border-slate-100 hover:border-slate-900/10 hover:shadow-xl hover:shadow-slate-900/5 transition-all group">
+                                        <div className="text-3xl mb-4 group-hover:scale-110 transition-transform duration-500">{tool.i}</div>
+                                        <div className="text-sm font-black text-slate-900 uppercase tracking-tight mb-1">{tool.n}</div>
+                                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{tool.c}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Curated Mastery Library */}
+                        <div>
+                            <div className="flex items-center gap-4 mb-12">
+                                <span className="text-[10px] font-black text-slate-300 uppercase tracking-[0.4em]">Intel_Archive</span>
+                                <h3 className="text-3xl font-black text-slate-900 tracking-tighter uppercase">The Mastery Library</h3>
+                            </div>
+                            <div className="space-y-4">
+                                {[
+                                    { b: "Atomic Habits", a: "James Clear", d: "Systems over goals." },
+                                    { b: "Deep Work", a: "Cal Newport", d: "The superpower of the 21st century." },
+                                    { b: "Mindset", a: "Carol Dweck", d: "The psychology of success." },
+                                    { b: "Why We Sleep", a: "Matthew Walker", d: "The foundation of biological performance." }
+                                ].map((book, i) => (
+                                    <div key={i} className="flex items-center justify-between p-6 rounded-3xl bg-white border border-slate-100 hover:bg-slate-900 hover:text-white transition-all group">
+                                        <div>
+                                            <div className="text-sm font-black uppercase tracking-tight mb-1">{book.b}</div>
+                                            <div className="text-[10px] font-bold text-slate-400 group-hover:text-white/60 uppercase tracking-widest">By {book.a}</div>
+                                        </div>
+                                        <div className="text-[11px] font-medium italic opacity-40 group-hover:opacity-100 transition-opacity">&quot;{book.d}&quot;</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* Footer Resource Call to Action */}
             <section className="py-40 px-6 text-center border-t border-slate-100">
                 <div className="max-w-3xl mx-auto">

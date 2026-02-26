@@ -20,7 +20,7 @@ const Header = ({ logoUrl }: { logoUrl: string }) => {
 
   return (
     <header className="bg-background shadow-1 sticky top-0 z-50 print:hidden">
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div className="container mx-auto px-4 py-2 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image src={logoUrl} alt="TBS Logo" className="w-20" width={80} height={20} />

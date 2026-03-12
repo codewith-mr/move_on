@@ -2,13 +2,14 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 
 const Header = ({ logoUrl }: { logoUrl: string }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCoursesDropdownOpen, setIsCoursesDropdownOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -17,6 +18,20 @@ const Header = ({ logoUrl }: { logoUrl: string }) => {
   const isActive = (path: string) => {
     return pathname === path || pathname.startsWith(`${path}/`);
   };
+
+  const pf = (href: string) => {
+    try {
+      router.prefetch(href);
+    // eslint-disable-next-line no-empty
+    } catch {}
+  };
+  
+  useEffect(() => {
+    const id = setTimeout(() => {
+      ['/courses', '/blog'].forEach(pf);
+    }, 1500);
+    return () => clearTimeout(id);
+  }, []);
 
   return (
     <header className="bg-background shadow-1 sticky top-0 z-50 print:hidden">
@@ -43,6 +58,7 @@ const Header = ({ logoUrl }: { logoUrl: string }) => {
           >
             <button 
               className={`flex items-center gap-1 font-body font-semibold transition-colors ${isActive('/courses') || isActive('/gov-schemes') || isActive('/global-scholar') ? 'text-primary' : 'text-text hover:text-primary'}`}
+              suppressHydrationWarning
             >
               Courses
               <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 transition-transform duration-200 ${isCoursesDropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -58,6 +74,7 @@ const Header = ({ logoUrl }: { logoUrl: string }) => {
                     <div className="w-64 flex flex-col divide-y divide-slate-100">
                       <Link 
                         href="/courses" 
+                        onMouseEnter={() => pf('/courses')}
                         className="flex items-center gap-3 px-5 py-4 transition-all duration-150 group hover:bg-slate-50 hover:-translate-y-0.5"
                       >
                         <div className="w-10 h-10 shrink-0 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center transition-all shadow-sm group-hover:bg-white group-hover:border-slate-200 group-hover:shadow-md group-hover:scale-105">
@@ -83,6 +100,7 @@ const Header = ({ logoUrl }: { logoUrl: string }) => {
                       </Link>
                       <Link 
                         href="/gov-schemes" 
+                        onMouseEnter={() => pf('/gov-schemes')}
                         className="flex items-center gap-3 px-5 py-4 transition-all duration-150 group hover:bg-slate-50 hover:-translate-y-0.5"
                       >
                         <div className="w-10 h-10 shrink-0 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center transition-all shadow-sm group-hover:bg-white group-hover:border-emerald-200 group-hover:shadow-md group-hover:scale-105">
@@ -114,6 +132,7 @@ const Header = ({ logoUrl }: { logoUrl: string }) => {
                       </Link>
                       <Link 
                         href="/global-scholar" 
+                        onMouseEnter={() => pf('/global-scholar')}
                         className="flex items-center gap-3 px-5 py-4 transition-all duration-150 group hover:bg-slate-50 hover:-translate-y-0.5"
                       >
                         <div className="w-10 h-10 shrink-0 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center transition-all shadow-sm group-hover:bg-white group-hover:border-sky-200 group-hover:shadow-md group-hover:scale-105">
@@ -148,6 +167,7 @@ const Header = ({ logoUrl }: { logoUrl: string }) => {
                     <div className="flex-1 grid grid-cols-2 gap-3 p-4">
                       <Link 
                         href="/earn-careers" 
+                        onMouseEnter={() => pf('/earn-careers')}
                         className="flex items-start gap-3 px-3 py-3 rounded-xl transition-all duration-150 group border border-transparent hover:border-emerald-200 hover:bg-emerald-50/40 hover:-translate-y-0.5"
                       >
                         <div className="w-10 h-10 shrink-0 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center transition-all shadow-sm group-hover:bg-white group-hover:border-emerald-300 group-hover:shadow-md group-hover:scale-105">
@@ -187,6 +207,7 @@ const Header = ({ logoUrl }: { logoUrl: string }) => {
                       </Link>
                       <Link 
                         href="/self-development" 
+                        onMouseEnter={() => pf('/self-development')}
                         className="flex items-start gap-3 px-3 py-3 rounded-xl transition-all duration-150 group border border-transparent hover:border-indigo-200 hover:bg-indigo-50/40 hover:-translate-y-0.5"
                       >
                         <div className="w-10 h-10 shrink-0 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center transition-all shadow-sm group-hover:bg-white group-hover:border-indigo-300 group-hover:shadow-md group-hover:scale-105">
@@ -220,6 +241,7 @@ const Header = ({ logoUrl }: { logoUrl: string }) => {
                       </Link>
                       <Link 
                         href="/resources" 
+                        onMouseEnter={() => pf('/resources')}
                         className="flex items-start gap-3 px-3 py-3 rounded-xl transition-all duration-150 group border border-transparent hover:border-amber-200 hover:bg-amber-50/40 hover:-translate-y-0.5"
                       >
                         <div className="w-10 h-10 shrink-0 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center transition-all shadow-sm group-hover:bg-white group-hover:border-amber-300 group-hover:shadow-md group-hover:scale-105">
@@ -253,6 +275,7 @@ const Header = ({ logoUrl }: { logoUrl: string }) => {
                       </Link>
                       <Link 
                         href="/opportunities" 
+                        onMouseEnter={() => pf('/opportunities')}
                         className="flex items-start gap-3 px-3 py-3 rounded-xl transition-all duration-150 group border border-transparent hover:border-sky-200 hover:bg-sky-50/40 hover:-translate-y-0.5"
                       >
                         <div className="w-10 h-10 shrink-0 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center transition-all shadow-sm group-hover:bg-white group-hover:border-sky-300 group-hover:shadow-md group-hover:scale-105">
@@ -292,6 +315,7 @@ const Header = ({ logoUrl }: { logoUrl: string }) => {
           </div>
           <Link 
             href="/blog" 
+            onMouseEnter={() => pf('/blog')}
             className={`font-body font-semibold transition-colors ${isActive('/blog') ? 'text-primary' : 'text-text hover:text-primary'}`}
           >
             Blog
@@ -304,12 +328,14 @@ const Header = ({ logoUrl }: { logoUrl: string }) => {
           </Link>
           <Link 
             href="/tips-tricks" 
+            onMouseEnter={() => pf('/tips-tricks')}
             className={`font-body font-semibold transition-colors ${isActive('/tips-tricks') ? 'text-primary' : 'text-text hover:text-primary'}`}
           >
             Tips & Tricks
           </Link>
           <Link 
             href="/creativity" 
+            onMouseEnter={() => pf('/creativity')}
             className={`font-body font-semibold transition-colors ${isActive('/creativity') ? 'text-primary' : 'text-text hover:text-primary'}`}
           >
             Creativity

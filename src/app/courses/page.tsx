@@ -3,9 +3,15 @@
 // Levels for filtering
 
 import MainLayout from '@/components/layout/MainLayout';
+import dynamic from 'next/dynamic';
 import { prisma } from '@/lib/prisma';
-import CoursesClient from '@/components/pages/CoursesClient';
 import { CourseCardProps } from '@/components/cards/CourseCard';
+
+const CoursesClient = dynamic(() => import('@/components/pages/CoursesClient'), {
+  loading: () => <div className="container mx-auto px-4 py-20 text-center text-neutral-500">Loading…</div>,
+});
+
+export const revalidate = 60;
 
 export default async function CoursesPage() {
   const allCourses = await prisma.course.findMany({
@@ -35,11 +41,11 @@ export default async function CoursesPage() {
     slug: c.slug,
     title: c.title,
     description: c.description,
-    instructor: c.instructor,
+    instructor: c.instructor || 'Admin',
     level: c.level,
     duration: c.duration,
     price: c.price,
-    discountPrice: c.discountPrice ?? undefined,
+    discountPrice: c.discountPrice ?? 0,
     rating: c.rating ?? 0,
     reviewCount: c.reviewCount ?? 0,
     imageUrl: c.imageUrl,

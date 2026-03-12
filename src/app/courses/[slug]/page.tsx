@@ -5,6 +5,8 @@ import { notFound } from 'next/navigation';
 import ShareButton from '@/components/ui/ShareButton';
 import { prisma } from '@/lib/prisma';
 
+export const revalidate = 60;
+
 export default async function CoursePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const course = await prisma.course.findUnique({ where: { slug } });
@@ -32,6 +34,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
                   alt={course.title}
                   fill
                   unoptimized={Boolean(course.imageUrl && course.imageUrl.endsWith('.svg'))}
+                  priority
                   className="object-cover"
                 />
               </div>
@@ -53,13 +56,13 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
                 <div className="flex items-center">
                   <Image
                     src="/user-avatar.svg"
-                    alt={course.instructor}
+                    alt={course.instructor || 'Admin'}
                     width={40}
                     height={40}
                     className="rounded-full mr-3"
                   />
                   <div>
-                    <span className="block text-white font-semibold">{course.instructor}</span>
+                    <span className="block text-white font-semibold">{course.instructor || 'Admin'}</span>
                     <span className="text-secondary text-sm">Instructor</span>
                   </div>
                 </div>

@@ -148,11 +148,11 @@ export default async function Home() {
                 slug={course.slug}
                 title={course.title}
                 description={course.description}
-                instructor={course.instructor}
+                instructor={course.instructor || 'Admin'}
                 level={course.level}
                 duration={course.duration}
                 price={course.price}
-                discountPrice={course.discountPrice || undefined}
+                discountPrice={0}
                 rating={course.rating || 0}
                 reviewCount={course.reviewCount || 0}
                 imageUrl={course.imageUrl}

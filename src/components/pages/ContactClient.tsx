@@ -23,19 +23,24 @@ export default function ContactClient() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormStatus({
-      submitted: true,
-      success: true,
-      message: 'Thank you for your message! We will get back to you soon.'
-    });
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    });
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      if (res.status === 429) {
+        setFormStatus({ submitted: true, success: false, message: 'We received a lot of messages today. Please try again tomorrow.' });
+        return;
+      }
+      if (!res.ok) throw new Error('request failed');
+      setFormStatus({ submitted: true, success: true, message: 'Message sent. We will get back to you soon.' });
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch {
+      setFormStatus({ submitted: true, success: false, message: 'Failed to send. Try again later.' });
+    }
     setTimeout(() => setFormStatus(null), 5000);
   };
 
@@ -65,7 +70,7 @@ export default function ContactClient() {
                 </div>
               )}
               
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} suppressHydrationWarning>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-neutral-700 mb-1">
@@ -79,6 +84,7 @@ export default function ContactClient() {
                       onChange={handleChange}
                       required
                       className="w-full border border-gray-300 rounded-md py-2 px-4 focus:ring-primary focus:border-primary"
+                      suppressHydrationWarning
                     />
                   </div>
                   
@@ -94,6 +100,7 @@ export default function ContactClient() {
                       onChange={handleChange}
                       required
                       className="w-full border border-gray-300 rounded-md py-2 px-4 focus:ring-primary focus:border-primary"
+                      suppressHydrationWarning
                     />
                   </div>
                 </div>
@@ -109,6 +116,7 @@ export default function ContactClient() {
                     onChange={handleChange}
                     required
                     className="w-full border border-gray-300 rounded-md py-2 px-4 focus:ring-primary focus:border-primary"
+                    suppressHydrationWarning
                   >
                     <option value="">Please select a subject</option>
                     <option value="Course Inquiry">Course Inquiry</option>
@@ -131,12 +139,14 @@ export default function ContactClient() {
                     required
                     rows={6}
                     className="w-full border border-gray-300 rounded-md py-2 px-4 focus:ring-primary focus:border-primary"
+                    suppressHydrationWarning
                   ></textarea>
                 </div>
                 
                 <button
                   type="submit"
                   className="bg-primary hover:bg-accent text-white font-medium py-2 px-6 rounded-md transition-colors"
+                  suppressHydrationWarning
                 >
                   Send Message
                 </button>

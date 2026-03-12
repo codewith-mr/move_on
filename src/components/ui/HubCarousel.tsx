@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import Link from 'next/link';
 
 const hubs = [
@@ -90,6 +90,7 @@ const hubs = [
 const HubCarousel = () => {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -115,11 +116,12 @@ const HubCarousel = () => {
         <motion.div
           key={index}
           custom={direction}
-          initial={{ opacity: 0, x: direction > 0 ? 300 : -300 }}
+          initial={{ opacity: 0, x: prefersReducedMotion ? 0 : (direction > 0 ? 300 : -300) }}
           animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: direction > 0 ? -300 : 300 }}
-          transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
+          exit={{ opacity: 0, x: prefersReducedMotion ? 0 : (direction > 0 ? -300 : 300) }}
+          transition={{ duration: prefersReducedMotion ? 0.25 : 0.6, ease: [0.23, 1, 0.32, 1] }}
           className={`absolute inset-0 bg-gradient-to-br ${currentHub.gradient} flex items-center`}
+          style={{ willChange: 'transform, opacity' }}
         >
           {/* Background Visual Effects */}
           <div className="absolute inset-0 opacity-20 pointer-events-none">
@@ -132,7 +134,7 @@ const HubCarousel = () => {
               <motion.h2
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.8 }}
+                transition={{ delay: 0.15, duration: prefersReducedMotion ? 0.3 : 0.6 }}
                 className="text-3xl sm:text-5xl md:text-7xl font-black text-white leading-none uppercase tracking-tighter mb-5 sm:mb-6"
               >
                 {currentHub.title} <br/>
@@ -142,7 +144,7 @@ const HubCarousel = () => {
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
+                transition={{ delay: 0.25, duration: prefersReducedMotion ? 0.25 : 0.5 }}
                 className="text-base sm:text-lg md:text-xl text-white/70 font-medium max-w-2xl leading-relaxed mb-6 sm:mb-8"
               >
                 {currentHub.desc}
@@ -151,7 +153,7 @@ const HubCarousel = () => {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
+                transition={{ delay: 0.3, duration: prefersReducedMotion ? 0.25 : 0.5 }}
                 className="flex flex-wrap gap-4 sm:gap-6 md:gap-8"
               >
                 <Link
@@ -168,7 +170,7 @@ const HubCarousel = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
             animate={{ opacity: 0.1, scale: 1, rotate: 0 }}
-            transition={{ duration: 1.5, delay: 0.2 }}
+            transition={{ duration: prefersReducedMotion ? 0.4 : 1.0, delay: 0.2 }}
             className="hidden md:block absolute -right-10 md:-right-20 bottom-0 text-[18rem] sm:text-[22rem] md:text-[28rem] lg:text-[32rem] pointer-events-none select-none grayscale opacity-5"
           >
             {currentHub.icon}

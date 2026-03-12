@@ -9,6 +9,92 @@ const cardTransition = {
 };
 
 export default function EarnCareersClient() {
+  const skillFit = [
+    {
+      title: 'Maker / Builder',
+      color: 'from-emerald-50 to-white',
+      desc: 'You enjoy building systems and solving technical problems.',
+      examples: ['Web Development', 'AI Engineering', 'Cyber Security', 'Automation'],
+    },
+    {
+      title: 'Designer / Storyteller',
+      color: 'from-sky-50 to-white',
+      desc: 'You enjoy visuals, stories, and shaping user experiences.',
+      examples: ['UI/UX Design', 'Content Creation', 'Digital Marketing', 'Brand Design'],
+    },
+    {
+      title: 'Analyst / Thinker',
+      color: 'from-indigo-50 to-white',
+      desc: 'You enjoy data, research, and clear decision support.',
+      examples: ['Data Analytics', 'Strategy', 'Operations'],
+    },
+    {
+      title: 'Connector / Operator',
+      color: 'from-amber-50 to-white',
+      desc: 'You enjoy people, projects, and moving work forward.',
+      examples: ['Client Work', 'Community', 'Project Management', 'Sales'],
+    },
+  ];
+  
+  const expertPath = [
+    {
+      stage: '30 days',
+      color: 'from-emerald-50 to-white',
+      outputs: [
+        'Daily practice block (45–90 minutes)',
+        '2–3 mini projects that solve real problems',
+        'Simple portfolio page with your outputs',
+      ],
+      actions: [
+        'Use project-based tutorials only',
+        'Copy then improve a small template',
+        'Ask for feedback from 3 people',
+      ],
+    },
+    {
+      stage: '60 days',
+      color: 'from-sky-50 to-white',
+      outputs: [
+        '3–6 solid case studies with context and outcomes',
+        'Clear service or role focus',
+        'Short one-page CV',
+      ],
+      actions: [
+        'Rebuild a real app/page/process',
+        'Measure outcomes (speed, conversions, clarity)',
+        'Publish before/after and lessons learned',
+      ],
+    },
+    {
+      stage: '90 days',
+      color: 'from-indigo-50 to-white',
+      outputs: [
+        'Reliable workflow and tool stack',
+        'First $1–100 earned from your skill',
+        'References or testimonials',
+      ],
+      actions: [
+        'Send 5 proposals or applications weekly',
+        'Offer a small paid test to reduce risk',
+        'Track replies and improve messaging',
+      ],
+    },
+  ];
+  
+  const jobPlatforms = [
+    { name: 'LinkedIn Jobs', url: 'https://www.linkedin.com/jobs/' },
+    { name: 'Rozee.pk', url: 'https://www.rozee.pk/' },
+    { name: 'Mustakbil', url: 'https://www.mustakbil.com/' },
+    { name: 'RemoteOK', url: 'https://remoteok.com/' },
+  ];
+  
+  const freelancePlatforms = [
+    { name: 'Upwork', url: 'https://www.upwork.com/' },
+    { name: 'Fiverr', url: 'https://www.fiverr.com/' },
+    { name: 'Freelancer', url: 'https://www.freelancer.com/' },
+    { name: 'Toptal', url: 'https://www.toptal.com/' },
+  ];
+
   const zeroToIndependence = [
     {
       label: 'ZERO',
@@ -23,7 +109,7 @@ export default function EarnCareersClient() {
     {
       label: 'INCOME',
       color: 'bg-sky-50 text-sky-900',
-      description: 'First ₹ / $ earned from your own work.',
+      description: 'First $ earned from your own work.',
     },
     {
       label: 'CAREER',
@@ -122,6 +208,105 @@ export default function EarnCareersClient() {
         'Build 2–3 full workflows that save time for real use-cases.',
         'Sell “done-for-you automation setups” to small teams and founders.',
         'Scale into retainers and packaged automation products.',
+      ],
+    },
+  ];
+
+  const skillLevels = [
+    {
+      label: 'Easy',
+      accent: 'text-emerald-700',
+      bg: 'from-emerald-50 to-white',
+      skills: [
+        {
+          name: 'Content Creation',
+          benefit: 'Fast feedback, builds audience, low barrier to start.',
+          how: ['Short daily posts', 'Simple edits', 'Repurpose into longer pieces'],
+        },
+        {
+          name: 'Digital Marketing',
+          benefit: 'Immediate business impact, clear KPIs, versatile roles.',
+          how: ['Basic social + email', 'Simple landing pages', 'Entry SEO'],
+        },
+        {
+          name: 'Prompt Packs',
+          benefit: 'Leverage AI, quick deliverables, niche value.',
+          how: ['Solve one niche task', 'Package prompts', 'Offer setup help'],
+        },
+      ],
+    },
+    {
+      label: 'Normal',
+      accent: 'text-sky-700',
+      bg: 'from-sky-50 to-white',
+      skills: [
+        {
+          name: 'UI/UX Design',
+          benefit: 'High demand, portfolio-driven, creative and structured.',
+          how: ['Redesign flows', 'Landing pages', 'Prototypes and systems'],
+        },
+        {
+          name: 'Automation Specialist',
+          benefit: 'Saves teams time, repeatable workflows, strong pricing.',
+          how: ['Zapier/Make', 'Data capture', 'Reporting dashboards'],
+        },
+        {
+          name: 'Data Analytics',
+          benefit: 'Decision support, clear outputs, business value.',
+          how: ['Dashboards', 'Reports', 'Simple predictive models'],
+        },
+      ],
+    },
+    {
+      label: 'Hard',
+      accent: 'text-indigo-700',
+      bg: 'from-indigo-50 to-white',
+      skills: [
+        {
+          name: 'Web Development',
+          benefit: 'Core internet skill, broad career options, product paths.',
+          how: ['HTML/CSS/JS', 'React/Next', 'APIs and small SaaS'],
+        },
+        {
+          name: 'AI Engineering',
+          benefit: 'Frontier roles, consulting, products, high leverage.',
+          how: ['Python + ML basics', 'LLMs + vector search', 'Deploy assistants'],
+        },
+        {
+          name: 'Cyber Security',
+          benefit: 'Critical field, clear labs, strong career trajectory.',
+          how: ['Networking', 'Web security labs', 'Bug bounties'],
+        },
+      ],
+    },
+  ];
+
+  const jobPathways = [
+    {
+      title: 'Social media',
+      color: 'from-amber-50 to-white',
+      items: [
+        'Post weekly proof: short case, tiny before/after, process clips.',
+        'DM with a specific suggestion tied to their recent work.',
+        'Offer a small paid test so risk is low.',
+      ],
+    },
+    {
+      title: 'Job platforms',
+      color: 'from-emerald-50 to-white',
+      items: [
+        'Pick one role and mirror its keywords in your CV and portfolio.',
+        'Apply weekly to a focused company list and track replies.',
+        'Convert internships by sending weekly summaries and asking for scope.',
+      ],
+    },
+    {
+      title: 'Freelancer platforms',
+      color: 'from-sky-50 to-white',
+      items: [
+        'Niche offer: “I help [niche] get [result] with [skill]”.',
+        'Proposal: one proof line + 3-step mini plan + paid test.',
+        'Retain clients with proactive check-ins and upgrades.',
       ],
     },
   ];
@@ -467,6 +652,409 @@ export default function EarnCareersClient() {
 
         <div className="space-y-12 sm:space-y-16">
           <section>
+            <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8">
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <div className="text-[12px] font-black tracking-[0.2em] uppercase text-emerald-700">
+                    Navigator
+                  </div>
+                  <h2 className="mt-2 text-xl sm:text-3xl font-bold text-slate-900">
+                    Quick Links
+                  </h2>
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  <a href="#skill-fit" className="px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-[0.2em]">Skill Fit</a>
+                  <a href="#expert-path" className="px-4 py-2 border border-slate-900 text-slate-900 rounded-xl text-xs font-black uppercase tracking-[0.2em]">Expert Path</a>
+                  <a href="#job-reach" className="px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-black uppercase tracking-[0.2em]">Reach Companies</a>
+                  <a href="#apply" className="px-4 py-2 border border-emerald-600 text-emerald-700 rounded-xl text-xs font-black uppercase tracking-[0.2em]">Apply</a>
+                  <a href="#freelancing" className="px-4 py-2 bg-sky-600 text-white rounded-xl text-xs font-black uppercase tracking-[0.2em]">Freelancing</a>
+                  <a href="#roadmaps" className="px-4 py-2 border border-slate-200 text-slate-700 rounded-xl text-xs font-black uppercase tracking-[0.2em]">Roadmaps</a>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.45 }}
+              className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3"
+              id="skill-fit"
+            >
+              <div>
+                <div className="text-[12px] font-black tracking-[0.2em] uppercase text-emerald-700">
+                  00 • Skill fit navigator
+                </div>
+                <h2 className="mt-2 text-xl sm:text-3xl font-bold text-slate-900">
+                  Which skill is best for you
+                </h2>
+              </div>
+              <p className="text-sm sm:text-[15px] text-slate-600 max-w-md">
+                Choose one track based on how you think and what feels natural. Then commit for 30–90 days.
+              </p>
+            </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              {skillFit.map((s, i) => (
+                <motion.div
+                  key={s.title}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.06 }}
+                  className={`bg-gradient-to-b ${s.color} border border-slate-100 rounded-2xl p-8`}
+                >
+                  <div className="text-base font-semibold text-slate-900">{s.title}</div>
+                  <div className="text-sm text-slate-700 mt-2">{s.desc}</div>
+                  <div className="mt-4 grid grid-cols-1 gap-2">
+                    {s.examples.map((ex, idx) => (
+                      <div key={idx} className="inline-flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+                        <span className="text-sm text-slate-700">{ex}</span>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+            <div className="mt-6 flex flex-wrap gap-4">
+              <Link href="/resources" className="px-6 py-3 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-[0.2em]">
+                Open Resources
+              </Link>
+              <Link href="/creativity" className="px-6 py-3 border border-slate-900 text-slate-900 rounded-xl text-xs font-black uppercase tracking-[0.2em]">
+                Creativity Learning
+              </Link>
+            </div>
+          </section>
+
+          <section>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.45 }}
+              className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3"
+              id="expert-path"
+            >
+              <div>
+                <div className="text-[12px] font-black tracking-[0.2em] uppercase text-emerald-700">
+                  00.1 • Expert path
+                </div>
+                <h2 className="mt-2 text-xl sm:text-3xl font-bold text-slate-900">
+                  How to get expert in your skill
+                </h2>
+              </div>
+              <p className="text-sm sm:text-[15px] text-slate-600 max-w-md">
+                Build skill with outputs, not only lessons. Use these time blocks with clear deliverables.
+              </p>
+            </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {expertPath.map((p, i) => (
+                <motion.div
+                  key={p.stage}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.06 }}
+                  className={`bg-gradient-to-b ${p.color} border border-slate-100 rounded-2xl p-8`}
+                >
+                  <div className="text-base font-semibold text-slate-900">{p.stage}</div>
+                  <div className="mt-4">
+                    <div className="text-sm font-semibold text-slate-900">Outputs</div>
+                    <ul className="mt-2 space-y-2">
+                      {p.outputs.map((o) => (
+                        <li key={o} className="flex gap-2">
+                          <span className="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600" />
+                          <span className="text-sm text-slate-700">{o}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="mt-4">
+                    <div className="text-sm font-semibold text-slate-900">Actions</div>
+                    <ul className="mt-2 space-y-2">
+                      {p.actions.map((a) => (
+                        <li key={a} className="flex gap-2">
+                          <span className="mt-1 h-1.5 w-1.5 rounded-full bg-slate-400" />
+                          <span className="text-sm text-slate-700">{a}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+            <div className="mt-6 flex flex-wrap gap-4">
+              <Link href="/opportunities" className="px-6 py-3 bg-emerald-600 text-white rounded-xl text-xs font-black uppercase tracking-[0.2em]">
+                Open Opportunities
+              </Link>
+              <Link href="/global-scholar" className="px-6 py-3 border border-emerald-600 text-emerald-700 rounded-xl text-xs font-black uppercase tracking-[0.2em]">
+                Global Scholar
+              </Link>
+            </div>
+          </section>
+
+          <section>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.45 }}
+              className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3"
+              id="job-reach"
+            >
+              <div>
+                <div className="text-[12px] font-black tracking-[0.2em] uppercase text-emerald-700">
+                  00.2 • Job reach engine
+                </div>
+                <h2 className="mt-2 text-xl sm:text-3xl font-bold text-slate-900">
+                  How to reach companies for job
+                </h2>
+              </div>
+              <p className="text-sm sm:text-[15px] text-slate-600 max-w-md">
+                Make it easy for teams to say yes. Show skill, proof, and fit in one glance.
+              </p>
+            </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-white border border-slate-200 rounded-2xl p-8">
+                <div className="text-base font-semibold text-slate-900">Portfolio</div>
+                <ul className="mt-3 space-y-2">
+                  <li className="flex gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600" /> <span className="text-sm text-slate-700">3–6 case studies with context and outcomes</span></li>
+                  <li className="flex gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600" /> <span className="text-sm text-slate-700">Simple before/after visuals or short demos</span></li>
+                  <li className="flex gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600" /> <span className="text-sm text-slate-700">Clear role focus at the top</span></li>
+                </ul>
+              </div>
+              <div className="bg-white border border-slate-200 rounded-2xl p-8">
+                <div className="text-base font-semibold text-slate-900">CV & ATS</div>
+                <ul className="mt-3 space-y-2">
+                  <li className="flex gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-slate-500" /> <span className="text-sm text-slate-700">One page with action + result bullets</span></li>
+                  <li className="flex gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-slate-500" /> <span className="text-sm text-slate-700">Mirror keywords from the job description</span></li>
+                  <li className="flex gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-slate-500" /> <span className="text-sm text-slate-700">Links to portfolio and proof</span></li>
+                </ul>
+              </div>
+              <div className="bg-white border border-slate-200 rounded-2xl p-8">
+                <div className="text-base font-semibold text-slate-900">LinkedIn & outreach</div>
+                <ul className="mt-3 space-y-2">
+                  <li className="flex gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-500" /> <span className="text-sm text-slate-700">Weekly short posts showing your work</span></li>
+                  <li className="flex gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-500" /> <span className="text-sm text-slate-700">DMs referencing specific work by the person</span></li>
+                  <li className="flex gap-2"><span className="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-500" /> <span className="text-sm text-slate-700">Ask what it would take to be considered</span></li>
+                </ul>
+              </div>
+            </div>
+            <div className="mt-6 flex flex-wrap gap-4">
+              {jobPlatforms.map((jp) => (
+                <a key={jp.name} href={jp.url} target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-[0.2em]">
+                  {jp.name}
+                </a>
+              ))}
+            </div>
+          </section>
+
+          <section>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.45 }}
+              className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3"
+              id="apply"
+            >
+              <div>
+                <div className="text-[12px] font-black tracking-[0.2em] uppercase text-emerald-700">
+                  00.3 • Application playbook
+                </div>
+                <h2 className="mt-2 text-xl sm:text-3xl font-bold text-slate-900">
+                  How to apply
+                </h2>
+              </div>
+              <p className="text-sm sm:text-[15px] text-slate-600 max-w-md">
+                Use this sequence each week so applications take less time and get better responses.
+              </p>
+            </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-white border border-slate-200 rounded-2xl p-8">
+                <div className="text-base font-semibold text-slate-900">Sequence</div>
+                <ol className="mt-3 space-y-2 list-decimal list-inside">
+                  <li className="text-sm text-slate-700">Pick one role title and build a focused CV</li>
+                  <li className="text-sm text-slate-700">Short tailored cover note referencing their work</li>
+                  <li className="text-sm text-slate-700">Portfolio link with 3–6 relevant case studies</li>
+                  <li className="text-sm text-slate-700">Send 5 applications weekly and track replies</li>
+                </ol>
+              </div>
+              <div className="bg-white border border-slate-200 rounded-2xl p-8">
+                <div className="text-base font-semibold text-slate-900">Proof</div>
+                <ul className="mt-3 space-y-2">
+                  <li className="text-sm text-slate-700">Before/after visuals</li>
+                  <li className="text-sm text-slate-700">Short demos or clips</li>
+                  <li className="text-sm text-slate-700">Numbers: speed, conversions, clarity</li>
+                  <li className="text-sm text-slate-700">Testimonials or references</li>
+                </ul>
+              </div>
+            </div>
+            <div className="mt-6 flex flex-wrap gap-4">
+              <Link href="/opportunities" className="px-6 py-3 bg-emerald-600 text-white rounded-xl text-xs font-black uppercase tracking-[0.2em]">
+                Find Open Roles
+              </Link>
+              <Link href="/resources" className="px-6 py-3 border border-emerald-600 text-emerald-700 rounded-xl text-xs font-black uppercase tracking-[0.2em]">
+                CV & Portfolio Templates
+              </Link>
+            </div>
+          </section>
+
+          <section>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.45 }}
+              className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3"
+              id="freelancing"
+            >
+              <div>
+                <div className="text-[12px] font-black tracking-[0.2em] uppercase text-emerald-700">
+                  00.4 • Freelancing engine
+                </div>
+                <h2 className="mt-2 text-xl sm:text-3xl font-bold text-slate-900">
+                  How to do freelancing
+                </h2>
+              </div>
+              <p className="text-sm sm:text-[15px] text-slate-600 max-w-md">
+                Start narrow, show proof, and offer a small paid test to build trust.
+              </p>
+            </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-white border border-slate-200 rounded-2xl p-8">
+                <div className="text-base font-semibold text-slate-900">Positioning</div>
+                <ul className="mt-3 space-y-2">
+                  <li className="text-sm text-slate-700">I help [niche] get [result] with [skill]</li>
+                  <li className="text-sm text-slate-700">Start with one focused offer</li>
+                  <li className="text-sm text-slate-700">Upgrade later with retainers</li>
+                </ul>
+              </div>
+              <div className="bg-white border border-slate-200 rounded-2xl p-8">
+                <div className="text-base font-semibold text-slate-900">Proposal</div>
+                <ul className="mt-3 space-y-2">
+                  <li className="text-sm text-slate-700">One line showing you read the brief</li>
+                  <li className="text-sm text-slate-700">3-step mini plan</li>
+                  <li className="text-sm text-slate-700">Offer a paid test to reduce risk</li>
+                </ul>
+              </div>
+              <div className="bg-white border border-slate-200 rounded-2xl p-8">
+                <div className="text-base font-semibold text-slate-900">Retention</div>
+                <ul className="mt-3 space-y-2">
+                  <li className="text-sm text-slate-700">Proactive check-ins</li>
+                  <li className="text-sm text-slate-700">Offer upgrades and small wins</li>
+                  <li className="text-sm text-slate-700">Ask for referrals after wins</li>
+                </ul>
+              </div>
+            </div>
+            <div className="mt-6 flex flex-wrap gap-4">
+              {freelancePlatforms.map((fp) => (
+                <a key={fp.name} href={fp.url} target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-[0.2em]">
+                  {fp.name}
+                </a>
+              ))}
+            </div>
+          </section>
+          <section>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.45 }}
+              className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3"
+            >
+              <div>
+                <div className="text-[11px] font-semibold tracking-[0.2em] uppercase text-emerald-700">
+                  00 • Start here
+                </div>
+                <h2 className="mt-2 text-lg sm:text-2xl font-semibold text-slate-900">
+                  Choose your first skill: Easy • Normal • Hard
+                </h2>
+              </div>
+              <p className="text-xs sm:text-[13px] text-slate-500 max-w-md">
+                New students: pick one lane based on effort, confidence, and time. Each lane shows benefits and how to start.
+              </p>
+            </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {skillLevels.map((lvl, i) => (
+                <motion.div
+                  key={lvl.label}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.06 }}
+                  className={`bg-gradient-to-b ${lvl.bg} border border-slate-100 rounded-2xl p-8`}
+                >
+                  <div className={`text-sm font-black uppercase tracking-[0.2em] ${lvl.accent} mb-4`}>{lvl.label}</div>
+                  <div className="space-y-5">
+                    {lvl.skills.map((s, idx) => (
+                      <div key={idx} className="bg-white rounded-xl border border-slate-100 p-5">
+                        <div className="text-base font-semibold text-slate-900">{s.name}</div>
+                        <div className="text-sm text-slate-600 mt-1">{s.benefit}</div>
+                        <div className="mt-3 flex flex-wrap gap-3">
+                          {s.how.map((h, j) => (
+                            <div key={j} className="inline-flex items-center gap-2">
+                              <div className="w-1 h-1 rounded-full bg-emerald-600" />
+                              <span className="text-xs font-bold text-slate-600 uppercase tracking-widest">{h}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+
+          <section>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.45 }}
+              className="mt-2"
+            >
+              <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+                <div>
+                  <div className="text-[11px] font-semibold tracking-[0.2em] uppercase text-emerald-700">
+                    00.1 • Job pathways
+                  </div>
+                  <h2 className="mt-2 text-lg sm:text-2xl font-semibold text-slate-900">
+                    Reach jobs via social, platforms, and freelancing
+                  </h2>
+                </div>
+                <p className="text-xs sm:text-[13px] text-slate-500 max-w-md">
+                  Pick one path first for 4–8 weeks. Collect proof, then expand.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {jobPathways.map((p, i) => (
+                  <motion.div
+                    key={p.title}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: i * 0.06 }}
+                  className={`bg-gradient-to-b ${p.color} border border-slate-100 rounded-2xl p-8`}
+                  >
+                    <div className="text-base font-semibold text-slate-900">{p.title}</div>
+                    <div className="mt-3 space-y-2">
+                      {p.items.map((it, idx) => (
+                        <div key={idx} className="flex items-center gap-2">
+                          <div className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+                          <div className="text-sm text-slate-700">{it}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </section>
+
+          <section>
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -661,8 +1249,8 @@ export default function EarnCareersClient() {
                 <div className="text-[11px] font-semibold tracking-[0.2em] uppercase text-emerald-700">
                   04 • Online earning ecosystem
                 </div>
-                <h2 className="mt-2 text-lg sm:text-2xl font-semibold text-slate-900">
-                  From first ₹ / $ online to advanced digital income
+                <h2 id="earning" className="mt-2 text-xl sm:text-3xl font-bold text-slate-900">
+                  From first $ online to advanced digital income
                 </h2>
               </div>
               <p className="text-xs sm:text-[13px] text-slate-500 max-w-md">
@@ -724,35 +1312,18 @@ export default function EarnCareersClient() {
               </p>
             </motion.div>
 
-            <div className="grid gap-5 md:grid-cols-4">
-              {freelanceBlocks.map((block, index) => (
-                <motion.div
-                  key={block.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ ...cardTransition, delay: index * 0.04 }}
-                  whileHover={{ y: -10, scale: 1.02 }}
-                  className={`group relative overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-b ${block.color} p-5 text-xs sm:text-[13px] text-slate-700`}
-                >
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.2),_transparent_70%)]" />
-                  </div>
-                  <div className="relative z-10 space-y-3">
-                    <h3 className="text-sm sm:text-base font-semibold text-slate-900">
-                      {block.title}
-                    </h3>
-                    <ul className="space-y-1.5">
-                      {block.items.map((item) => (
-                        <li key={item} className="flex gap-2">
-                          <span className="mt-1 h-1.5 w-1.5 rounded-full bg-slate-300 group-hover:bg-slate-700 transition-colors" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </motion.div>
-              ))}
+            <div className="bg-white border border-slate-200 rounded-2xl p-8">
+              <div className="text-base font-semibold text-slate-900 mb-3">See steps above</div>
+              <p className="text-sm text-slate-700 mb-4">
+                Use the Freelancing engine earlier on this page for positioning, proposal, and retention. Open platforms:
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {freelancePlatforms.map((fp) => (
+                  <a key={fp.name} href={fp.url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-[0.2em]">
+                    {fp.name}
+                  </a>
+                ))}
+              </div>
             </div>
           </section>
 
@@ -777,35 +1348,18 @@ export default function EarnCareersClient() {
               </p>
             </motion.div>
 
-            <div className="grid gap-5 md:grid-cols-4">
-              {remoteBlocks.map((block, index) => (
-                <motion.div
-                  key={block.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ ...cardTransition, delay: index * 0.04 }}
-                  whileHover={{ y: -10, scale: 1.02 }}
-                  className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 text-xs sm:text-[13px] text-slate-700"
-                >
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(129,140,248,0.16),_transparent_70%)]" />
-                  </div>
-                  <div className="relative z-10 space-y-3">
-                    <h3 className="text-sm sm:text-base font-semibold text-slate-900">
-                      {block.title}
-                    </h3>
-                    <ul className="space-y-1.5">
-                      {block.items.map((item) => (
-                        <li key={item} className="flex gap-2">
-                          <span className="mt-1 h-1.5 w-1.5 rounded-full bg-slate-300 group-hover:bg-indigo-500 transition-colors" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </motion.div>
-              ))}
+            <div className="bg-white border border-slate-200 rounded-2xl p-8">
+              <div className="text-base font-semibold text-slate-900 mb-3">See steps above</div>
+              <p className="text-sm text-slate-700 mb-4">
+                Use the Job reach and Application playbook earlier on this page. Open job platforms:
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {jobPlatforms.map((jp) => (
+                  <a key={jp.name} href={jp.url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-[0.2em]">
+                    {jp.name}
+                  </a>
+                ))}
+              </div>
             </div>
           </section>
 
@@ -816,6 +1370,7 @@ export default function EarnCareersClient() {
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.45 }}
               className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3"
+              id="roadmaps"
             >
               <div>
                 <div className="text-[11px] font-semibold tracking-[0.2em] uppercase text-emerald-700">
@@ -1170,7 +1725,7 @@ export default function EarnCareersClient() {
                 <div className="relative z-10 space-y-5">
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <p className="text-sm sm:text-base text-slate-100/90 max-w-xl">
-                      Imagine a simple panel that tells you, today, how close you are to your first ₹ / $1, then ₹ / $100,
+                      Imagine a simple panel that tells you, today, how close you are to your first $1, then $100,
                       and then a serious digital income.
                     </p>
                     <div className="inline-flex items-center gap-2 rounded-full border border-emerald-300/60 bg-emerald-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-emerald-100">
@@ -1207,7 +1762,7 @@ export default function EarnCareersClient() {
                         Income score
                       </div>
                       <p className="text-sm text-slate-100/90">
-                        0: ₹ / $0. 1: first ₹ / $1–100. 2: stable monthly side income. 3: income that can fund your own
+                        0: $0. 1: first $1–100. 2: stable monthly side income. 3: income that can fund your own
                         decisions.
                       </p>
                       <p className="text-xs text-emerald-100/80">

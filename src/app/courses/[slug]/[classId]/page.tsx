@@ -6,6 +6,8 @@ import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
+export const revalidate = 60;
+
 type Props = {
   params: Promise<{ slug: string; classId: string }>;
 };
@@ -252,13 +254,16 @@ export default async function ClassPage({ params }: Props) {
                       <p className="text-gray-500 text-sm mb-3 line-clamp-2">{rc.description}</p>
                       <div className="flex justify-between items-center">
                         <span className="text-primary font-medium">
-                          {rc.discountPrice ? (
+                          {(rc.discountPrice !== null && rc.discountPrice !== undefined) ? (
                             <>
-                              <span className="line-through text-gray-400 text-xs mr-1">${rc.price.toFixed(2)}</span>
-                              ${rc.discountPrice.toFixed(2)}
+                              {rc.price > 0 && <span className="line-through text-gray-400 text-xs mr-1">${rc.price.toFixed(2)}</span>}
+                              ${Number(rc.discountPrice).toFixed(2)}
                             </>
                           ) : (
-                            `$${rc.price.toFixed(2)}`
+                            <>
+                              {rc.price > 0 && <span className="line-through text-gray-400 text-xs mr-1">${rc.price.toFixed(2)}</span>}
+                              $0.00
+                            </>
                           )}
                         </span>
                         <div className="flex items-center text-sm">

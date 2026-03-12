@@ -24,6 +24,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="flex gap-3 mb-6 flex-wrap">
           <Link href="/admin" className="px-3 py-1 border rounded bg-white hover:bg-gray-50 transition-colors">Dashboard</Link>
           <Link href="/admin/home" className="px-3 py-1 border rounded bg-white hover:bg-gray-50 transition-colors">Home</Link>
+          <Link href="/admin/hubs/global-scholar" className="px-3 py-1 border rounded bg-white hover:bg-gray-50 transition-colors">Global Scholar</Link>
+          <Link href="/admin/hubs/earn-careers" className="px-3 py-1 border rounded bg-white hover:bg-gray-50 transition-colors">Earn & Careers</Link>
+          <Link href="/admin/hubs/self-development" className="px-3 py-1 border rounded bg-white hover:bg-gray-50 transition-colors">Self Development</Link>
+          <Link href="/admin/hubs/resources" className="px-3 py-1 border rounded bg-white hover:bg-gray-50 transition-colors">Resources Hub</Link>
+          <Link href="/admin/hubs/opportunities" className="px-3 py-1 border rounded bg-white hover:bg-gray-50 transition-colors">Opportunities</Link>
+          <Link href="/admin/hubs/gov-schemes" className="px-3 py-1 border rounded bg-white hover:bg-gray-50 transition-colors">Gov Portal</Link>
           <Link href="/admin/courses" className="px-3 py-1 border rounded bg-white hover:bg-gray-50 transition-colors">Courses</Link>
           <Link href="/admin/classes" className="px-3 py-1 border rounded bg-white hover:bg-gray-50 transition-colors">Classes</Link>
           <Link href="/admin/blogs" className="px-3 py-1 border rounded bg-white hover:bg-gray-50 transition-colors">Blogs</Link>

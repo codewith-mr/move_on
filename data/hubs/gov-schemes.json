@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "title": "PM Youth Laptop Scheme",
+    "description": "Distribution of high-spec laptops to talented students across Pakistan to bridge the digital divide and promote research.",
+    "link": "https://laptop.pmyp.gov.pk/",
+    "category": "Education",
+    "status": "Upcoming",
+    "features": ["Latest Specs", "Merit Based", "Free of Cost"],
+    "imageUrl": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&q=80&w=800",
+    "ctaText": "Apply Now"
+  },
+  {
+    "id": 2,
+    "title": "Kamyab Jawan Program",
+    "description": "Small business loans up to 25 Million and technical training for Pakistani youth to start their own startups.",
+    "link": "https://kamyabjawan.gov.pk/",
+    "category": "Business",
+    "status": "Active",
+    "features": ["Low Interest", "Youth Focused", "Startup Funding"],
+    "imageUrl": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=800",
+    "ctaText": "Apply Now"
+  },
+  {
+    "id": 3,
+    "title": "Ehsaas Scholarship",
+    "description": "Need-based scholarships for undergraduate students in 125+ public universities across the country.",
+    "link": "https://www.hec.gov.pk/english/scholarships/pages/ehsaas-undergraduate-scholarship.aspx",
+    "category": "Scholarship",
+    "status": "Active",
+    "features": ["Tuition Fee", "Monthly Stipend", "125+ Universities"],
+    "imageUrl": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=800",
+    "ctaText": "Apply Now"
+  },
+  {
+    "id": 4,
+    "title": "DigiSkills.pk 2.0",
+    "description": "Free online training in digital skills like Freelancing, Graphic Design, SEO, and Digital Marketing.",
+    "link": "https://digiskills.pk/",
+    "category": "Digital Skills",
+    "status": "Always Open",
+    "features": ["Free Certification", "Online Learning", "10+ Courses"],
+    "imageUrl": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800",
+    "ctaText": "Apply Now"
+  },
+  {
+    "id": 5,
+    "title": "Benazir Income Support (BISP)",
+    "description": "Unconditional cash transfer program for underprivileged families to ensure basic needs and health support.",
+    "link": "https://bisp.gov.pk/",
+    "category": "Social Welfare",
+    "status": "Active",
+    "features": ["Cash Support", "Health Aid", "Nationwide"],
+    "imageUrl": "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=800",
+    "ctaText": "Apply Now"
+  },
+  {
+    "id": 6,
+    "title": "HEC Overseas Scholarship",
+    "description": "Scholarships for PhD and MS/MPhil in selected fields at top-ranked international universities.",
+    "link": "https://www.hec.gov.pk/english/scholarships/pages/Overseas.aspx",
+    "category": "Scholarship",
+    "status": "Active",
+    "features": ["International", "Full Funding", "PhD Level"],
+    "imageUrl": "https://images.unsplash.com/photo-1454165833767-027ffea9e77b?auto=format&fit=crop&q=80&w=800",
+    "ctaText": "Apply Now"
+  },
+  {
+    "id": 7,
+    "title": "Punjab Rozgar Scheme",
+    "description": "Subsidized credit facilities to MSMEs and startups in Punjab to promote economic growth.",
+    "link": "https://psic.punjab.gov.pk/punjabrozgarscheme",
+    "category": "Business",
+    "status": "Active",
+    "features": ["Easy Installments", "Punjab Only", "MSME Support"],
+    "imageUrl": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=800",
+    "ctaText": "Apply Now"
+  },
+  {
+    "id": 8,
+    "title": "National Talent Hunt",
+    "description": "Identifying and supporting talented students from remote areas for higher education in top institutes.",
+    "link": "https://www.iba.edu.pk/nthp/",
+    "category": "Education",
+    "status": "Annual",
+    "features": ["Remote Areas", "IBA Karachi", "Full Coverage"],
+    "imageUrl": "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&q=80&w=800",
+    "ctaText": "Apply Now"
+  },
+  {
+    "id": 9,
+    "title": "Green Youth Movement",
+    "description": "Engaging youth in environmental conservation and climate change mitigation projects across Pakistan.",
+    "link": "https://pmyp.gov.pk/gym",
+    "category": "Environment",
+    "status": "Active",
+    "features": ["Climate Action", "Volunteering", "Eco Projects"],
+    "imageUrl": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=800",
+    "ctaText": "Apply Now"
+  },
+  {
+    "id": 10,
+    "title": "Skill for All Program",
+    "description": "High-end technical training in emerging technologies like AI, IoT, and Cloud Computing.",
+    "link": "https://navttc.gov.pk/",
+    "category": "Technical",
+    "status": "Active",
+    "features": ["AI & IoT", "NAVTEC", "Modern Labs"],
+    "imageUrl": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800",
+    "ctaText": "Apply Now"
+  }
+]

@@ -1,5 +1,9 @@
 import MainLayout from '@/components/layout/MainLayout';
-import OpportunitiesClient from '@/components/pages/OpportunitiesClient';
+import dynamic from 'next/dynamic';
+
+const OpportunitiesClient = dynamic(() => import('@/components/pages/OpportunitiesClient'), {
+  loading: () => <div className="container mx-auto px-4 py-20 text-center text-neutral-500">Loading…</div>,
+});
 
 export const metadata = {
   title: 'Opportunities Radar | Scholarships, Internships, And Programs',
@@ -14,4 +18,3 @@ export default function OpportunitiesPage() {
     </MainLayout>
   );
 }
-

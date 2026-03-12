@@ -1,5 +1,9 @@
 import MainLayout from '@/components/layout/MainLayout';
-import EarnCareersClient from '@/components/pages/EarnCareersClient';
+import dynamic from 'next/dynamic';
+
+const EarnCareersClient = dynamic(() => import('@/components/pages/EarnCareersClient'), {
+  loading: () => <div className="container mx-auto px-4 py-20 text-center text-neutral-500">Loading…</div>,
+});
 
 export const metadata = {
   title: 'Earn & Careers | Student Income And Career Lab',
@@ -14,4 +18,3 @@ export default function EarnCareersPage() {
     </MainLayout>
   );
 }
-

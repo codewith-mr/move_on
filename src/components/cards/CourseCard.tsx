@@ -130,7 +130,8 @@ const CourseCard = ({
 }: CourseCardProps) => {
   
   // Mock data for missing fields if not provided
-  const students = studentCount || (title.length * 42 + instructor.length * 17 + 1200);
+  const instructorName = instructor || 'Admin';
+  const students = studentCount || (title.length * 42 + instructorName.length * 17 + 1200);
   // User requested "Tum Bi Sikho." tag on EACH course card
   const showStaffPick = true; 
   const avatarUrl = instructorAvatar || '/user-avatar.svg';
@@ -154,6 +155,10 @@ const CourseCard = ({
   const rotatedTags = [...defaultTags.slice(start), ...defaultTags.slice(0, start)].slice(0, count);
 
   const displayTags = tags.length > 0 ? tags : rotatedTags;
+
+  // Enforce display: new price 0$, old price crossed (fallback to 100$ if unknown)
+  const p = Number(price) || 0;
+  const crossedPrice = p > 0 ? p : 100;
 
   return (
     <div 
@@ -192,15 +197,15 @@ const CourseCard = ({
           <div className="flex items-center gap-2">
             <div className="relative w-5 h-5 rounded-full overflow-hidden bg-gray-100 flex-shrink-0 ring-1 ring-gray-100">
                <Image 
-                 src={avatarUrl} 
-                 alt={instructor}
+                src={avatarUrl} 
+                alt={instructorName}
                  fill
                  className="object-cover"
                />
             </div>
             <div className="flex items-center gap-1">
               <span className="text-[11px] font-bold text-gray-900 line-clamp-1 max-w-[100px]">
-                {instructor}
+                {instructorName}
               </span>
               {/* Verified Badge */}
               <svg className="w-2.5 h-2.5 text-green-500 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
@@ -268,14 +273,10 @@ const CourseCard = ({
         {/* Divider & Footer (Price & Button) */}
         <div className="mt-auto border-t border-gray-100 pt-2 flex items-center justify-between">
           <div className="flex flex-col">
-            {discountPrice ? (
-               <div className="flex items-baseline gap-1.5">
-                 <span className="text-base font-bold text-gray-900">${discountPrice}</span>
-                 <span className="text-[10px] text-gray-400 line-through">${price}</span>
-               </div>
-            ) : (
-               <span className="text-base font-bold text-gray-900">{price === 0 ? 'Free' : `$${price}`}</span>
-            )}
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-base font-bold text-gray-900">0$</span>
+              <span className="text-[10px] text-gray-400 line-through">{crossedPrice}$</span>
+            </div>
           </div>
 
           <Link href={`/courses/${slug}`} className="px-3 py-1.5 bg-neutral-900 hover:bg-primary text-white text-[10px] font-bold rounded-md transition-all shadow-sm hover:shadow-md hover:scale-105">

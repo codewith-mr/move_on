@@ -8,6 +8,25 @@ import StaggeredList from '@/components/ui/StaggeredList';
 import SectionHeader from '@/components/ui/SectionHeader';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
+import { 
+  Brain, 
+  MessageSquare, 
+  Zap, 
+  Palette, 
+  ChevronRight, 
+  FileText, 
+  Download, 
+  Layers, 
+  Search, 
+  TrendingUp, 
+  Briefcase, 
+  Globe,
+  DollarSign,
+  Rocket,
+  BarChart,
+  ShieldCheck,
+  Star
+} from 'lucide-react';
 
 export default async function Home() {
   const settings = await prisma.homeSettings.findFirst({ where: { id: 1 } });
@@ -216,122 +235,213 @@ export default async function Home() {
       </section>
 
       {/* Strategic Hubs: Earn & Careers */}
-      <section className="py-24 bg-white">
+      <section className="py-32 bg-white relative">
         <div className="container mx-auto px-4">
-          <SectionHeader
-            subtitle="Income Growth"
-            title="Earn & Careers"
-            description="Master the skills that directly translate to income opportunities in the digital economy."
-          />
-          <div className="mt-12 bg-amber-50 rounded-[3rem] p-12 overflow-hidden relative border border-amber-100">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-amber-200/20 rounded-full blur-[80px] -mr-32 -mt-32"></div>
-            <div className="max-w-2xl relative z-10">
-              <h3 className="text-3xl font-heading font-bold text-neutral-900 mb-6 uppercase tracking-tighter">Your Path to <span className="text-amber-600 italic">Financial Freedom.</span></h3>
-              <p className="text-neutral-600 mb-10 text-lg leading-relaxed">
-                From freelancing mastery to corporate career acceleration—we provide the blueprint for 
-                modern professionals to scale their earnings.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Link href="/earn-careers" className="px-8 py-4 bg-amber-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-amber-700 transition-all shadow-lg shadow-amber-600/20">
-                  Career Blueprint
-                </Link>
-                <Link href="/earn-careers" className="px-8 py-4 bg-white text-amber-600 border border-amber-200 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-amber-50 transition-all">
-                  Earning Paths
-                </Link>
-              </div>
+          <div className="max-w-4xl mx-auto text-center mb-20">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-100 mb-6">
+              <div className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></div>
+              <span className="text-[10px] font-black text-amber-600 uppercase tracking-widest">Income Architecture</span>
             </div>
+            <h2 className="text-4xl md:text-7xl font-black tracking-tighter uppercase leading-none text-neutral-900 mb-8">
+              Earn & <span className="text-amber-600 italic">Careers.</span>
+            </h2>
+            <p className="text-lg md:text-xl text-neutral-500 font-medium leading-relaxed max-w-2xl mx-auto">
+              The definitive blueprint for financial independence. Transition from random gigs to high-leverage digital income streams.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto mb-16">
+            {[
+              { t: 'High-Ticket Sales', d: 'Mastering the art of vetted closer talent.', i: <DollarSign className="w-6 h-6" />, c: 'text-amber-600', bg: 'bg-amber-50', b: 'hover:border-amber-200' },
+              { t: 'Freelance Ops', d: 'High-velocity client acquisition systems.', i: <Globe className="w-6 h-6" />, c: 'text-blue-600', bg: 'bg-blue-50', b: 'hover:border-blue-200' },
+              { t: 'Content Assets', d: 'Building digital leverage through media.', i: <Rocket className="w-6 h-6" />, c: 'text-rose-600', bg: 'bg-rose-50', b: 'hover:border-rose-200' },
+              { t: 'Remote Mastery', d: 'Accessing global roles with precision.', i: <Briefcase className="w-6 h-6" />, c: 'text-emerald-600', bg: 'bg-emerald-50', b: 'hover:border-emerald-200' }
+            ].map((track) => (
+              <div key={track.t} className={`p-8 rounded-[2.5rem] border border-neutral-100 bg-white shadow-sm transition-all duration-500 group/track ${track.b} hover:shadow-xl hover:-translate-y-1`}>
+                <div className={`w-14 h-14 rounded-2xl ${track.bg} flex items-center justify-center mb-8 ${track.c} transition-all duration-500 group-hover/track:scale-110 group-hover/track:rotate-3`}>
+                  {track.i}
+                </div>
+                <h4 className="text-xl font-black uppercase text-neutral-900 mb-3 tracking-tight">{track.t}</h4>
+                <p className="text-sm text-neutral-500 font-medium leading-relaxed">{track.d}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link href="/earn-careers" className="inline-flex items-center px-12 py-6 bg-slate-900 text-white rounded-full font-black text-[11px] uppercase tracking-[0.2em] hover:bg-black hover:scale-105 transition-all shadow-2xl shadow-slate-900/20 group">
+              Access Earning Paths <ChevronRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Strategic Hubs: Self Development */}
-      <section className="py-24 bg-neutral-50">
-        <div className="container mx-auto px-4 text-center">
-          <SectionHeader
-            subtitle="Personal Mastery"
-            title="Self Development"
-            description="Upgrade your mindset and soft skills to navigate the complexities of the modern world."
-          />
-          <div className="mt-16 max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                { i: '🧠', t: 'Mindset', d: 'Master the psychology of success and resilience.' },
-                { i: '🗣️', t: 'Communication', d: 'High-impact speaking and persuasive writing.' },
-                { i: '⚡', t: 'Productivity', d: 'Systems to maximize output and focus.' },
-                { i: '🎨', t: 'Creativity', d: 'Unlocking original ideas and digital art.' }
-              ].map((item) => (
-                <div key={item.t} className="bg-white p-8 rounded-[2rem] border border-neutral-100 flex flex-col items-center group hover:border-primary/20 hover:shadow-xl transition-all duration-300">
-                  <div className="text-4xl mb-6 transform group-hover:scale-110 transition-transform duration-500">{item.i}</div>
-                  <h4 className="text-sm font-black uppercase tracking-widest text-neutral-900 mb-3">{item.t}</h4>
-                  <p className="text-xs text-neutral-500 leading-relaxed">{item.d}</p>
+      <section className="py-32 bg-neutral-50 border-y border-neutral-100 relative overflow-hidden">
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto text-center mb-20">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-50 border border-violet-100 mb-6">
+              <div className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse"></div>
+              <span className="text-[10px] font-black text-violet-600 uppercase tracking-widest">Internal Operating System</span>
+            </div>
+            <h2 className="text-4xl md:text-7xl font-black tracking-tighter uppercase leading-none text-neutral-900 mb-8">
+              Self <span className="text-violet-600 italic">Development.</span>
+            </h2>
+            <p className="text-lg md:text-xl text-neutral-500 font-medium leading-relaxed max-w-2xl mx-auto">
+              Upgrade your human software. Protocols for mindset, productivity, and authority that power high-performance careers.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto mb-16">
+            {[
+              { i: <Brain className="w-6 h-6" />, t: 'Mindset Mastery', l: 'PSYCHOLOGY', c: 'text-violet-600', bg: 'bg-violet-50', b: 'hover:border-violet-200' },
+              { i: <BarChart className="w-6 h-6" />, t: 'Systemic Output', l: 'SYSTEMS', c: 'text-blue-600', bg: 'bg-blue-50', b: 'hover:border-blue-200' },
+              { i: <ShieldCheck className="w-6 h-6" />, t: 'Social Authority', l: 'AUTHORITY', c: 'text-emerald-600', bg: 'bg-emerald-50', b: 'hover:border-emerald-200' },
+              { i: <Star className="w-6 h-6" />, t: 'Daily Discipline', l: 'ROUTINE', c: 'text-rose-600', bg: 'bg-rose-50', b: 'hover:border-rose-200' }
+            ].map((item) => (
+              <div key={item.t} className={`p-8 rounded-[2.5rem] border border-neutral-100 bg-white shadow-sm transition-all duration-500 group/sd ${item.b} hover:shadow-xl hover:-translate-y-1`}>
+                <div className={`w-14 h-14 rounded-2xl ${item.bg} flex items-center justify-center mb-8 ${item.c} transition-all duration-500 group-hover/sd:scale-110 group-hover/sd:rotate-3`}>
+                  {item.i}
                 </div>
-              ))}
-            </div>
-            <div className="mt-16">
-              <Link href="/self-development" className="inline-flex items-center px-10 py-5 bg-purple-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-purple-700 transition-all shadow-xl shadow-purple-600/20">
-                Explore Growth Paths <span className="ml-2">→</span>
-              </Link>
-            </div>
+                <div className={`text-[10px] font-black ${item.c} tracking-widest uppercase mb-2`}>{item.l}</div>
+                <h4 className="text-xl font-black uppercase text-neutral-900 mb-3 tracking-tight">{item.t}</h4>
+                <p className="text-sm text-neutral-500 font-medium leading-relaxed">High-performance protocols designed for modern builders.</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link href="/self-development" className="inline-flex items-center px-12 py-6 bg-slate-900 text-white rounded-full font-black text-[11px] uppercase tracking-[0.2em] hover:bg-black hover:scale-105 transition-all shadow-2xl shadow-slate-900/20 group">
+              Explore Growth Paths <ChevronRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Strategic Hubs: Resources Hub */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-white overflow-hidden">
         <div className="container mx-auto px-4">
-          <SectionHeader
-            subtitle="The Builder's Library"
-            title="Resources Hub"
-            description="A curated collection of free templates, checklists, and assets to accelerate your projects."
-          />
-          <div className="mt-12 bg-rose-50 rounded-[3rem] p-12 flex flex-col md:flex-row gap-12 border border-rose-100">
-            <div className="md:w-1/3 aspect-video bg-white rounded-2xl shadow-inner border border-rose-100 flex items-center justify-center">
-              <div className="text-6xl grayscale opacity-10">📂</div>
-            </div>
-            <div className="md:w-2/3">
-              <h3 className="text-2xl font-heading font-bold text-neutral-900 mb-4 uppercase tracking-tight">Stop Building From Scratch.</h3>
-              <p className="text-neutral-600 mb-8 leading-relaxed">
-                Download our professional-grade templates for business proposals, content calendars, 
-                and financial tracking—vetted by our community of experts.
-              </p>
-              <Link href="/resources" className="inline-flex items-center text-rose-600 font-black text-xs uppercase tracking-widest group">
-                Access All Assets <span className="ml-2 transform group-hover:translate-x-1 transition-transform">→</span>
-              </Link>
+          <div className="bg-rose-50 rounded-[4rem] p-8 sm:p-16 border border-rose-100 relative">
+            <div className="absolute top-0 right-0 w-80 h-80 bg-rose-200/20 rounded-full blur-[100px] -mr-40 -mt-40"></div>
+            <div className="relative z-10 flex flex-col lg:flex-row items-center gap-16">
+              <div className="lg:w-1/2">
+                <span className="text-[10px] font-black text-rose-600 uppercase tracking-[0.4em] mb-4 block">The Builder's Library</span>
+                <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase leading-[0.9] mb-8 text-neutral-900">
+                  Resources <span className="text-rose-600 italic">Hub.</span>
+                </h2>
+                <p className="text-lg text-neutral-600 font-medium leading-relaxed mb-10">
+                  Stop building from scratch. Access a curated collection of professional-grade templates, checklists, and digital assets designed to accelerate your projects.
+                </p>
+                <div className="grid grid-cols-2 gap-4 mb-10">
+                  {[
+                    { t: 'PS_VAULT', d: 'Raster Assets' },
+                    { t: 'TF_ARCHIVE', d: 'Typography' },
+                    { t: 'VC_BLUEPRINTS', d: 'Vectors' },
+                    { t: 'MP_PROTOCOLS', d: 'Mockups' }
+                  ].map((tag) => (
+                    <div key={tag.t} className="flex items-center gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-rose-400"></div>
+                      <div>
+                        <div className="text-[10px] font-black text-rose-600 tracking-wider leading-none">{tag.t}</div>
+                        <div className="text-xs text-neutral-400 font-bold uppercase mt-1">{tag.d}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <Link href="/resources" className="inline-flex items-center px-10 py-5 bg-rose-600 text-white rounded-full font-black text-[11px] uppercase tracking-widest hover:bg-rose-700 transition-all shadow-xl shadow-rose-600/20 group">
+                  Access All Assets <Download className="ml-2 w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+                </Link>
+              </div>
+              <div className="lg:w-1/2 grid grid-cols-2 gap-4">
+                <div className="space-y-4 pt-12">
+                  <div className="bg-white p-6 rounded-3xl shadow-sm border border-rose-100 transform -rotate-2">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 font-black text-xs">PS</div>
+                    <div className="h-2 w-12 bg-neutral-100 rounded-full mb-2"></div>
+                    <div className="h-2 w-8 bg-neutral-50 rounded-full"></div>
+                  </div>
+                  <div className="bg-white p-6 rounded-3xl shadow-md border border-rose-100 transform rotate-1">
+                    <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4 font-black text-xs">TF</div>
+                    <div className="h-2 w-16 bg-neutral-100 rounded-full mb-2"></div>
+                    <div className="h-2 w-10 bg-neutral-50 rounded-full"></div>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div className="bg-white p-6 rounded-3xl shadow-lg border border-rose-100 transform rotate-2">
+                    <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center mb-4">
+                      <FileText className="w-5 h-5" />
+                    </div>
+                    <div className="h-2 w-20 bg-neutral-100 rounded-full mb-2"></div>
+                    <div className="h-2 w-12 bg-neutral-50 rounded-full"></div>
+                  </div>
+                  <div className="bg-white p-6 rounded-3xl shadow-sm border border-rose-100 transform -rotate-1">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4">
+                      <Layers className="w-5 h-5" />
+                    </div>
+                    <div className="h-2 w-14 bg-neutral-100 rounded-full mb-2"></div>
+                    <div className="h-2 w-10 bg-neutral-50 rounded-full"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Strategic Hubs: Opportunities */}
-      <section className="py-24 bg-neutral-900 text-white mx-6 rounded-[4rem] relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px] -mr-48 -mt-48"></div>
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <span className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.4em] mb-4 block">Vetted Paths</span>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase leading-none mb-8 text-white">
-              Strategic <span className="text-emerald-400 italic">Opportunities.</span>
-            </h2>
-            <p className="text-lg text-white font-medium max-w-2xl mx-auto leading-relaxed">
-              Discover legitimate side-hustles, vetted projects, and income-generating paths updated weekly.
-            </p>
+      <section className="py-24 bg-neutral-900 text-white mx-6 rounded-[4rem] relative overflow-hidden group/section">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[120px] -mr-48 -mt-48 animate-pulse"></div>
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-sky-500/10 rounded-full blur-[100px] -ml-48 -mb-48"></div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20">
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-[1px] bg-emerald-500"></div>
+                <span className="text-[10px] font-black text-emerald-400 uppercase tracking-[0.4em]">Vetted Paths</span>
+              </div>
+              <h2 className="text-4xl md:text-7xl font-black tracking-tighter uppercase leading-[0.85] text-white">
+                Strategic <br />
+                <span className="text-emerald-400 italic">Opportunities.</span>
+              </h2>
+            </div>
+            <div className="lg:max-w-xs">
+              <p className="text-lg text-neutral-400 font-medium leading-relaxed">
+                Discover legitimate side-hustles, vetted projects, and income-generating paths updated weekly.
+              </p>
+            </div>
           </div>
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { t: 'High-Ticket Sales', d: 'Connect with brands needing vetted closer talent.', i: '💰' },
-              { t: 'Digital Agency', d: 'Blueprint for scaling service-based businesses.', i: '🏢' },
-              { t: 'Arbitrage Master', d: 'Finding market gaps for quick profit turnarounds.', i: '⚖️' }
-            ].map((opp) => (
-              <div key={opp.t} className="bg-white/5 border border-white/10 p-8 rounded-[2rem] hover:bg-white/10 transition-all group">
-                <div className="text-3xl mb-6">{opp.i}</div>
-                <h4 className="text-lg font-black uppercase tracking-tight text-emerald-400 mb-3">{opp.t}</h4>
-                <p className="text-white text-sm font-medium leading-relaxed">{opp.d}</p>
+              { t: 'High-Ticket Sales', d: 'Connect with brands needing vetted closer talent.', i: <Briefcase className="w-6 h-6" />, tag: 'INCOME' },
+              { t: 'Digital Agency', d: 'Blueprint for scaling service-based businesses.', i: <Globe className="w-6 h-6" />, tag: 'SCALING' },
+              { t: 'Market Arbitrage', d: 'Finding market gaps for quick profit turnarounds.', i: <TrendingUp className="w-6 h-6" />, tag: 'ARBITRAGE' }
+            ].map((opp, i) => (
+              <div key={opp.t} className="bg-white/5 border border-white/10 p-10 rounded-[3rem] hover:bg-white/[0.08] hover:border-emerald-500/30 transition-all duration-500 group/card relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-6 opacity-20 group-hover/card:opacity-40 transition-opacity">
+                  <div className="text-[40px] font-black text-white/10">{i + 1}</div>
+                </div>
+                <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-8 group-hover/card:scale-110 group-hover/card:bg-emerald-500/20 transition-all duration-500">
+                  {opp.i}
+                </div>
+                <div className="text-[10px] font-black text-emerald-500/60 tracking-widest uppercase mb-3">{opp.tag}</div>
+                <h4 className="text-xl font-black uppercase tracking-tight text-white mb-4">{opp.t}</h4>
+                <p className="text-neutral-400 text-sm font-medium leading-relaxed">{opp.d}</p>
               </div>
             ))}
           </div>
-          <div className="mt-16 text-center">
-            <Link href="/opportunities" className="inline-block px-12 py-6 bg-emerald-500 text-neutral-900 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-emerald-400 transition-all shadow-2xl shadow-emerald-500/20">
-              Access Full Dashboard <span className="ml-2">→</span>
+
+          <div className="mt-20 flex flex-col items-center">
+            <Link href="/opportunities" className="inline-flex items-center px-12 py-6 bg-emerald-500 text-neutral-900 rounded-full font-black text-[11px] uppercase tracking-[0.2em] hover:bg-emerald-400 hover:scale-105 transition-all shadow-2xl shadow-emerald-500/40 group">
+              Access Full Dashboard <ChevronRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
+            <div className="mt-8 flex items-center gap-6 opacity-40">
+              <div className="flex -space-x-3">
+                {[1,2,3,4].map(n => (
+                  <div key={n} className="w-8 h-8 rounded-full border-2 border-neutral-900 bg-neutral-800 flex items-center justify-center text-[10px] font-bold">U{n}</div>
+                ))}
+              </div>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-white/60">Joined by 2.4k+ students</span>
+            </div>
           </div>
         </div>
       </section>

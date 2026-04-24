@@ -33,7 +33,7 @@ const DomainCard = ({
 }: { 
     category: {
         id: string;
-        number: string;
+        tag: string;
         title: string;
         description: string;
         color: string;
@@ -44,14 +44,14 @@ const DomainCard = ({
         assets: Array<{ type: string; folders: string; files: string }>;
     }
 }) => (
-    <div id={category.id} className="mb-24 last:mb-0 scroll-mt-48">
+    <div id={category.id} className="mb-24 last:mb-0 scroll-mt-48 group">
         <div className="flex items-center gap-5 mb-8 px-4">
             <div className={`w-14 h-14 rounded-[2rem] ${category.bg} flex items-center justify-center text-2xl shadow-sm border border-slate-100 rotate-6 group-hover:rotate-0 transition-transform duration-500`}>
                 <div className={category.color}>{category.icon}</div>
             </div>
             <div>
                 <div className="flex items-center gap-3">
-                    <span className="text-[10px] font-black text-slate-300 uppercase tracking-[0.4em]">{category.number}</span>
+                    <span className={`px-2 py-0.5 rounded text-[9px] font-black tracking-widest uppercase border ${category.border} ${category.color} bg-white shadow-sm`}>{category.tag}</span>
                     <h3 className="text-3xl font-black text-slate-900 tracking-tighter">{category.title.toUpperCase()}</h3>
                 </div>
                 <p className="text-sm text-slate-500 font-medium max-w-xl">{category.description}</p>
@@ -121,17 +121,17 @@ export default function ResourcesHubClient() {
     };
 
     const categories = [
-        { id: 'photoshop', number: '01', title: 'Photoshop Collection', description: 'Raster design assets for social and digital identity.', color: 'text-blue-600', bg: 'bg-blue-50', border: 'border-blue-100', accent: 'text-blue-600', icon: icons.photoshop, assets: [{ type: 'Instagram Stories', folders: '11', files: '500+' }, { type: 'Flyers', folders: '13', files: '500+' }, { type: 'Backgrounds', folders: '2', files: '70+' }, { type: 'Animated stories', folders: '7', files: '20+' }, { type: 'Banners', folders: '1', files: '100+' }, { type: 'Social networks', folders: '29', files: '1400+' }, { type: 'Visiting card', folders: '2', files: '15+' }, { type: 'Digital card', folders: '3', files: '50+' }, { type: 'Youtube Assets', folders: '1', files: '80+' }, { type: 'Facebook covers', folders: '50', files: '60+' }] },
-        { id: 'corel', number: '02', title: 'Corel Draw Collection', description: 'Precision vectors for T-shirts and technical graphics.', color: 'text-emerald-600', bg: 'bg-emerald-50', border: 'border-emerald-100', accent: 'text-emerald-600', icon: icons.corel, assets: [{ type: 'Tshirts Collection', folders: '34', files: '2500+' }, { type: 'Flipflops & Shoes', folders: '14', files: '1000+' }, { type: 'Icons Library', folders: '1', files: '1000+' }, { type: 'Logo A-Z Pack', folders: '26', files: '400+' }, { type: 'Cushions & Pillows', folders: '11', files: '400+' }, { type: 'Helmet Designs', folders: '1', files: '500+' }, { type: 'Cup & Mug Prints', folders: '1', files: '500+' }] },
-        { id: 'fonts', number: '03', title: 'Typography Vault', description: 'Repository of 125,000 professional font sources.', color: 'text-indigo-600', bg: 'bg-indigo-50', border: 'border-indigo-100', accent: 'text-indigo-600', icon: icons.fonts, assets: [{ type: '125 Thousand Sources', folders: '1', files: '125k+' }, { type: 'Fonts Mega Pack', folders: '30', files: '100+' }, { type: 'Vintage Sources', folders: '1', files: '1k+' }, { type: 'Rock Sources', folders: '1', files: '1k+' }] },
-        { id: 'png', number: '04', title: 'PNG Asset Library', description: 'HD transparent assets sorted by alphabetic domain.', color: 'text-sky-600', bg: 'bg-sky-50', border: 'border-sky-100', accent: 'text-sky-600', icon: icons.png, assets: [{ type: 'AM-AR Series', folders: '1', files: '250+' }, { type: 'AS-AZ Series', folders: '1', files: '300+' }, { type: 'CO-CO Series', folders: '1', files: '250+' }, { type: 'CP-CZ Series', folders: '1', files: '150+' }, { type: 'DA-DE Series', folders: '1', files: '350+' }] },
-        { id: 'mockups', number: '05', title: 'Mockup Protocols', description: 'Visualization systems for professional presentations.', color: 'text-rose-600', bg: 'bg-rose-50', border: 'border-rose-100', accent: 'text-rose-600', icon: icons.mockups, assets: [{ type: 'Brands Collection', folders: '3', files: '1000+' }, { type: 'Computers & Tech', folders: '6', files: '150+' }, { type: 'Cell Phones', folders: '4', files: '350+' }, { type: 'Clothing Mockups', folders: '4', files: '150+' }] },
-        { id: 'stock', number: '06', title: 'Stock Photo Archive', description: 'Atmospheric nodes for curated visual depth.', color: 'text-teal-600', bg: 'bg-teal-50', border: 'border-teal-100', accent: 'text-teal-600', icon: icons.stock, assets: [{ type: 'Animals Archive', folders: '23', files: '500+' }, { type: 'Cars & Transport', folders: '52', files: '350+' }, { type: 'Foods & Beverage', folders: '53', files: '100+' }, { type: 'Electronics Archive', folders: '39', files: '500+' }] },
-        { id: 'vectors', number: '07', title: 'Vector Art Lab', description: 'Scalable illustrative blueprints for creative warfare.', color: 'text-violet-600', bg: 'bg-violet-50', border: 'border-violet-100', accent: 'text-violet-600', icon: icons.vectors, assets: [{ type: 'Art Tattoo Pack', folders: '1', files: '250+' }, { type: 'Logos Mega Lab', folders: '1', files: '1000+' }, { type: 'Shields & Icons', folders: '38', files: '100+' }, { type: 'Lion Cartoon Set', folders: '1', files: '300+' }] },
-        { id: 'premiere', number: '08', title: 'Premiere & Video', description: 'High-end graphics and cinematic grading blueprints.', color: 'text-red-600', bg: 'bg-red-50', border: 'border-red-100', accent: 'text-red-600', icon: icons.premiere, assets: [{ type: 'Tokyo Graphics', folders: '1', files: '1' }, { type: 'Color Grade LUTs', folders: '12', files: '150+' }, { type: 'Transitions Pack', folders: '5', files: '40+' }] },
-        { id: 'motion-ae', number: '09', title: 'After Effects Archive', description: 'Kinetic motion presets and cinematic HUD triggers.', color: 'text-orange-600', bg: 'bg-orange-50', border: 'border-orange-100', accent: 'text-orange-600', icon: icons.aftereffects, assets: [{ type: 'Cyberpunk V3', folders: '1', files: '1' }, { type: 'HUD 2.0 Archive', folders: '1', files: '2' }, { type: 'Infinity Tool V3', folders: '1', files: '3' }, { type: 'Motion Pro Glitch', folders: '1', files: '1' }] },
-        { id: 'print-id', number: '10', title: 'InDesign Collection', description: 'Professional editorial and layout blueprints.', color: 'text-slate-600', bg: 'bg-slate-50', border: 'border-slate-100', accent: 'text-slate-600', icon: icons.indesign, assets: [{ type: 'Magazine Library', folders: '21', files: '100+' }, { type: 'Newspaper Sets', folders: '5', files: '25+' }, { type: 'Menu Protocols', folders: '1', files: '25+' }] },
-        { id: 'powerpoint', number: '11', title: 'PowerPoint Mastery', description: 'Strategic deck logic and persuasive slide systems.', color: 'text-orange-500', bg: 'bg-orange-50', border: 'border-orange-100', accent: 'text-orange-500', icon: icons.powerpoint, assets: [{ type: 'Corporate Decks', folders: '10', files: '300+' }, { type: 'Student Layouts', folders: '8', files: '200+' }, { type: 'Infographic Slides', folders: '15', files: '500+' }] }
+        { id: 'photoshop', tag: 'PS_COLLECTION', title: 'Photoshop Collection', description: 'Raster design assets for social and digital identity.', color: 'text-blue-600', bg: 'bg-blue-50', border: 'border-blue-100', accent: 'text-blue-600', icon: icons.photoshop, assets: [{ type: 'Instagram Stories', folders: '11', files: '500+' }, { type: 'Flyers', folders: '13', files: '500+' }, { type: 'Backgrounds', folders: '2', files: '70+' }, { type: 'Animated stories', folders: '7', files: '20+' }, { type: 'Banners', folders: '1', files: '100+' }, { type: 'Social networks', folders: '29', files: '1400+' }, { type: 'Visiting card', folders: '2', files: '15+' }, { type: 'Digital card', folders: '3', files: '50+' }, { type: 'Youtube Assets', folders: '1', files: '80+' }, { type: 'Facebook covers', folders: '50', files: '60+' }] },
+        { id: 'corel', tag: 'CD_COLLECTION', title: 'Corel Draw Collection', description: 'Precision vectors for T-shirts and technical graphics.', color: 'text-emerald-600', bg: 'bg-emerald-50', border: 'border-emerald-100', accent: 'text-emerald-600', icon: icons.corel, assets: [{ type: 'Tshirts Collection', folders: '34', files: '2500+' }, { type: 'Flipflops & Shoes', folders: '14', files: '1000+' }, { type: 'Icons Library', folders: '1', files: '1000+' }, { type: 'Logo A-Z Pack', folders: '26', files: '400+' }, { type: 'Cushions & Pillows', folders: '11', files: '400+' }, { type: 'Helmet Designs', folders: '1', files: '500+' }, { type: 'Cup & Mug Prints', folders: '1', files: '500+' }] },
+        { id: 'fonts', tag: 'TF_VAULT', title: 'Typography Vault', description: 'Repository of 125,000 professional font sources.', color: 'text-indigo-600', bg: 'bg-indigo-50', border: 'border-indigo-100', accent: 'text-indigo-600', icon: icons.fonts, assets: [{ type: '125 Thousand Sources', folders: '1', files: '125k+' }, { type: 'Fonts Mega Pack', folders: '30', files: '100+' }, { type: 'Vintage Sources', folders: '1', files: '1k+' }, { type: 'Rock Sources', folders: '1', files: '1k+' }] },
+        { id: 'png', tag: 'PN_LIBRARY', title: 'PNG Asset Library', description: 'HD transparent assets sorted by alphabetic domain.', color: 'text-sky-600', bg: 'bg-sky-50', border: 'border-sky-100', accent: 'text-sky-600', icon: icons.png, assets: [{ type: 'AM-AR Series', folders: '1', files: '250+' }, { type: 'AS-AZ Series', folders: '1', files: '300+' }, { type: 'CO-CO Series', folders: '1', files: '250+' }, { type: 'CP-CZ Series', folders: '1', files: '150+' }, { type: 'DA-DE Series', folders: '1', files: '350+' }] },
+        { id: 'mockups', tag: 'MP_PROTOCOLS', title: 'Mockup Protocols', description: 'Visualization systems for professional presentations.', color: 'text-rose-600', bg: 'bg-rose-50', border: 'border-rose-100', accent: 'text-rose-600', icon: icons.mockups, assets: [{ type: 'Brands Collection', folders: '3', files: '1000+' }, { type: 'Computers & Tech', folders: '6', files: '150+' }, { type: 'Cell Phones', folders: '4', files: '350+' }, { type: 'Clothing Mockups', folders: '4', files: '150+' }] },
+        { id: 'stock', tag: 'ST_ARCHIVE', title: 'Stock Photo Archive', description: 'Atmospheric nodes for curated visual depth.', color: 'text-teal-600', bg: 'bg-teal-50', border: 'border-teal-100', accent: 'text-teal-600', icon: icons.stock, assets: [{ type: 'Animals Archive', folders: '23', files: '500+' }, { type: 'Cars & Transport', folders: '52', files: '350+' }, { type: 'Foods & Beverage', folders: '53', files: '100+' }, { type: 'Electronics Archive', folders: '39', files: '500+' }] },
+        { id: 'vectors', tag: 'VC_LAB', title: 'Vector Art Lab', description: 'Scalable illustrative blueprints for creative warfare.', color: 'text-violet-600', bg: 'bg-violet-50', border: 'border-violet-100', accent: 'text-violet-600', icon: icons.vectors, assets: [{ type: 'Art Tattoo Pack', folders: '1', files: '250+' }, { type: 'Logos Mega Lab', folders: '1', files: '1000+' }, { type: 'Shields & Icons', folders: '38', files: '100+' }, { type: 'Lion Cartoon Set', folders: '1', files: '300+' }] },
+        { id: 'premiere', tag: 'PR_VIDEO', title: 'Premiere & Video', description: 'High-end graphics and cinematic grading blueprints.', color: 'text-red-600', bg: 'bg-red-50', border: 'border-red-100', accent: 'text-red-600', icon: icons.premiere, assets: [{ type: 'Tokyo Graphics', folders: '1', files: '1' }, { type: 'Color Grade LUTs', folders: '12', files: '150+' }, { type: 'Transitions Pack', folders: '5', files: '40+' }] },
+        { id: 'motion-ae', tag: 'AE_ARCHIVE', title: 'After Effects Archive', description: 'Kinetic motion presets and cinematic HUD triggers.', color: 'text-orange-600', bg: 'bg-orange-50', border: 'border-orange-100', accent: 'text-orange-600', icon: icons.aftereffects, assets: [{ type: 'Cyberpunk V3', folders: '1', files: '1' }, { type: 'HUD 2.0 Archive', folders: '1', files: '2' }, { type: 'Infinity Tool V3', folders: '1', files: '3' }, { type: 'Motion Pro Glitch', folders: '1', files: '1' }] },
+        { id: 'print-id', tag: 'ID_COLLECTION', title: 'InDesign Collection', description: 'Professional editorial and layout blueprints.', color: 'text-slate-600', bg: 'bg-slate-50', border: 'border-slate-100', accent: 'text-slate-600', icon: icons.indesign, assets: [{ type: 'Magazine Library', folders: '21', files: '100+' }, { type: 'Newspaper Sets', folders: '5', files: '25+' }, { type: 'Menu Protocols', folders: '1', files: '25+' }] },
+        { id: 'powerpoint', tag: 'PP_MASTERY', title: 'PowerPoint Mastery', description: 'Strategic deck logic and persuasive slide systems.', color: 'text-orange-500', bg: 'bg-orange-50', border: 'border-orange-100', accent: 'text-orange-500', icon: icons.powerpoint, assets: [{ type: 'Corporate Decks', folders: '10', files: '300+' }, { type: 'Student Layouts', folders: '8', files: '200+' }, { type: 'Infographic Slides', folders: '15', files: '500+' }] }
     ];
 
     return (
@@ -178,24 +178,25 @@ export default function ResourcesHubClient() {
             </section>
 
             {/* Premium Interactive Dock (The Control Hub) */}
-            <nav className="sticky top-[73px] z-40 bg-white/70 backdrop-blur-3xl border-b border-slate-200 py-10 px-6">
-                <div className="max-w-6xl mx-auto overflow-x-auto no-scrollbar py-4">
-                    <div className="flex items-center justify-between gap-12 min-w-max px-8">
+            <nav className="sticky top-[73px] z-40 bg-white/80 backdrop-blur-3xl border-b border-slate-200 py-6 px-6 shadow-sm">
+                <div className="max-w-7xl mx-auto overflow-x-auto no-scrollbar py-2">
+                    <div className="flex items-center gap-4 min-w-max px-4">
                         {categories.map((cat, i) => (
                             <motion.a
                                 key={i}
                                 href={`#${cat.id}`}
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: 10 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ delay: i * 0.05 }}
-                                whileHover={{ y: -8 }}
-                                className="group flex flex-col items-center gap-4 transition-all"
+                                transition={{ delay: i * 0.03 }}
+                                whileHover={{ y: -4 }}
+                                className="group flex items-center gap-3 px-5 py-2.5 rounded-full bg-white border border-slate-100 shadow-sm hover:shadow-md hover:border-slate-900 transition-all"
                             >
-                                <div className="text-4xl transition-transform duration-500 filter group-hover:drop-shadow-lg">
+                                <div className={`text-xl ${cat.color} filter group-hover:drop-shadow-sm transition-transform duration-300 group-hover:scale-110`}>
                                     {cat.icon}
                                 </div>
-                                <div className="text-center">
-                                    <span className="text-[10px] font-black text-slate-200 group-hover:text-slate-900 tracking-[0.3em] uppercase transition-colors">{cat.number}</span>
+                                <div className="flex flex-col">
+                                    <span className="text-[10px] font-black text-slate-900 uppercase tracking-tight leading-none">{cat.title.split(' ')[0]}</span>
+                                    <span className="text-[8px] font-bold text-slate-400 uppercase tracking-[0.1em] leading-none mt-1">{cat.tag.split('_')[0]}</span>
                                 </div>
                             </motion.a>
                         ))}

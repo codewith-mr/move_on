@@ -307,6 +307,34 @@ const Header = ({ logoUrl }: { logoUrl: string }) => {
                           </div>
                         </div>
                       </Link>
+                      <Link 
+                        href="/crypto-trading" 
+                        onMouseEnter={() => pf('/crypto-trading')}
+                        className="flex items-start gap-3 px-3 py-3 rounded-xl transition-all duration-150 group border border-transparent hover:border-emerald-200 hover:bg-emerald-50/40 hover:-translate-y-0.5"
+                      >
+                        <div className="w-10 h-10 shrink-0 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center transition-all shadow-sm group-hover:bg-slate-800 group-hover:border-emerald-500 group-hover:shadow-md group-hover:scale-105">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-5 h-5 text-emerald-400 transition-colors group-hover:text-emerald-300"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={1.6}
+                              d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                            />
+                          </svg>
+                        </div>
+                        <div>
+                          <div className="text-[13px] font-bold text-slate-900 tracking-tight group-hover:text-emerald-700">Crypto Trading</div>
+                          <div className="text-[12px] text-slate-500 leading-snug group-hover:text-slate-600">
+                            Learn professional trading from scratch with live charts and AI insights.
+                          </div>
+                        </div>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -426,6 +454,13 @@ const Header = ({ logoUrl }: { logoUrl: string }) => {
              >
                Global Scholar
              </Link>
+            <Link 
+              href="/crypto-trading" 
+              className={`font-body font-semibold py-2 transition-colors ${isActive('/crypto-trading') ? 'text-primary' : 'text-text hover:text-primary'}`}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Crypto Trading
+            </Link>
             <Link 
               href="/blog" 
               className={`font-body font-semibold py-2 transition-colors ${isActive('/blog') ? 'text-primary' : 'text-text hover:text-primary'}`}

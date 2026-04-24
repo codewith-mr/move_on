@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { Target, Zap, Building2, Send, Globe, Map } from 'lucide-react';
 
 const cardTransition = {
   duration: 0.4,
@@ -652,23 +653,41 @@ export default function EarnCareersClient() {
 
         <div className="space-y-12 sm:space-y-16">
           <section>
-            <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8">
-              <div className="flex flex-wrap items-center justify-between gap-4">
-                <div>
-                  <div className="text-[12px] font-black tracking-[0.2em] uppercase text-emerald-700">
-                    Navigator
+            <div className="bg-white/80 backdrop-blur-md border border-slate-200 rounded-3xl p-4 sm:p-6 shadow-xl shadow-slate-200/50">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-2xl bg-emerald-50 flex items-center justify-center">
+                    <Target className="w-5 h-5 text-emerald-600" />
                   </div>
-                  <h2 className="mt-2 text-xl sm:text-3xl font-bold text-slate-900">
-                    Quick Links
-                  </h2>
+                  <div>
+                    <div className="text-[10px] font-black tracking-[0.2em] uppercase text-emerald-700">
+                      Navigator
+                    </div>
+                    <h2 className="text-sm font-bold text-slate-900">
+                      Quick Links
+                    </h2>
+                  </div>
                 </div>
-                <div className="flex flex-wrap gap-3">
-                  <a href="#skill-fit" className="px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-[0.2em]">Skill Fit</a>
-                  <a href="#expert-path" className="px-4 py-2 border border-slate-900 text-slate-900 rounded-xl text-xs font-black uppercase tracking-[0.2em]">Expert Path</a>
-                  <a href="#job-reach" className="px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-black uppercase tracking-[0.2em]">Reach Companies</a>
-                  <a href="#apply" className="px-4 py-2 border border-emerald-600 text-emerald-700 rounded-xl text-xs font-black uppercase tracking-[0.2em]">Apply</a>
-                  <a href="#freelancing" className="px-4 py-2 bg-sky-600 text-white rounded-xl text-xs font-black uppercase tracking-[0.2em]">Freelancing</a>
-                  <a href="#roadmaps" className="px-4 py-2 border border-slate-200 text-slate-700 rounded-xl text-xs font-black uppercase tracking-[0.2em]">Roadmaps</a>
+                <div className="flex flex-wrap gap-2.5">
+                  {[
+                    { label: 'Skill Fit', href: '#skill-fit', icon: <Target className="w-3.5 h-3.5 text-emerald-600" /> },
+                    { label: 'Expert Path', href: '#expert-path', icon: <Zap className="w-3.5 h-3.5 text-amber-500" /> },
+                    { label: 'Reach Companies', href: '#job-reach', icon: <Building2 className="w-3.5 h-3.5 text-sky-600" /> },
+                    { label: 'Apply', href: '#apply', icon: <Send className="w-3.5 h-3.5 text-indigo-600" /> },
+                    { label: 'Freelancing', href: '#freelancing', icon: <Globe className="w-3.5 h-3.5 text-teal-600" /> },
+                    { label: 'Roadmaps', href: '#roadmaps', icon: <Map className="w-3.5 h-3.5 text-rose-600" /> },
+                  ].map((item) => (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      className="group flex items-center gap-2 px-4 py-2 bg-white border border-slate-100 text-slate-600 hover:bg-slate-900 hover:text-white hover:border-slate-900 rounded-full text-[10px] font-black uppercase tracking-[0.1em] shadow-sm hover:shadow-md transition-all duration-300"
+                    >
+                      <span className="group-hover:text-white transition-colors">
+                        {item.icon}
+                      </span>
+                      {item.label}
+                    </a>
+                  ))}
                 </div>
               </div>
             </div>
@@ -718,10 +737,10 @@ export default function EarnCareersClient() {
               ))}
             </div>
             <div className="mt-6 flex flex-wrap gap-4">
-              <Link href="/resources" className="px-6 py-3 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-[0.2em]">
+              <Link href="/resources" className="px-6 py-3 bg-slate-900 text-white rounded-full text-[11px] font-black uppercase tracking-[0.15em] shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
                 Open Resources
               </Link>
-              <Link href="/creativity" className="px-6 py-3 border border-slate-900 text-slate-900 rounded-xl text-xs font-black uppercase tracking-[0.2em]">
+              <Link href="/creativity" className="px-6 py-3 border border-slate-200 text-slate-600 hover:bg-slate-900 hover:text-white hover:border-slate-900 rounded-full text-[11px] font-black uppercase tracking-[0.15em] shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
                 Creativity Learning
               </Link>
             </div>
@@ -785,10 +804,10 @@ export default function EarnCareersClient() {
               ))}
             </div>
             <div className="mt-6 flex flex-wrap gap-4">
-              <Link href="/opportunities" className="px-6 py-3 bg-emerald-600 text-white rounded-xl text-xs font-black uppercase tracking-[0.2em]">
+              <Link href="/opportunities" className="px-6 py-3 bg-emerald-600 text-white rounded-full text-[11px] font-black uppercase tracking-[0.15em] shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
                 Open Opportunities
               </Link>
-              <Link href="/global-scholar" className="px-6 py-3 border border-emerald-600 text-emerald-700 rounded-xl text-xs font-black uppercase tracking-[0.2em]">
+              <Link href="/global-scholar" className="px-6 py-3 border border-slate-200 text-slate-600 hover:bg-emerald-600 hover:text-white hover:border-emerald-600 rounded-full text-[11px] font-black uppercase tracking-[0.15em] shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
                 Global Scholar
               </Link>
             </div>
@@ -843,7 +862,13 @@ export default function EarnCareersClient() {
             </div>
             <div className="mt-6 flex flex-wrap gap-4">
               {jobPlatforms.map((jp) => (
-                <a key={jp.name} href={jp.url} target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-[0.2em]">
+                <a 
+                  key={jp.name} 
+                  href={jp.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="px-6 py-3 bg-slate-900 text-white rounded-full text-[11px] font-black uppercase tracking-[0.15em] shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+                >
                   {jp.name}
                 </a>
               ))}
@@ -892,10 +917,10 @@ export default function EarnCareersClient() {
               </div>
             </div>
             <div className="mt-6 flex flex-wrap gap-4">
-              <Link href="/opportunities" className="px-6 py-3 bg-emerald-600 text-white rounded-xl text-xs font-black uppercase tracking-[0.2em]">
+              <Link href="/opportunities" className="px-6 py-3 bg-emerald-600 text-white rounded-full text-[11px] font-black uppercase tracking-[0.15em] shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
                 Find Open Roles
               </Link>
-              <Link href="/resources" className="px-6 py-3 border border-emerald-600 text-emerald-700 rounded-xl text-xs font-black uppercase tracking-[0.2em]">
+              <Link href="/resources" className="px-6 py-3 border border-slate-200 text-slate-600 hover:bg-emerald-600 hover:text-white hover:border-emerald-600 rounded-full text-[11px] font-black uppercase tracking-[0.15em] shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
                 CV & Portfolio Templates
               </Link>
             </div>
@@ -950,7 +975,13 @@ export default function EarnCareersClient() {
             </div>
             <div className="mt-6 flex flex-wrap gap-4">
               {freelancePlatforms.map((fp) => (
-                <a key={fp.name} href={fp.url} target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-[0.2em]">
+                <a 
+                  key={fp.name} 
+                  href={fp.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="px-6 py-3 bg-slate-900 text-white rounded-full text-[11px] font-black uppercase tracking-[0.15em] shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+                >
                   {fp.name}
                 </a>
               ))}

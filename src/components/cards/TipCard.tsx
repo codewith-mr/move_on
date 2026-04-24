@@ -11,7 +11,7 @@ export interface TipCardProps {
   category: string;
   readTime: string | null;
   imageUrl: string;
-  createdAt: Date;
+  createdAt: Date | string;
 }
 
 const TipCard = ({
@@ -24,11 +24,17 @@ const TipCard = ({
   createdAt,
 }: TipCardProps) => {
   // Format date
-  const publishDate = new Date(createdAt).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
-  });
+  const publishDate = typeof createdAt === 'string' 
+    ? new Date(createdAt).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      })
+    : createdAt.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
 
   return (
     <div 

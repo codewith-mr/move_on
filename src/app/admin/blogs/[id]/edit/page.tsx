@@ -13,6 +13,24 @@ export default async function EditBlogPage({ params }: { params: Promise<{ id: s
     notFound()
   }
 
+  // Serialize and map to a clean object for client components
+  const serializedBlog = {
+    id: blog.id,
+    slug: blog.slug,
+    title: blog.title,
+    excerpt: blog.excerpt,
+    content: blog.content,
+    tags: blog.tags,
+    authorName: blog.authorName,
+    authorAvatar: blog.authorAvatar,
+    category: blog.category,
+    publishDate: blog.publishDate,
+    readTime: blog.readTime,
+    imageUrl: blog.imageUrl,
+    createdAt: blog.createdAt.toISOString(),
+    updatedAt: blog.updatedAt.toISOString(),
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -22,7 +40,7 @@ export default async function EditBlogPage({ params }: { params: Promise<{ id: s
         </Link>
       </div>
 
-      <BlogForm initialData={blog} />
+      <BlogForm initialData={serializedBlog} />
     </div>
   )
 }

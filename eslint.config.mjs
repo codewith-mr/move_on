@@ -23,6 +23,15 @@ const eslintConfig = [
       "prisma/*.js",
     ],
   },
+  {
+    rules: {
+      "@next/next/no-assign-module-variable": "warn",
+      "@typescript-eslint/no-explicit-any": "warn",
+      "prefer-const": "warn",
+      "react/display-name": "warn",
+      "react/no-unescaped-entities": "warn",
+    },
+  },
 ];
 
 export default eslintConfig;

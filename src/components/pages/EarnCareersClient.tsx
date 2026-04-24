@@ -6,7 +6,7 @@ import { Target, Zap, Building2, Send, Globe, Map } from 'lucide-react';
 
 const cardTransition = {
   duration: 0.4,
-  ease: 'easeOut',
+  ease: 'easeOut' as const,
 };
 
 export default function EarnCareersClient() {

@@ -13,6 +13,20 @@ export default async function EditTipPage({ params }: { params: Promise<{ id: st
     notFound()
   }
 
+  // Serialize and map to a clean object for client components
+  const serializedTip = {
+    id: tip.id,
+    slug: tip.slug,
+    title: tip.title,
+    description: tip.description,
+    content: tip.content,
+    category: tip.category,
+    imageUrl: tip.imageUrl,
+    readTime: tip.readTime,
+    createdAt: tip.createdAt.toISOString(),
+    updatedAt: tip.updatedAt.toISOString(),
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -22,7 +36,7 @@ export default async function EditTipPage({ params }: { params: Promise<{ id: st
         </Link>
       </div>
 
-      <TipForm initialData={tip} />
+      <TipForm initialData={serializedTip} />
     </div>
   )
 }

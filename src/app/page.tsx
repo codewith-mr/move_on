@@ -29,19 +29,33 @@ import {
 } from 'lucide-react';
 
 export default async function Home() {
-  const settings = await prisma.homeSettings.findFirst({ where: { id: 1 } });
-  
-  const [featuredCoursesLinks, latestBlogsLinks, latestTipsLinks] = await Promise.all([
-    prisma.homeSettingsFeaturedCourse.findMany({ where: { homeSettingsId: settings?.id || 1 } }),
-    prisma.homeSettingsLatestBlog.findMany({ where: { homeSettingsId: settings?.id || 1 } }),
-    prisma.homeSettingsLatestTip.findMany({ where: { homeSettingsId: settings?.id || 1 } })
-  ]);
+  let settings;
+  let featuredCourses = [];
+  let latestBlogPosts = [];
+  let latestTips = [];
 
-  const [featuredCourses, latestBlogPosts, latestTips] = await Promise.all([
-    prisma.course.findMany({ where: { id: { in: featuredCoursesLinks.map(l => l.courseId) } } }),
-    prisma.blog.findMany({ where: { id: { in: latestBlogsLinks.map(l => l.blogId) } } }),
-    prisma.tip.findMany({ where: { id: { in: latestTipsLinks.map(l => l.tipId) } } })
-  ]);
+  try {
+    settings = await prisma.homeSettings.findFirst({ where: { id: 1 } });
+    
+    const [featuredCoursesLinks, latestBlogsLinks, latestTipsLinks] = await Promise.all([
+      prisma.homeSettingsFeaturedCourse.findMany({ where: { homeSettingsId: settings?.id || 1 } }),
+      prisma.homeSettingsLatestBlog.findMany({ where: { homeSettingsId: settings?.id || 1 } }),
+      prisma.homeSettingsLatestTip.findMany({ where: { homeSettingsId: settings?.id || 1 } })
+    ]);
+
+    const [courses, blogs, tips] = await Promise.all([
+      prisma.course.findMany({ where: { id: { in: featuredCoursesLinks.map(l => l.courseId) } } }),
+      prisma.blog.findMany({ where: { id: { in: latestBlogsLinks.map(l => l.blogId) } } }),
+      prisma.tip.findMany({ where: { id: { in: latestTipsLinks.map(l => l.tipId) } } })
+    ]);
+    
+    featuredCourses = courses;
+    latestBlogPosts = blogs;
+    latestTips = tips;
+  } catch (error) {
+    console.error('Failed to fetch home data:', error);
+    // Continue with empty data to avoid total crash
+  }
 
   const bannerTitle = settings?.bannerTitle || 'Learn Practical Skills That Convert Directly Into Income';
   const bannerSubtitle = settings?.bannerSubtitle || 'Actionable courses, tools, and resources for freelancers, content creators, and side-hustlers';
@@ -620,7 +634,7 @@ export default async function Home() {
                 category={tip.category}
                 readTime={tip.readTime}
                 imageUrl={tip.imageUrl}
-                createdAt={tip.createdAt}
+                createdAt={tip.createdAt.toISOString()}
               />
             ))}
           </StaggeredList>

@@ -139,7 +139,7 @@ export default function DigitalIQBooster({ profile, setProfile }: Props) {
                         className={`w-full text-left p-4 rounded-xl border transition-all font-medium ${
                           quizState === 'correct' && idx === activeLesson.quiz!.correctIndex
                             ? 'bg-green-100 border-green-500 text-green-800'
-                            : quizState === 'wrong' && quizState !== 'idle'
+                            : quizState === 'wrong'
                             ? 'opacity-50'
                             : 'bg-white border-neutral-200 hover:border-primary hover:bg-primary/5'
                         }`}

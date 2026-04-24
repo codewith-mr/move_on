@@ -8,8 +8,15 @@ interface MainLayoutProps {
 }
 
 const MainLayout = async ({ children }: MainLayoutProps) => {
-  const settings = await prisma.siteSettings.findFirst({ where: { id: 1 } });
-  const logoUrl = settings?.logoUrl || '/primary2.png';
+  let logoUrl = '/primary2.png';
+  try {
+    const settings = await prisma.siteSettings.findFirst({ where: { id: 1 } });
+    if (settings?.logoUrl) {
+      logoUrl = settings.logoUrl;
+    }
+  } catch (error) {
+    console.error('Failed to fetch site settings in MainLayout:', error);
+  }
   return (
     <div className="flex flex-col min-h-screen">
       <Header logoUrl={logoUrl} />

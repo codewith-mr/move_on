@@ -616,7 +616,7 @@ export const learningModules: LearningModule[] = [
         { name: "Marketing Examples", type: "Free" }
       ],
       challenges: [
-        { level: "Ethics Check", task: "Audit your marketing and ensure you are providing genuine value and not just using 'dark patterns'." }
+        "Ethics Check: Audit your marketing and ensure you are providing genuine value and not just using 'dark patterns'."
       ],
       career: "Marketing Psychologists and Growth Hackers can earn upwards of $150k in tech companies."
     }

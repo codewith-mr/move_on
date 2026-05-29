@@ -1,35 +1,62 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { jwtVerify } from 'jose';
 
-function computeSessionToken(username: string, secret: string) {
-  const data = new TextEncoder().encode(`${username}|${secret}`);
-  // Edge runtime supports crypto.subtle
-  // We return hex digest
-  return crypto.subtle.digest('SHA-256', data).then((buf) => {
-    const bytes = new Uint8Array(buf);
-    let hex = '';
-    for (const b of bytes) hex += b.toString(16).padStart(2, '0');
-    return hex;
-  });
-}
+// Dauko secret key madaidaici daga .env
+const SECRET_KEY = process.env.JWT_SECRET || 'tbs_creativity_secret_key_2026_@!';
+const key = new TextEncoder().encode(SECRET_KEY);
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Kare duka hanyoyin da suka fara da /admin
   if (pathname.startsWith('/admin')) {
-    if (pathname === '/admin/login' || pathname === '/admin/logout') return NextResponse.next();
-    const session = request.cookies.get('admin_session')?.value;
-    const username = process.env.ADMIN_USERNAME || 'admin';
-    const secret = process.env.SESSION_SECRET || '';
-    const expected = await computeSessionToken(username, secret);
-    if (!session || session !== expected) {
+    
+    // Kyale mutum ya bude shafin login ko logout ba tare da tsangwama ba
+    if (pathname === '/admin/login' || pathname === '/admin/logout') {
+      return NextResponse.next();
+    }
+
+    // 1. Dauko cookie din 'session' wanda route.ts ya kafa
+    const sessionCookie = request.cookies.get('session')?.value;
+
+    if (!sessionCookie) {
+      console.log(`[MIDDLEWARE LOG] Babu session cookie, an juyo da mai amfani daga: ${pathname}`);
       const url = request.nextUrl.clone();
       url.pathname = '/admin/login';
       return NextResponse.redirect(url);
     }
+
+    try {
+      // 2. Tabbatar da ingancin JWT Token din ta amfani da Jose (Edge Runtime Compatible)
+      const { payload } = await jwtVerify(sessionCookie, key, {
+        algorithms: ['HS256'],
+      });
+
+      // Tabbatar cewa token din bai rube ba (Expiration Check)
+      if (!payload || (payload.expires && Date.now() > new Date(payload.expires as string).getTime())) {
+        throw new Error("Session expired");
+      }
+
+      // Idan komai ya yi daidai, kyale shi ya wuce Dashboard lafiya lau
+      return NextResponse.next();
+
+    } catch (error) {
+      console.log("[MIDDLEWARE LOG] Token bai gantu ba ko ya rube, ana juyawa zuwa login...");
+      const url = request.nextUrl.clone();
+      url.pathname = '/admin/login';
+      
+      // Share gurbataccen cookie din domin tsafta
+      const response = NextResponse.redirect(url);
+      response.cookies.delete('session');
+      return response;
+    }
   }
+
   return NextResponse.next();
 }
 
+// Takaita middleware din ya kula da shafukan admin kawai domin gudun jinkirin uwar garke
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+  matcher: ['/admin/:path*'],
 };

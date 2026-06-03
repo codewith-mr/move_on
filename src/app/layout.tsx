@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Open_Sans, Nunito } from "next/font/google";
 import "./globals.css";
+import { ToastProvider } from "@/components/ui/Toast";
 
 const openSans = Open_Sans({
   subsets: ["latin"],
@@ -36,7 +37,7 @@ export default function RootLayout({
       <body
         className={`${openSans.variable} ${nunito.variable} font-body antialiased bg-background text-text`}
       >
-        {children}
+        <ToastProvider>{children}</ToastProvider>
       </body>
     </html>
   );

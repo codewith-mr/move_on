@@ -36,6 +36,19 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Helper files and binaries
+node.exe
+npm.tgz
+get-npm.js
+install-and-run.js
+run-dev.js
+run-next.js
+run-root-dev.js
+simple-preview.js
+start-dev.bat
+CODE/
+prisma/migrations/migrations/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
